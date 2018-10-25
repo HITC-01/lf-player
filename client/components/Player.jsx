@@ -5,7 +5,7 @@ class Player extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      song: { title: '' },
+      song: { title: '', albumImageUrl: '' },
       comments: [{}],
       soundProfile: { width: '' },
       artists: {},
@@ -22,11 +22,11 @@ class Player extends React.Component {
     const { nSongs } = this.state;
     const songId = Math.random() * nSongs;
     const url = `/songs/${songId}`;
-    fetch(url, { method: 'GET' })
-      .then((data) => {
-        this.setState({ song: data.song });
-      })
-      .catch(err => console.log(`Error: ${err}`));
+    // fetch(url, { method: 'GET' })
+    //   .then((data) => {
+    //     this.setState({ song: data.song });
+    //   })
+    //   .catch(err => console.log(`Error: ${err}`));
   }
 
   handleAlbumClick() {
@@ -43,12 +43,13 @@ class Player extends React.Component {
   }
 
   render() {
+    const { song, playing } = this.state;
     return (
       <div id="player-btn">
         <SongDisplay
           id="player-display"
-          song={this.state.song}
-          playing={this.state}
+          song={song}
+          playing={playing}
           handleAlbumClick={this.handleAlbumClick}
           handleInfoClick={this.handleInfoClick}
           handlePlayClick={this.handlePlayClick}

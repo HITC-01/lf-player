@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const SongMain = ({
   song, playing, handlePlayClick, handleInfoClick,
 }) => {
-  const show = true;
+  const hidden = false;
   const playIcon = (playing) ? (<i className="fas fa-pause-circle" />)
     : (<i className="fas fa-play-circle" />);
   const handleLinkClick = (e) => {
@@ -34,7 +34,7 @@ const SongMain = ({
       <a
         href="#"
         id="player-song-album"
-        display={show}
+        hidden={hidden}
         onClick={handleLinkClick}
       >
         {song.album}

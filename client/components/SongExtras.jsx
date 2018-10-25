@@ -1,7 +1,7 @@
-const moment = require('moment');
-
 import React from 'react';
 import PropTypes from 'prop-types';
+
+const moment = require('moment');
 
 const SongExtras = ({
   song, handleInfoClick,
