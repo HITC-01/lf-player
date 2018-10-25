@@ -1,11 +1,16 @@
-module.exports = ({
-  song, handlePlayClick, handleInfoClick,
+import React from 'react';
+import PropTypes from 'prop-types';
+
+const SongMain = ({
+  song, playing, handlePlayClick, handleInfoClick,
 }) => {
   const show = true;
+  const playIcon = (playing) ? (<i className="fas fa-pause-circle" />)
+    : (<i className="fas fa-play-circle" />);
   const handleLinkClick = (e) => {
     e.preventDefault();
     const type = (e.target.id === 'player-song-artist') ? 'Artist' : 'Album';
-    handleInfoClick();
+    handleInfoClick(e.target);
     window.alert(`On click, this would send you to the ${type} page`);
   };
 
@@ -16,7 +21,7 @@ module.exports = ({
         onClick={() => { handlePlayClick(); }}
         id="player-main-play"
       >
-        <i className="fas fa-play-circle" />
+        {playIcon}
       </button>
       <a
         href="#"
@@ -38,8 +43,11 @@ module.exports = ({
   );
 };
 
-module.exports.propTypes = {
+SongMain.propTypes = {
   song: PropTypes.object.isRequired,
+  playing: PropTypes.bool.isRequired,
   handlePlayClick: PropTypes.func.isRequired,
   handleInfoClick: PropTypes.func.isRequired,
 };
+
+export default SongMain;

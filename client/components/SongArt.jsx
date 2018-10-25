@@ -1,4 +1,7 @@
-module.exports = ({
+import React from 'react';
+import PropTypes from 'prop-types';
+
+const SongArt = ({
   songImage, handleAlbumClick,
 }) => {
   const handleClick = (e) => {
@@ -17,7 +20,9 @@ module.exports = ({
   );
 };
 
-module.exports.propTypes = {
+SongArt.propTypes = {
   songImage: PropTypes.string.isRequired,
   handleAlbumClick: PropTypes.func.isRequired,
 };
+
+export default SongArt;

@@ -1,12 +1,15 @@
 const moment = require('moment');
 
-module.exports = ({
+import React from 'react';
+import PropTypes from 'prop-types';
+
+const SongExtras = ({
   song, handleInfoClick,
 }) => {
   const handleLinkClick = (e) => {
     e.preventDefault();
-    window.alert(`On click, this would send you to the genre page`);
-    // handleInfoClick();
+    window.alert('On click, this would send you to the genre page');
+    handleInfoClick(e.target);
   };
 
   return (
@@ -23,7 +26,9 @@ module.exports = ({
   );
 };
 
-module.exports.propTypes = {
+SongExtras.propTypes = {
   song: PropTypes.object.isRequired,
   handleInfoClick: PropTypes.func.isRequired,
 };
+
+export default SongExtras;

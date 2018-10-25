@@ -1,3 +1,3 @@
-const Player = require('./components/Player.jsx');
+import Player from './components/Player.jsx';
 
 window.Player = Player;
