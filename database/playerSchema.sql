@@ -90,11 +90,11 @@ ALTER TABLE `sound_profiles` ADD FOREIGN KEY (song_id) REFERENCES `songs` (`id`)
 -- Test Data
 -- ---
 
-INSERT INTO `artists` (`name`, `artist_imageUrl`) VALUES
-('','');
-INSERT INTO `songs` (`title`,`artist_id`,`duration`,`album_imageUrl`,`tag`,`album`,`song_added`,`background_color`) VALUES
-('',1,0,'','','',UTC_DATE(),'');
-INSERT INTO `comments` (`song_id`,`artist_id`,`text`,`time`) VALUES
-(1,1,'',0);
-INSERT INTO `sound_profiles` (`song_id`,`height`,`width`,`profile`) VALUES
-(1,10,5,'');
+-- INSERT INTO `artists` (`name`, `artist_imageUrl`) VALUES
+-- ('','');
+-- INSERT INTO `songs` (`title`,`artist_id`,`duration`,`album_imageUrl`,`tag`,`album`,`song_added`,`background_color`) VALUES
+-- ('',1,0,'','','',UTC_DATE(),'');
+-- INSERT INTO `comments` (`song_id`,`artist_id`,`text`,`time`) VALUES
+-- (1,1,'',0);
+-- INSERT INTO `sound_profiles` (`song_id`,`height`,`width`,`profile`) VALUES
+-- (1,10,5,'');

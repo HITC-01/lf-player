@@ -1,8 +1,8 @@
 #!/bin/bash
-NSONGS=10  # number of songs
-NCOMMENTS=20
+NSONGS=3  # number of songs
+NCOMMENTS=10
 NARTISTS=20
-MYSQL_EXEC=``
+MYSQL_EXEC="/usr/local/Cellar/mysql\@5.7/5.7.23/bin/mysql"
 
 GENRES=('Alternative Music' 'Blues' 'Classical Music' 'Country Music'
   'Dance Music' 'Easy Listening' 'Electronic Music' 'European Music'
@@ -13,7 +13,7 @@ COLORS=('grey' 'red');
 
 # this is the seeded data file
 rm -rf dataSeeded.sql
-touch dataSeeded.sql
+echo "USE soundcloud;" > dataSeeded.sql
 
 # images
 ALBUM_IMGS=($(ls ../../public/assets/media/album*))
@@ -72,15 +72,15 @@ do
   idx=$((i - 1))
   NAME="${ARTISTS[(($idx * 2))]} ${ARTISTS[(($idx * 2 + 1))]}";
   INSERT=`echo $ARTIST_INSERT | sed "s/NAME/${NAME}/"`
-  IMG=$((RANDOM % ${#ALBUM_IMGS[@]}))
-  IMG="${ALBUM_IMGS[${IMG}]//\//\\/}"
+  IMG=$((RANDOM % ${#USER_IMGS[@]}))
+  IMG="${USER_IMGS[${IMG}]//\//\\/}"
   INSERT=`echo $INSERT | sed 's/ARTIST_IMAGEURL/'"${IMG}"'/'`
   echo $INSERT >> dataSeeded.sql
 done
 
 for i in `seq 1 $NSONGS`;
 do
-  idx=$((RANDOM % 7 + 1))
+  idx=$((RANDOM % 4 + 1))
   TITLE=''
   for j in `seq 1 $idx` ;
   do
@@ -124,7 +124,7 @@ RANDOM=`date +"%s"`
 
 for i in `seq 1 $NCOMMENTS`;
 do
-  idx=$((RANDOM % 10 + 1))
+  idx=$((RANDOM % 7 + 1))
   COMMENT=''
   for j in `seq 1 $idx` ;
   do
@@ -144,7 +144,7 @@ do
   echo $INSERT >> dataSeeded.sql
 done
 
-for i in `seq 1 $NCOMMENTS`;
+for i in `seq 1 $NSONGS`;
 do
   HEIGHT=$((RANDOM % 20 + 120))
   NCOLS=1000
@@ -162,3 +162,7 @@ do
   INSERT=`echo $INSERT | sed "s/PROFILE/${PROFILE}/"`
   echo $INSERT >> dataSeeded.sql
 done
+
+# adding to DB
+echo "$MYSQL_EXEC -u root < ../playerSchema.sql"
+echo "${MYSQL_EXEC} -u root < dataSeeded.sql"
