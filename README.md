@@ -5,9 +5,9 @@
 ## Related Projects
 
   - https://github.com/HITC-01/lf-player
-  - https://github.com/teamName/BP-related_tracks
-  - https://github.com/teamName/ms-comment
-  - https://github.com/teamName/GK-user
+  - https://github.com/HITC-01/BP-related_tracks
+  - https://github.com/HITC-01/ms-comment
+  - https://github.com/HITC-01/GK-user
 
 ## Table of Contents
 
