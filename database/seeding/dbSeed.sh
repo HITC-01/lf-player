@@ -1,8 +1,19 @@
 #!/bin/bash
-NSONGS=1  # number of songs
-NCOMMENTS=2
-NARTISTS=4
+NSONGS=10  # number of songs
+NCOMMENTS=20
+NARTISTS=20
 MYSQL_EXEC=``
+
+GENRES=('Alternative Music' 'Blues' 'Classical Music' 'Country Music'
+  'Dance Music' 'Easy Listening' 'Electronic Music' 'European Music'
+  'Hip Hop' 'Rap' 'Indie Pop' 'Inspirational' 'Asian Pop'
+  'Jazz' 'Latin Music' 'New Age' 'Opera' 'Pop' 'R&B\, Soul' 'Reggae'
+  'Rock' 'Singer-Songwriter (inc. Folk)' 'World Music');
+COLORS=('grey' 'red');
+
+# this is the seeded data file
+rm -rf dataSeeded.sql
+touch dataSeeded.sql
 
 # images
 ALBUM_IMGS=($(ls ../../public/assets/media/album*))
@@ -15,13 +26,6 @@ USER_IMGS=($(ls ../../public/assets/media/user*))
 for i in `seq 1 ${#USER_IMGS[@]}`
 do
   USER_IMGS[$((i - 1))]=`echo ${USER_IMGS[$((i - 1))]} | sed "s/\.\.\/\.\.//"`
-done
-
-# songs
-SONG_LINKS=($(ls ../../public/assets/media/song*))
-for i in `seq 1 ${#SONG_LINKS[@]}`
-do
-  SONG_LINKS[$((i - 1))]=`echo ${SONG_LINKS[$((i - 1))]} | sed "s/\.\.\/\.\.//"`
 done
 
 # name file details
@@ -66,35 +70,95 @@ done
 for i in `seq 1 $NARTISTS`;
 do
   idx=$((i - 1))
-  # generate NARTISTS artists
-  # assign each one a sequential ID
-  # assign each one an imageURL
   NAME="${ARTISTS[(($idx * 2))]} ${ARTISTS[(($idx * 2 + 1))]}";
-  echo "here is $NAME"
-
+  INSERT=`echo $ARTIST_INSERT | sed "s/NAME/${NAME}/"`
+  IMG=$((RANDOM % ${#ALBUM_IMGS[@]}))
+  IMG="${ALBUM_IMGS[${IMG}]//\//\\/}"
+  INSERT=`echo $INSERT | sed 's/ARTIST_IMAGEURL/'"${IMG}"'/'`
+  echo $INSERT >> dataSeeded.sql
 done
 
 for i in `seq 1 $NSONGS`;
 do
-  echo $i
-  # generate song title
-  # duration
-  # artist id number from range NARTISTS
-  # assign each one an imageURL
-  # give it an album name
-  # give it a tag
-  # generate date when added
-  # give it a color scheme: grey, red
+  idx=$((RANDOM % 7 + 1))
+  TITLE=''
+  for j in `seq 1 $idx` ;
+  do
+    WORD=`cat $LOREM_FILE | awk '{print $'"$((RANDOM % NWORDS))"'}'`
+    TITLE=`echo "$TITLE $WORD"`
+  done
+  TITLE=`echo $TITLE | sed "s/^ //"`
 
-  # generate comments
-  # generate comment text
-  # assign to artist_id from range NARTISTS
-  # assign to song_id from range NSONGS
-  # generate number 0 - 100 for song placement
+  idx=$((RANDOM % 4 + 1))
+  ALBUM=''
+  for j in `seq 1 $idx` ;
+  do
+    WORD=`cat $LOREM_FILE | awk '{print $'"$((RANDOM % NWORDS))"'}'`
+    ALBUM=`echo "$ALBUM $WORD"`
+  done
+  ALBUM=`echo $ALBUM | sed "s/^ //"`
 
-  # profile
-  # give it a height range 120-150
-  # give it song_id
-  # make it a profile with heights from 0- height max
+  DURATION=$((RANDOM % 100 + 180))
+  ARTIST_ID=$((RANDOM % NARTISTS + 1))
 
+  GENRE=$((RANDOM % ${#GENRES[@]}))
+  GENRE="${GENRES[${GENRE}]}"
+
+  COLOR=$((RANDOM % ${#COLORS[@]}))
+  COLOR="${COLORS[${COLOR}]}"
+
+  IMG=$((RANDOM % ${#ALBUM_IMGS[@]}))
+  IMG="${ALBUM_IMGS[${IMG}]//\//\\/}"
+
+  INSERT=`echo $SONG_INSERT | sed "s/TITLE/${TITLE}/"`
+  INSERT=`echo $INSERT | sed 's/ARTIST_ID/'"${ARTIST_ID}"'/'`
+  INSERT=`echo $INSERT | sed "s/DURATION/${DURATION}/"`
+  INSERT=`echo $INSERT | sed 's/ALBUM_IMAGEURL/'"${IMG}"'/'`
+  INSERT=`echo $INSERT | sed "s/TAG/${GENRE}/"`
+  INSERT=`echo $INSERT | sed 's/ALBUM/'"${ALBUM}"'/'`
+  INSERT=`echo $INSERT | sed "s/HEX/${COLOR}/"`
+  echo $INSERT >> dataSeeded.sql
+done
+
+RANDOM=`date +"%s"`
+
+for i in `seq 1 $NCOMMENTS`;
+do
+  idx=$((RANDOM % 10 + 1))
+  COMMENT=''
+  for j in `seq 1 $idx` ;
+  do
+    WORD=`cat $LOREM_FILE | awk '{print $'"$((RANDOM % NWORDS))"'}'`
+    COMMENT=`echo "$COMMENT $WORD"`
+  done
+  COMMENT=`echo $COMMENT | sed "s/^ //"`
+
+  ARTIST_ID=$((RANDOM % NARTISTS + 1))
+  SONG_ID=$((RANDOM % NSONGS + 1))
+  COMMENT_TIME=$((RANDOM % 100))
+
+  INSERT=`echo $COMMENT_INSERT | sed "s/SONG_ID/${SONG_ID}/"`
+  INSERT=`echo $INSERT | sed "s/ARTIST_ID/${ARTIST_ID}/"`
+  INSERT=`echo $INSERT | sed "s/LOREM/${COMMENT}/"`
+  INSERT=`echo $INSERT | sed "s/COMMENT_TIME/${COMMENT_TIME}/"`
+  echo $INSERT >> dataSeeded.sql
+done
+
+for i in `seq 1 $NCOMMENTS`;
+do
+  HEIGHT=$((RANDOM % 20 + 120))
+  NCOLS=1000
+  PROFILE=''
+  for j in `seq 1 $NCOLS` ;
+  do
+    VAL="$((RANDOM % $HEIGHT)),"
+    PROFILE=`echo "${PROFILE}${VAL}"`
+  done
+  PROFILE=`echo $PROFILE | sed "s/^ //"`
+
+  INSERT=`echo $PROFILE_INSERT | sed "s/HEIGHT/${HEIGHT}/"`
+  INSERT=`echo $INSERT | sed "s/SONG_ID/${i}/"`
+  INSERT=`echo $INSERT | sed "s/WIDTH/1000/"`
+  INSERT=`echo $INSERT | sed "s/PROFILE/${PROFILE}/"`
+  echo $INSERT >> dataSeeded.sql
 done
