@@ -4,11 +4,11 @@ NCOMMENTS=10
 NARTISTS=20
 MYSQL_EXEC="/usr/local/Cellar/mysql\@5.7/5.7.23/bin/mysql"
 
-GENRES=('Alternative Music' 'Blues' 'Classical Music' 'Country Music'
-  'Dance Music' 'Easy Listening' 'Electronic Music' 'European Music'
+GENRES=('Alternative' 'Blues' 'Classical' 'Country'
+  'Dance' 'Easy Listening' 'Electronic' 'European'
   'Hip Hop' 'Rap' 'Indie Pop' 'Inspirational' 'Asian Pop'
-  'Jazz' 'Latin Music' 'New Age' 'Opera' 'Pop' 'R&B\, Soul' 'Reggae'
-  'Rock' 'Singer-Songwriter (inc. Folk)' 'World Music');
+  'Jazz' 'Latin' 'New Age' 'Opera' 'Pop' 'R&B\, Soul' 'Reggae'
+  'Rock' 'Singer-Songwriter' 'Folk' 'World');
 COLORS=('grey' 'red');
 
 # this is the seeded data file
