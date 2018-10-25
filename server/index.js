@@ -1,20 +1,23 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const db = require('../database');
+const path = require('path');
 
 const app = express();
 
 // Parse body
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
   console.log(`INCOMING ${req.method} from ${req.originalUrl}`);
+  console.log(`${path.join(__dirname, '../client')}`);
   next();
 });
 
 // Send out static files
-app.use(express.static('public'));
+app.use('/client', express.static(path.join(__dirname, '../client')));
+app.use(express.static(path.join(__dirname, '../public')));
 
 // Get request for song data
 app.get('/songs/:song', (req, res) => {

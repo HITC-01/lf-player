@@ -1,11 +1,9 @@
 const mysql = require('promise-mysql');
 
-const connection = mysql.createConnection({
+const connection = mysql.createPool({
   user: 'root',
   database: 'soundcloud',
 });
-
-connection.connect();
 
 module.exports.getSong = (songId) => {
   const queryString = `SELECT * FROM songs WHERE \`id\` = "${songId}";`;
