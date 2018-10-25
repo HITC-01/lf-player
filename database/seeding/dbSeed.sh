@@ -1,7 +1,7 @@
 #!/bin/bash
-NSONGS=3  # number of songs
-NCOMMENTS=10
-NARTISTS=20
+NSONGS=100  # number of songs
+NCOMMENTS=1000
+NARTISTS=200
 MYSQL_EXEC="/usr/local/Cellar/mysql\@5.7/5.7.23/bin/mysql"
 
 GENRES=('Alternative' 'Blues' 'Classical' 'Country'

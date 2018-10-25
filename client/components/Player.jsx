@@ -1,14 +1,22 @@
-const React = require('react');
-
 class Player extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      song: {},
+      comments: [],
+      soundProfile: {},
+      artists: {},
+    };
+  }
+
+  componentDidMount() {
+
   }
 
   render() {
     return (
       <div id="player-btn">
-        <button id="play" type="button">Play</button>
+        <button id="player-play-button" type="button">Play</button>
       </div>
     );
   }

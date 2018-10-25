@@ -4,7 +4,7 @@ module.exports = {
   mode: 'development',
   entry: path.resolve(__dirname, './client/index.jsx'),
   output: {
-    path: path.resolve(__dirname, './client/dist'),
+    path: path.resolve(__dirname, './public/dist'),
     filename: 'player-bundle.min.js',
   },
   module: {
@@ -17,9 +17,6 @@ module.exports = {
         test: /\.jsx?$/,
         include: [
           path.resolve(__dirname, './client'),
-        ],
-        exclude: [
-          path.resolve(__dirname, './client/dist'),
         ],
       },
     ],
