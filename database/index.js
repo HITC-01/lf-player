@@ -12,7 +12,6 @@ module.exports.getSong = (songId) => {
 
 module.exports.getArtists = (artistIds) => {
   const queryString = `SELECT * FROM artists WHERE \`id\` IN (${artistIds});`;
-  console.log(queryString);
   return connection.query(queryString);
 };
 
