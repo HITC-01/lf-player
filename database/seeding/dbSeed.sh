@@ -1,13 +1,13 @@
 #!/bin/bash
-NSONGS=3  # number of songs
-NCOMMENTS=10
-NARTISTS=20
+NSONGS=100  # number of songs
+NCOMMENTS=1000
+NARTISTS=200
 MYSQL_EXEC="/usr/local/Cellar/mysql\@5.7/5.7.23/bin/mysql"
 
 GENRES=('Alternative' 'Blues' 'Classical' 'Country'
   'Dance' 'Easy Listening' 'Electronic' 'European'
   'Hip Hop' 'Rap' 'Indie Pop' 'Inspirational' 'Asian Pop'
-  'Jazz' 'Latin' 'New Age' 'Opera' 'Pop' 'R&B\, Soul' 'Reggae'
+  'Jazz' 'Latin' 'New Age' 'Opera' 'Pop' 'RnB' 'Soul' 'Reggae'
   'Rock' 'Singer-Songwriter' 'Folk' 'World');
 COLORS=('grey' 'red');
 
@@ -19,13 +19,13 @@ echo "USE soundcloud;" > dataSeeded.sql
 ALBUM_IMGS=($(ls ../../public/assets/media/album*))
 for i in `seq 1 ${#ALBUM_IMGS[@]}`
 do
-  ALBUM_IMGS[$((i - 1))]=`echo ${ALBUM_IMGS[$((i - 1))]} | sed "s/\.\.\/\.\.//"`
+  ALBUM_IMGS[$((i - 1))]=`echo ${ALBUM_IMGS[$((i - 1))]} | sed "s/\.\.\/\.\.\/public//"`
 done
 
 USER_IMGS=($(ls ../../public/assets/media/user*))
 for i in `seq 1 ${#USER_IMGS[@]}`
 do
-  USER_IMGS[$((i - 1))]=`echo ${USER_IMGS[$((i - 1))]} | sed "s/\.\.\/\.\.//"`
+  USER_IMGS[$((i - 1))]=`echo ${USER_IMGS[$((i - 1))]} | sed "s/\.\.\/\.\.\/public//"`
 done
 
 # name file details
