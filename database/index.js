@@ -10,8 +10,9 @@ module.exports.getSong = (songId) => {
   return connection.query(queryString);
 };
 
-module.exports.getArtist = (artistId) => {
-  const queryString = `SELECT * FROM artists WHERE \`id\` = "${artistId}";`;
+module.exports.getArtists = (artistIds) => {
+  const queryString = `SELECT * FROM artists WHERE \`id\` IN (${artistIds});`;
+  console.log(queryString);
   return connection.query(queryString);
 };
 

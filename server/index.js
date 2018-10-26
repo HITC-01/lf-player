@@ -1,8 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const querystring = require('querystring');
-
 const db = require('../database');
 
 const app = express();
@@ -21,30 +19,31 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 // Get request for song data
 app.get('/songs/:song', (req, res) => {
-  const { song } = req.body;
+  const { song } = req.params;
   db.getSong(song)
     .then((songData) => {
-      res.status(202).send(JSON.stringify({ data: songData }));
+      res.status(200).send(JSON.stringify({ data: songData[0] }));
     })
     .catch((err) => {
       res.status(404).send(err);
     });
 });
 
-app.get('/songs/:song', (req, res) => {
-  const { song } = req.body;
+app.get('/songProfiles/:song', (req, res) => {
+  const { song } = req.params;
   db.getSoundProfile(song)
     .then((songProfile) => {
-      res.status(200).send(JSON.stringify({ data: songProfile }));
+      res.status(200).send(JSON.stringify({ data: songProfile[0] }));
     })
     .catch((err) => {
       res.status(404).send(err);
     });
 });
 
-app.get('/comments?song=songId', (req, res) => {
-  const { songId } = req.body;
-  db.getComments(songId)
+// This is to return queries for comments sorted
+app.get('/comments', (req, res) => {
+  const song = req.query.song || '*';
+  db.getComments(song)
     .then((comments) => {
       res.status(200).send(JSON.stringify({ data: comments }));
     })
@@ -54,12 +53,11 @@ app.get('/comments?song=songId', (req, res) => {
 });
 
 app.get('/artists', (req, res) => {
-  const query = querystring.parse(req.originalUrl);
-  console.log('this is my query', query);
-  const { songId } = req.body;
-  db.getComments(songId)
-    .then((comments) => {
-      res.status(200).send(JSON.stringify({ data: comments }));
+  const ids = req.query.id || '*';
+  console.log('this is my query', req.query.id);
+  db.getArtists(ids)
+    .then((artists) => {
+      res.status(200).send(JSON.stringify({ data: artists }));
     })
     .catch((err) => {
       res.status(404).send(err);
