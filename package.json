@@ -12,7 +12,7 @@
     "node": ">=6.13.0"
   },
   "scripts": {
-    "seed":
+    "seed": "bash seeder.sh"
   },
   "dependencies": {
     "body-parser": "^1.18.3",

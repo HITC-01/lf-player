@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const SongBarEntry = ({ height, bar }) => (<span
-  className="player-songbar-bar"
-  style={{ height: height * bar }}
+const SongBarEntry = ({ height, bar }) => (
+  <span
+    className="player-songbar-bar"
+    style={{ height: height * bar }}
   />
 );
 

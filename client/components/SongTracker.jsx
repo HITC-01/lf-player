@@ -8,10 +8,10 @@ const SongTracker = ({
   return (
     <div id="player-song-tracker">
       <SongBar
+        id="player-song-bar"
         songProfile={songProfile}
         handleScan={handleScan}
         playtime={playtime}
-        id="player-song-bar"
       />
     </div>
   );

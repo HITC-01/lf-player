@@ -17,23 +17,23 @@ const SongMain = ({
   return (
     <div id="song-display-main-wrapper">
       <button
+        id="player-main-play"
         type="button"
         onClick={() => { handlePlayClick(); }}
-        id="player-main-play"
       >
         {playIcon}
       </button>
       <a
-        href="#"
         id="player-song-artist"
+        href="#"
         onClick={handleLinkClick}
       >
         {song.artist}
       </a>
       <h1 id="player-song-title">{song.title}</h1>
       <a
-        href="#"
         id="player-song-album"
+        href="#"
         hidden={hidden}
         onClick={handleLinkClick}
       >
