@@ -9,21 +9,21 @@ const SongDisplay = ({
 }) => (
   <div id="song-display">
     <SongMain
+      id="song-display-main"
       song={song}
       playing={playing}
       handlePlayClick={handlePlayClick}
       handleInfoClick={handleInfoClick}
-      id="song-display-main"
     />
     <SongExtras
+      id="song-display-extras"
       song={song}
       handleInfoClick={handleInfoClick}
-      id="song-display-extras"
     />
     <SongArt
+      id="song-display-album"
       songImage={song.album_imageUrl}
       handleAlbumClick={handleAlbumClick}
-      id="song-display-album"
     />
   </div>
 );

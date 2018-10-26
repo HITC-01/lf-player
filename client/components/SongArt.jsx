@@ -7,8 +7,7 @@ const SongArt = ({
   const handleClick = (e) => {
     e.preventDefault();
     const type = (e.target.id === 'player-song-artist') ? 'Artist' : 'Album';
-    handleAlbumClick();
-    window.alert(`On click, this would send you to the ${type} page`);
+    handleAlbumClick(type);
   };
 
   return (

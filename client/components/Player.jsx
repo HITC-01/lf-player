@@ -85,8 +85,8 @@ class Player extends React.Component {
       });
   }
 
-  handleAlbumClick() {
-    console.log('Album was clicked!');
+  handleAlbumClick(type) {
+    window.alert(`On click, this would send you to the ${type} page`);
   }
 
   handleInfoClick(info) {
