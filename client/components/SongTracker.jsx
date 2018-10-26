@@ -17,11 +17,6 @@ const SongTracker = ({
   );
 };
 
-//    <SongComments
-//      comments={comments}
-//      handleReplyComment={handleReplyComment}
-//    />
-
 SongTracker.propTypes = {
   songProfile: PropTypes.object.isRequired,
   playtime: PropTypes.number.isRequired,
