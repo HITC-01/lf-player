@@ -6,9 +6,8 @@ const SongTracker = ({
   songProfile, comments, handleScan, handleReplyComment, playtime,
 }) => {
   return (
-    <div id="player-song-tracker">
+    <div id="player-profile">
       <SongBar
-        id="player-song-bar"
         songProfile={songProfile}
         handleScan={handleScan}
         playtime={playtime}

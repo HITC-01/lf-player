@@ -1,3 +1,95 @@
 body {
-  font-family: 'Overpass', sans-serif;
+  font-family: "Overpass", sans-serif;
+  background-color: #fff;
 }
+
+div {
+  /*display: inline;*/
+}
+
+.player-background-grey {
+  background: #8d9190;
+  background: -webkit-linear-gradient(left top, #ded8d5, #8d9190);
+  background: -o-linear-gradient(bottom right, #ded8d5, #8d9190);
+  background: -moz-linear-gradient(bottom right, #ded8d5, #8d9190);
+  background: linear-gradient(to bottom right, #ded8d5, #8d9190);
+}
+
+.player-background-red {
+  background: #dc8873;
+  background: -webkit-linear-gradient(left top, #816471, #dc8873);
+  background: -o-linear-gradient(bottom right, #816471, #dc8873);
+  background: -moz-linear-gradient(bottom right, #816471, #dc8873);
+  background: linear-gradient(to bottom right, #816471, #dc8873);
+}
+
+/****************************
+ ****************************
+GRIDS
+ ****************************
+ ****************************/
+#player-all {
+  color: #fff;
+  width: 960px;
+  height: 380px;
+  display: grid;
+  grid-template-rows: [top-pad] 20px [play-top] 240px [profile-top] 100px [bottom-pad] 20px [bottom];
+  grid-template-columns: [left-pad] 30px [play-left] 660px [profile-right] auto [pad-right] 30px;
+}
+#player-all #player-profile {
+  grid-column: play-left/profile-right;
+  grid-row: profile-top/bottom-pad;
+  display: grid;
+}
+#player-all #player-display {
+  grid-column: play-left/pad-right;
+  grid-row: play-top/bottom-pad;
+  display: grid;
+  grid-template-columns: [main-width] 390px [extra-width] 150px [extra-pad] 20px [album] auto;
+  grid-template-rows: [top-pad] 10px [extra-bottom] 65px [main-bottom] 65px [bottom] auto;
+}
+#player-all #player-display #player-display-extras {
+  display: grid;
+  grid-column: extra-width/extra-pad;
+  grid-row: extra-bottom/bottom;
+}
+#player-all #player-display #player-display-album {
+  display: grid;
+  grid-column-start: album;
+}
+#player-all #player-display #player-display-main {
+  grid-column: main-width/extra-width;
+  grid-row-start: extra-bottom/bottom;
+  display: grid;
+  grid-template-columns: [player] 60px [player-end] 5px [rest] auto;
+  grid-template-rows: [artist] 15px [play-bottom] 45px [title-bottom] auto [bottom] 15px;
+}
+#player-all #player-display #player-display-main #player-main-play {
+  grid-column: player/player-end;
+  grid-row: artist/title-bottom;
+  /*background:*/
+}
+#player-all #player-display #player-display-main #player-main-artist {
+  grid-column-start: rest;
+  grid-row: artist/play-bottom;
+}
+#player-all #player-display #player-display-main #player-main-title {
+  grid-column-start: rest;
+  grid-row: play-bottom/bottom;
+}
+#player-all #player-display #player-display-main #player-main-album {
+  grid-column-start: rest;
+  grid-row-start: bottom;
+}
+
+/*
+TITLE = play, name, artist, album
+DIM: 390 X 100;
+Padding above: 30px;
+padding left: 20px;
+PLAY BUTTON
+notes: size 60X60px
+
+*/
+
+/*# sourceMappingURL=main.css.map */

@@ -96,6 +96,7 @@ class Player extends React.Component {
   handlePlayClick() {
     const { playing } = this.state;
     console.log('Now playing is ', playing);
+    this.setState({ playing: !playing });
   }
 
   render() {
@@ -104,9 +105,11 @@ class Player extends React.Component {
     } = this.state;
 
     return (
-      <div id="player-btn">
+      <div
+        className={`player-background-${song.background_color}`}
+        id="player-all"
+      >
         <SongDisplay
-          id="player-display"
           song={song}
           playing={playing}
           handleAlbumClick={this.handleAlbumClick}
@@ -114,7 +117,6 @@ class Player extends React.Component {
           handlePlayClick={this.handlePlayClick}
         />
         <SongTracker
-          id="player-profile"
           songProfile={songProfile}
           playtime={playtime}
           comments={comments}

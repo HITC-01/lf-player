@@ -5,17 +5,16 @@ const SongMain = ({
   song, playing, handlePlayClick, handleInfoClick,
 }) => {
   const hidden = false;
-  const playIcon = (playing) ? (<i className="fas fa-pause-circle" />)
+  const playIcon = (playing) ? (<i className="fas-5x fa-pause-circle" />)
     : (<i className="fas fa-play-circle" />);
   const handleLinkClick = (e) => {
     e.preventDefault();
     const type = (e.target.id === 'player-song-artist') ? 'Artist' : 'Album';
-    handleInfoClick(e.target);
-    window.alert(`On click, this would send you to the ${type} page`);
+    handleInfoClick(type);
   };
 
   return (
-    <div id="song-display-main-wrapper">
+    <div id="player-display-main">
       <button
         id="player-main-play"
         type="button"
@@ -24,15 +23,15 @@ const SongMain = ({
         {playIcon}
       </button>
       <a
-        id="player-song-artist"
+        id="player-main-artist"
         href="#"
         onClick={handleLinkClick}
       >
         {song.artist}
       </a>
-      <h1 id="player-song-title">{song.title}</h1>
+      <h1 id="player-main-title">{song.title}</h1>
       <a
-        id="player-song-album"
+        id="player-main-album"
         href="#"
         hidden={hidden}
         onClick={handleLinkClick}

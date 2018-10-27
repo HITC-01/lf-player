@@ -15,6 +15,7 @@ const SongBar = ({ songProfile, handleScan, playtime }) => {
   return (
     <div id="player-songbar" playtime={playtime}>
       { bars }
+      TEST
     </div>
   );
 };

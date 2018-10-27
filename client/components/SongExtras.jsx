@@ -13,7 +13,7 @@ const SongExtras = ({
   };
 
   return (
-    <div id="song-display-main-wrapper">
+    <div id="song-display-extras">
       <h4 id="player-song-date">{moment(song.song_added).fromNow()}</h4>
       <a
         href="#"
