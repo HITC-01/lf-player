@@ -7,7 +7,7 @@ const SongBar = ({ songProfile, handleScan, playtime }) => {
     <SongBarEntry
       height={songProfile.height}
       bar={bar}
-      key={i}
+      key={`bar_${i}`}
     />),
   );
 

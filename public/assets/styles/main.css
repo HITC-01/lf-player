@@ -8,21 +8,48 @@ Colors
 /* when you hover over play button */
 /* color for lower song profile */
 /* hover color for tag */
+/* General */
 body {
   font-family: "Overpass", sans-serif;
   background-color: #fff;
 }
 
+/* LINKS */
 a {
-  background: #292827;
-  color: #cccccc;
   text-decoration: none;
 }
 
-a:hover {
+#player-main-artist span, #player-main-title span, #player-main-album span {
+  background: #292827;
+  color: #cccccc;
+  padding: 2px 5px;
+}
+
+#player-main-title span {
+  color: white;
+  font-size: 24px;
+}
+
+#player-main-artist span:hover, #player-main-album span:hover {
   color: #fff;
 }
 
+#player-song-tag span {
+  color: #fff;
+  padding: 4px 8px;
+  background: #cccccc;
+  border-radius: 20px;
+}
+
+#player-song-tag span:hover {
+  background: #666666;
+}
+
+#player-display-extras {
+  text-align: right;
+}
+
+/*** PLAY BUTTON */
 #player-main-play {
   background: #ff5500;
   border-radius: 50%;
@@ -37,11 +64,17 @@ a:hover {
   color: #fff;
 }
 
-.player-songbar-bar {
-  background: #cccccc;
-  width: 1.5px;
+/* SONGBAR */
+#player-songbar:hover .player-songbar-bar {
+  background: #fff;
 }
 
+.player-songbar-bar {
+  background: #cccccc;
+  width: 2.5px;
+}
+
+/* Bacground gradient! */
 .player-background-grey {
   background: #8d9190;
   background: -webkit-linear-gradient(left top, #ded8d5, #8d9190);
@@ -69,7 +102,7 @@ GRIDS
   height: 380px;
   display: grid;
   grid-template-rows: [top-pad] 20px [play-top] 240px [profile-top] 100px [bottom-pad] 20px [bottom];
-  grid-template-columns: [left-pad] 30px [play-left] 660px [profile-right] auto [pad-right] 30px;
+  grid-template-columns: [left-pad] 30px [play-left] 560px [profile-right] auto [pad-right] 30px;
 }
 #player-all #player-profile {
   grid-column: play-left/profile-right;
@@ -77,18 +110,18 @@ GRIDS
   display: grid;
 }
 #player-all #player-profile #player-songbar {
-  display: grid;
-  grid-template-columns: repeat(250, 2.2px);
+  display: flex;
+  justify-content: space-around;
 }
-#player-all #player-profile #player-songbar #player-songbar-bar {
-  display: grid;
+#player-all #player-profile #player-songbar .player-songbar-bar {
+  align-self: flex-end;
 }
 #player-all #player-display {
   grid-column: play-left/pad-right;
   grid-row: play-top/bottom-pad;
   display: grid;
   grid-template-columns: [main-width] 390px [pad] 10px [extra-width] 150px [extra-pad] 20px [album] auto;
-  grid-template-rows: [top-pad] 10px [extra-bottom] 65px [main-bottom] 65px [bottom] auto;
+  grid-template-rows: [top-pad] 10px [extra-bottom] 35px [mid] 30px [main-bottom] 65px [bottom] auto;
 }
 #player-all #player-display #player-display-extras {
   display: grid;
@@ -104,14 +137,13 @@ GRIDS
   grid-row-start: extra-bottom/bottom;
   display: grid;
   grid-template-columns: [player] 60px [player-end] 10px [rest] auto;
-  grid-template-rows: [artist] 15px [play-bottom] 45px [title-bottom] auto [bottom] 15px;
+  grid-template-rows: [artist] 35px [play-bottom] 25px [title-bottom] 45px [rest] auto [bottom] 15px;
 }
 #player-all #player-display #player-display-main #player-main-play {
   grid-column: player/player-end;
   grid-row: artist/title-bottom;
 }
 #player-all #player-display #player-display-main #player-main-artist {
-  /*background:*/
   grid-column-start: rest;
   grid-row: artist/play-bottom;
 }

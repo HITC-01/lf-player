@@ -1,6 +1,6 @@
 const createSongBar = (heights, max) => {
   const bars = [];
-  const nBars = 250;
+  const nBars = 150;
   let profile = heights.split(',');
   profile = profile.map(height => Number(height));
   profile.pop();

@@ -9,7 +9,7 @@ const SongMain = ({
     : (<i className="fas fa-play fa-3x" />);
   const handleLinkClick = (e) => {
     e.preventDefault();
-    const type = (e.target.id === 'player-song-artist') ? 'Artist' : 'Album';
+    const type = (e.target.id === 'player-main-artist') ? 'Artist' : 'Album';
     handleInfoClick(type);
   };
 
@@ -27,16 +27,16 @@ const SongMain = ({
         href="#"
         onClick={handleLinkClick}
       >
-        {song.artist}
+        <span>{song.artist}</span>
       </a>
-      <h1 id="player-main-title">{song.title}</h1>
+      <h1 id="player-main-title"><span>{song.title}</span></h1>
       <a
         id="player-main-album"
         href="#"
         hidden={hidden}
         onClick={handleLinkClick}
       >
-        {song.album}
+        <span>{song.album}</span>
       </a>
     </div>
   );

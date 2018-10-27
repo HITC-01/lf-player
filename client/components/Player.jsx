@@ -90,7 +90,7 @@ class Player extends React.Component {
   }
 
   handleInfoClick(info) {
-    console.log('This info was clicked!', info);
+    window.alert(`On click, this would send you to the ${info} page`);
   }
 
   handlePlayClick() {
