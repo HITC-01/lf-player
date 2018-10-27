@@ -1,19 +1,59 @@
+/****************************
+ ****************************
+Colors
+ ****************************
+ ****************************/
+
 $white: #fff;
 
+/* background gradient */
 $backgroundDarkGrey: #8d9190;
 $backgroundLightGrey: #ded8d5;
-
 $backgroundPurple: #816471;
 $backgroundRed: #dc8873;
 
+$black-grey: #292827;
+$light-grey: #cccccc;
+$dark-orange: #ff5500; /* play button */
+$dark-orange2: #ff3300; /* when you hover over play button */
+$light-orange: #f4c09c; /* color for lower song profile */
+$med-grey: #666666; /* hover color for tag */
 
 body {
   font-family: 'Overpass', sans-serif;
   background-color: $white;
 }
 
-div {
-  /*display: inline;*/
+a {
+  background: $black-grey;
+  color: $light-grey;
+  text-decoration: none;
+}
+
+a:hover {
+  color: $white;
+}
+
+#player-main-play {
+  background: $dark-orange;
+  border-radius: 50%;
+  border: solid $dark-orange 5px;
+  color: $white;
+}
+
+#player-main-play:hover {
+  background: $dark-orange2;
+  border-radius: 50%;
+  border: solid $dark-orange2 5px;
+  color: $white;
+}
+
+#player-songbar-bar {
+}
+
+.player-songbar-bar {
+  background: $light-grey;
+  width: 1.5px;
 }
 
 .player-background-grey {
@@ -50,13 +90,20 @@ GRIDS
     grid-column: play-left / profile-right;
     grid-row: profile-top / bottom-pad;
     display: grid;
+    #player-songbar {
+      display: grid;
+      grid-template-columns: repeat(250, 2.2px);
+      #player-songbar-bar {
+        display: grid;
+    }
+    }
   }
 
   #player-display {
     grid-column: play-left / pad-right;
     grid-row: play-top / bottom-pad;
     display: grid;
-    grid-template-columns: [main-width] 390px [extra-width] 150px [extra-pad] 20px [album] auto;
+    grid-template-columns: [main-width] 390px [pad] 10px [extra-width] 150px [extra-pad] 20px [album] auto;
     grid-template-rows: [top-pad] 10px [extra-bottom] 65px [main-bottom] 65px [bottom] auto;
 
     #player-display-extras {
@@ -74,16 +121,16 @@ GRIDS
       grid-column: main-width / extra-width;
       grid-row-start: extra-bottom / bottom;
       display: grid;
-      grid-template-columns: [player] 60px [player-end] 5px [rest] auto;
+      grid-template-columns: [player] 60px [player-end] 10px [rest] auto;
       grid-template-rows: [artist] 15px [play-bottom] 45px [title-bottom] auto [bottom] 15px;
 
       #player-main-play {
         grid-column: player / player-end;
         grid-row: artist / title-bottom;
-        /*background:*/
       }
 
       #player-main-artist {
+        /*background:*/
         grid-column-start: rest;
         grid-row: artist / play-bottom;
       }
@@ -100,13 +147,3 @@ GRIDS
     }
   }
 }
-
-/*
-TITLE = play, name, artist, album
-DIM: 390 X 100;
-Padding above: 30px;
-padding left: 20px;
-PLAY BUTTON
-notes: size 60X60px
-
-*/

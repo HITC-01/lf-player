@@ -5,8 +5,8 @@ const SongMain = ({
   song, playing, handlePlayClick, handleInfoClick,
 }) => {
   const hidden = false;
-  const playIcon = (playing) ? (<i className="fas-5x fa-pause-circle" />)
-    : (<i className="fas fa-play-circle" />);
+  const playIcon = (playing) ? (<i className="fas fa-pause fa-3x" />)
+    : (<i className="fas fa-play fa-3x" />);
   const handleLinkClick = (e) => {
     e.preventDefault();
     const type = (e.target.id === 'player-song-artist') ? 'Artist' : 'Album';

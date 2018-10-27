@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const SongBarEntry = ({ height, bar }) => (
-  <span
+  <div
     className="player-songbar-bar"
     style={{ height: height * bar }}
   />

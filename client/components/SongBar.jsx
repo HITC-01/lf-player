@@ -5,7 +5,6 @@ import SongBarEntry from './SongBarEntry.jsx';
 const SongBar = ({ songProfile, handleScan, playtime }) => {
   const bars = songProfile.profile.map((bar, i) => (
     <SongBarEntry
-      className="player-songbar-bar"
       height={songProfile.height}
       bar={bar}
       key={i}
@@ -15,7 +14,6 @@ const SongBar = ({ songProfile, handleScan, playtime }) => {
   return (
     <div id="player-songbar" playtime={playtime}>
       { bars }
-      TEST
     </div>
   );
 };
