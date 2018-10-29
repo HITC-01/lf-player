@@ -7,6 +7,8 @@ const SongMain = ({
   const hidden = false;
   const playIcon = (playing) ? (<i className="fas fa-pause fa-3x" />)
     : (<i className="fas fa-play fa-3x" />);
+  const playState = (playing) ? 'on' : 'off';
+
   const handleLinkClick = (e) => {
     e.preventDefault();
     const type = (e.target.id === 'player-main-artist') ? 'Artist' : 'Album';
@@ -16,7 +18,8 @@ const SongMain = ({
   return (
     <div id="player-display-main">
       <button
-        id="player-main-play"
+        className="player-main-play"
+        id={`player-main-${playState}`}
         type="button"
         onClick={() => { handlePlayClick(); }}
       >

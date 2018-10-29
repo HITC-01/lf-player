@@ -14,5 +14,19 @@ const createSongBar = (heights, max) => {
   return bars;
 };
 
-const helpers = { createSongBar };
+const convertToMinSec = (timeSec) => {
+  const minutes = `${Math.floor(timeSec / 60)}`;
+  let seconds = `${(timeSec - minutes * 60)}`;
+  if (seconds.length === 1) {
+    seconds = `0${seconds}`;
+  }
+
+  return `${minutes}:${seconds}`;
+};
+
+const colorBar = (currentTime, totalTime, barFrac) => {
+
+};
+
+const helpers = { createSongBar, convertToMinSec, colorBar };
 export default helpers;

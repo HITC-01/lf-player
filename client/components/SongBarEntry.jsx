@@ -1,16 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const SongBarEntry = ({ height, bar }) => (
-  <div
-    className="player-songbar-bar"
-    style={{ height: height * bar }}
-  />
-);
+const SongBarEntry = ({ position, bar, currentTime, totalTime }) => {
+  const height = (position === 'lower') ? 20 : 80;
+  return (
+    <div
+      className={`player-songbar-${position}-bar player-songbar-bar`}
+      style={{ height: height * bar }}
+    />
+  );
+};
 
 SongBarEntry.propTypes = {
-  height: PropTypes.number.isRequired,
+  position: PropTypes.string.isRequired,
   bar: PropTypes.number.isRequired,
+  currentTime: PropTypes.number.isRequired,
+  totalTime: PropTypes.number.isRequired,
 };
 
 export default SongBarEntry;

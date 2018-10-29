@@ -5,6 +5,7 @@ Colors
  ****************************/
 
 $white: #fff;
+$black: #000;
 
 /* background gradient */
 $backgroundDarkGrey: #8d9190;
@@ -13,11 +14,12 @@ $backgroundPurple: #816471;
 $backgroundRed: #dc8873;
 
 $black-grey: #292827;
-$light-grey: #cccccc;
-$dark-orange: #ff5500; /* play button */
-$dark-orange2: #ff3300; /* when you hover over play button */
+$light-grey: #ccc;
+$dark-orange: #f50; /* play button */
+$dark-orange2: #f30; /* when you hover over play button */
 $light-orange: #f4c09c; /* color for lower song profile */
-$med-grey: #666666; /* hover color for tag */
+$tag-grey: #999;
+$med-grey: #666; /* hover color for tag */
 
 /* General */
 body {
@@ -33,7 +35,7 @@ a {
 #player-main-artist span, #player-main-title span, #player-main-album span{
   background: $black-grey;
   color: $light-grey;
-  padding: 2px 5px;
+  padding: 2px 7px;
 }
 
 #player-main-title span {
@@ -47,8 +49,8 @@ a {
 
 #player-song-tag span {
   color: $white;
-  padding: 4px 8px;
-  background: $light-grey;
+  padding: 1px 8px;
+  background: $tag-grey;
   border-radius: 20px;
 }
 
@@ -61,31 +63,48 @@ a {
 }
 
 /*** PLAY BUTTON */
-#player-main-play {
+.player-main-play {
   background: $dark-orange;
   border-radius: 50%;
   border: solid $dark-orange 5px;
   color: $white;
+  cursor: pointer;
 }
 
-#player-main-play:hover {
+.player-main-play:hover {
   background: $dark-orange2;
-  border-radius: 50%;
   border: solid $dark-orange2 5px;
-  color: $white;
+}
+
+#player-main-on {
+  background: $dark-orange2;
+  border: solid $dark-orange2 5px;
 }
 
 /* SONGBAR */
-#player-songbar:hover .player-songbar-bar {
-  background: $white;
-}
-
 .player-songbar-bar {
   background: $light-grey;
   width: 2.5px;
 }
 
-/* Bacground gradient! */
+#player-songbar:hover .player-songbar-bar {
+  background: $white;
+}
+
+#player-songbar-current-time span, #player-songbar-total-time span {
+  background: $black;
+  font-size: 12px;
+}
+
+#player-songbar-total-time {
+  color: $light-grey;
+}
+
+#player-songbar-current-time {
+  color: $dark-orange;
+}
+
+/* Background gradient! */
 .player-background-grey {
   background: $backgroundDarkGrey;
   background: -webkit-linear-gradient(left top, $backgroundLightGrey , $backgroundDarkGrey);
@@ -124,11 +143,38 @@ GRIDS
     grid-row: profile-top / bottom-pad;
     display: grid;
     #player-songbar {
-      display: flex;
-      justify-content: space-around;
-      .player-songbar-bar {
-        align-self: flex-end;
-    }
+      display: grid;
+      grid-template-rows: [top] 62px [time] 18px [top-end] 0.5px [bottom] 20px [bottom-end];
+      grid-template-columns: [start] 20px [middle] auto [middle-end] 26px [end];
+
+      #player-songbar-current-time {
+        grid-row: time / top-end;
+        grid-column: start / middle;
+      }
+      #player-songbar-total-time {
+        grid-row: time / top-end;
+        grid-column: middle-end / end;
+      }
+
+      #player-songbar-upper {
+        display: flex;
+        justify-content: space-around;
+        grid-row: top / top-end;
+        grid-column: start / end;
+
+        .player-songbar-upper-bar {
+          align-self: flex-end;
+        }
+      }
+      #player-songbar-lower {
+        display: flex;
+        justify-content: space-around;
+        grid-row: bottom / bottom-end;
+        grid-column: start / end;
+        .player-songbar-lower-bar {
+          align-self: flex-start;
+        }
+      }
     }
   }
 
@@ -157,7 +203,7 @@ GRIDS
       grid-template-columns: [player] 60px [player-end] 10px [rest] auto;
       grid-template-rows: [artist] 35px [play-bottom] 25px [title-bottom] 45px [rest] auto [bottom] 15px;
 
-      #player-main-play {
+      .player-main-play {
         grid-column: player / player-end;
         grid-row: artist / title-bottom;
       }
