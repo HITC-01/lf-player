@@ -14,6 +14,9 @@ const createSongBar = (heights, max, nBars = 140) => {
 };
 
 const convertToMinSec = (timeSec) => {
+  if (typeof timeSec !== 'number') {
+    return '0:00';
+  }
   const minutes = `${Math.floor(timeSec / 60)}`;
   let seconds = `${(timeSec - minutes * 60)}`;
   if (seconds.length === 1) {
