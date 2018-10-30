@@ -13,13 +13,16 @@ $backgroundLightGrey: #ded8d5;
 $backgroundPurple: #816471;
 $backgroundRed: #dc8873;
 
-$black-grey: #292827;
-$light-grey: #ccc;
+$light-orange: #f4c09c; /* color for lower song profile */
 $dark-orange: #f50; /* play button */
 $dark-orange2: #f30; /* when you hover over play button */
-$light-orange: #f4c09c; /* color for lower song profile */
+$light-grey: #ccc;
+$songbar-grey: #ebece6;
 $tag-grey: #999;
 $med-grey: #666; /* hover color for tag */
+$black-grey: #292827;
+
+$width: 2.5;
 
 /* General */
 body {
@@ -83,8 +86,8 @@ a {
 
 /* SONGBAR */
 .player-songbar-bar-to-play {
-  background: $light-grey;
-  width: 2.5px;
+  background: $songbar-grey;
+  width: #{$width}px;
 }
 
 #player-songbar:hover .player-songbar-bar-to-play {
@@ -92,8 +95,34 @@ a {
 }
 
 .player-songbar-bar {
+  width: #{$width}px;
   background: $dark-orange;
-  width: 2.5px;
+  background: -webkit-linear-gradient(top, $dark-orange, $dark-orange2);
+  background: -o-linear-gradient(bottom, $dark-orange, $dark-orange2);
+  background: -moz-linear-gradient(bottom, $dark-orange, $dark-orange2);
+  background: linear-gradient(to bottom, $dark-orange , $dark-orange2);
+}
+
+#player-songbar:hover .player-songbar-bar {
+  background: $dark-orange2;
+}
+
+.player-songbar-bar-to-play-playing {
+  background: $white;
+  width: #{$width}px;
+}
+
+#player-songbar:hover .player-songbar-bar-to-play-playing {
+  background: $white;
+}
+
+.player-songbar-bar-playing {
+  width: #{$width}px;
+  background: $dark-orange;
+  background: -webkit-linear-gradient(top, $dark-orange, $dark-orange2);
+  background: -o-linear-gradient(bottom, $dark-orange, $dark-orange2);
+  background: -moz-linear-gradient(bottom, $dark-orange, $dark-orange2);
+  background: linear-gradient(to bottom, $dark-orange , $dark-orange2);
 }
 
 #player-songbar:hover .player-songbar-bar {
@@ -138,7 +167,6 @@ GRIDS
  ****************************/
 
  $nbars: 150;
- $width: '3px';
 
 #player-all {
   color: $white;
@@ -154,7 +182,7 @@ GRIDS
     display: grid;
     #player-songbar {
       display: grid;
-      grid-template-rows: [top] 62px [time] 18px [top-end] 0.5px [bottom] 20px [bottom-end];
+      grid-template-rows: [top] 52px [time] 18px [top-end] 0.5px [bottom] 30px [bottom-end];
       grid-template-columns: [start] 20px [middle] auto [middle-end] 26px [end];
 
       #player-songbar-current-time {

@@ -4,7 +4,7 @@ import SongBar from './SongBar.jsx';
 import SongComments from './SongComments.jsx';
 
 const SongTracker = ({
-  songProfile, comments, handleScan, handleReplyComment, currentTime, totalTime,
+  songProfile, comments, handleScan, handleReplyComment, currentTime, totalTime, playing,
 }) => {
   return (
     <div id="player-profile">
@@ -13,6 +13,8 @@ const SongTracker = ({
         handleScan={handleScan}
         currentTime={currentTime}
         totalTime={totalTime}
+        playing={playing}
+
       />
       <SongComments
         comments={comments}
@@ -27,6 +29,7 @@ SongTracker.propTypes = {
   currentTime: PropTypes.number.isRequired,
   totalTime: PropTypes.number.isRequired,
   comments: PropTypes.array.isRequired,
+  playing: PropTypes.bool.isRequired,
   handleScan: PropTypes.func.isRequired,
   handleReplyComment: PropTypes.func.isRequired,
 };

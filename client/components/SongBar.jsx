@@ -4,7 +4,7 @@ import SongBarEntry from './SongBarEntry.jsx';
 import helpers from '../helpers/playerHelpers.js';
 
 const SongBar = ({
-  songProfile, handleScan, currentTime, totalTime,
+  songProfile, handleScan, currentTime, totalTime, playing,
 }) => {
   const upperBars = [];
   const lowerBars = [];
@@ -18,6 +18,7 @@ const SongBar = ({
       currentTime={currentTime}
       totalTime={totalTime}
       barFraction={i / songProfile.profile.length}
+      playing={playing}
       key={`bar_lower_${i}`}
     />
     ));
@@ -27,6 +28,7 @@ const SongBar = ({
       currentTime={currentTime}
       totalTime={totalTime}
       barFraction={i / songProfile.profile.length}
+      playing={playing}
       key={`bar_upper_${i}`}
     />
     ));
@@ -51,6 +53,7 @@ SongBar.propTypes = {
   handleScan: PropTypes.func.isRequired,
   currentTime: PropTypes.number.isRequired,
   totalTime: PropTypes.number.isRequired,
+  playing: PropTypes.bool.isRequired,
 };
 
 export default SongBar;
