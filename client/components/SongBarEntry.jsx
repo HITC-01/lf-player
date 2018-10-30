@@ -14,7 +14,7 @@ const SongBarEntry = ({
     <div
       className={barClass}
       style={{ height: Math.floor(height * bar) }}
-      onClick={handleClick}
+      onClick={() => handleClick(barFraction)}
       onPointerOver={() => handleScan(number)}
     />
   );
@@ -26,15 +26,9 @@ SongBarEntry.propTypes = {
   number: PropTypes.number.isRequired,
   playState: PropTypes.object.isRequired,
   barFraction: PropTypes.number.isRequired,
-  handleScan: PropTypes.func,
-  handleExit: PropTypes.func,
-  handleClick: PropTypes.func,
-};
-
-SongBarEntry.defaultProps = {
-  handleScan: () => {},
-  handleExit: () => {},
-  handleClick: () => {},
+  handleScan: PropTypes.func.isRequired,
+  handleExit: PropTypes.func.isRequired,
+  handleClick: PropTypes.func.isRequired,
 };
 
 export default SongBarEntry;

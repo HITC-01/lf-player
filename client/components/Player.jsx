@@ -113,8 +113,18 @@ class Player extends React.Component {
     this.setState({ playState });
   }
 
-  handleBarClick(bar) {
-    console.log('I was clicked!');
+  handleBarClick(fraction) {
+    let { playState } = this.state;
+    console.log('I was clicked!', fraction, playState.totalTime, Math.floor(fraction * playState.totalTime));
+    if (!playState.playing) {
+      this.handlePlayClick();
+    }
+    playState = {
+      ...playState,
+      currentTime: Math.floor(fraction * playState.totalTime),
+      hovering: false,
+    };
+    this.setState({ playState });
   }
 
   handleInfoClick(info) {

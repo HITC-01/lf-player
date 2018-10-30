@@ -94,6 +94,10 @@ a {
 /* SONGBAR */
 /*************************/
 
+#player-songbar {
+  cursor: pointer;
+}
+
 div[class^="player-songbar-"] {
   width: #{$width}px;
 }

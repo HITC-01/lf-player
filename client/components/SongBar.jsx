@@ -10,7 +10,7 @@ const SongBar = ({
   const locations = ['upper', 'lower'];
   const currentMinSec = helpers.convertToMinSec(playState.currentTime);
   const totalMinSec = helpers.convertToMinSec(playState.totalTime);
-
+  const nBars = songProfile.profile.length;
 
   songProfile.profile.forEach((bar, i) => {
     locations.forEach((location, j) => {
@@ -19,7 +19,7 @@ const SongBar = ({
         bar={bar}
         number={i}
         playState={playState}
-        barFraction={i / songProfile.profile.length}
+        barFraction={i / nBars}
         handleScan={(location === 'upper') ? handleScan : () => {}}
         handleExit={(location === 'upper') ? handleExit : () => {}}
         handleClick={(location === 'upper') ? handleClick : () => {}}
@@ -28,9 +28,21 @@ const SongBar = ({
       ));
     });
   });
+  const handleBarClick = (e) => {
+    console.log('in bar', Object.keys(e.target.className, e.target.id), e.screenX, e.target.offsetLeft, e.target.offsetWidth);
+    if (e.target.offsetWidth < 5) {
+      handleClick(e.target.offsetLeft / nBars);
+    } else {
+      handleClick((e.screenX - e.target.offsetLeft) / e.target.offsetWidth);
+    }
+  };
 
   return (
-    <div id="player-songbar" onPointerLeave={() => handleExit()}>
+    <div
+      id="player-songbar"
+      onPointerLeave={() => handleExit()}
+      onClick={handleBarClick}
+    >
       <div id="player-songbar-upper">
         { bars[0] }
       </div>
