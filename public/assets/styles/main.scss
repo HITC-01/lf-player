@@ -22,7 +22,8 @@ $tag-grey: #999;
 $med-grey: #666; /* hover color for tag */
 $black-grey: #292827;
 
-$width: 2.5;
+$width: 3;
+$nbars: 140;
 
 /* General */
 body {
@@ -68,7 +69,9 @@ a {
   text-align: right;
 }
 
+/*************************/
 /*** PLAY BUTTON */
+/*************************/
 .player-main-play {
   background: $dark-orange;
   border-radius: 50%;
@@ -87,46 +90,58 @@ a {
   border: solid $dark-orange2 5px;
 }
 
+/*************************/
 /* SONGBAR */
-.player-songbar-bar-to-play {
+/*************************/
+
+div[class^="player-songbar-"] {
+  width: #{$width}px;
+}
+
+/* NOT PLAYING */
+.player-songbar-upper-to-play,
+.player-songbar-lower-to-play {
   background: $songbar-grey;
-  width: #{$width}px;
+}
+#player-songbar:hover {
+  .player-songbar-upper-to-play,
+  .player-songbar-lower-to-play, {
+    background: $white;
+  }
 }
 
-#player-songbar:hover .player-songbar-bar-to-play {
-  background: $white;
-}
-
-.player-songbar-bar {
-  width: #{$width}px;
+.player-songbar-upper {
   background: $dark-orange;
   background: -webkit-linear-gradient(top, $dark-orange, $dark-orange2);
   background: -o-linear-gradient(bottom, $dark-orange, $dark-orange2);
   background: -moz-linear-gradient(bottom, $dark-orange, $dark-orange2);
   background: linear-gradient(to bottom, $dark-orange , $dark-orange2);
 }
-
-#player-songbar:hover .player-songbar-bar {
+#player-songbar:hover .player-songbar-upper {
   background: $dark-orange2;
 }
 
-.player-songbar-bar-to-play-playing {
-  background: $white;
-  width: #{$width}px;
-}
-
-.player-songbar-bar-to-play-playing-hover-middle,
-.player-songbar-bar-bar-hover-middle {
+.player-songbar-lower, {
   background: $light-orange;
-  width: #{$width}px;
 }
 
-#player-songbar:hover .player-songbar-bar-to-play-playing {
+/* PLAYING */
+div[class*="-playing-to-play"] {
   background: $white;
 }
 
-.player-songbar-bar-playing {
-  width: #{$width}px;
+.player-songbar-upper-to-play-playing-hover-middle,
+.player-songbar-upper-hover-middle,
+.player-songbar-lower-to-play-playing-hover-middle,
+.player-songbar-lower-hover-middle {
+  background: $light-orange;
+}
+
+#player-songbar:hover div[class*="-playing-to-play"] {
+  background: $white;
+}
+
+.player-songbar-upper-playing {
   background: $dark-orange;
   background: -webkit-linear-gradient(top, $dark-orange, $dark-orange2);
   background: -o-linear-gradient(bottom, $dark-orange, $dark-orange2);
@@ -134,11 +149,17 @@ a {
   background: linear-gradient(to bottom, $dark-orange , $dark-orange2);
 }
 
-#player-songbar:hover .player-songbar-bar {
+#player-songbar:hover .player-songbar-upper {
   background: $dark-orange2;
 }
 
+.player-songbar-lower-playing {
+  background: $light-orange;
+}
+
+/*************************/
 /* TIME counters */
+/*************************/
 #player-songbar-current-time span, #player-songbar-total-time span {
   background: $black;
   font-size: 12px;
@@ -152,7 +173,9 @@ a {
   color: $dark-orange;
 }
 
+/*************************/
 /* Background gradient! */
+/*************************/
 .player-background-grey {
   background: $backgroundDarkGrey;
   background: -webkit-linear-gradient(left top, $backgroundLightGrey , $backgroundDarkGrey);
@@ -175,7 +198,6 @@ GRIDS
  ****************************
  ****************************/
 
- $nbars: 150;
 
 #player-all {
   color: $white;
@@ -205,20 +227,20 @@ GRIDS
 
       #player-songbar-upper {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         grid-row: top / top-end;
         grid-column: start / end;
 
-        .player-songbar-upper-bar {
+        div[class^="player-songbar-"] {
           align-self: flex-end;
         }
       }
       #player-songbar-lower {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         grid-row: bottom / bottom-end;
         grid-column: start / end;
-        .player-songbar-lower-bar {
+        div[class^="player-songbar-"] {
           align-self: flex-start;
         }
       }

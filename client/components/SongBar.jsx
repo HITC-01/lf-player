@@ -4,12 +4,13 @@ import SongBarEntry from './SongBarEntry.jsx';
 import helpers from '../helpers/playerHelpers.js';
 
 const SongBar = ({
-  songProfile, playState, handleScan, handleClick,
+  songProfile, playState, handleScan, handleExit, handleClick,
 }) => {
   const bars = [[], []];
   const locations = ['upper', 'lower'];
   const currentMinSec = helpers.convertToMinSec(playState.currentTime);
   const totalMinSec = helpers.convertToMinSec(playState.totalTime);
+
 
   songProfile.profile.forEach((bar, i) => {
     locations.forEach((location, j) => {
@@ -19,8 +20,9 @@ const SongBar = ({
         number={i}
         playState={playState}
         barFraction={i / songProfile.profile.length}
-        handleScan={handleScan}
-        handleClick={handleClick}
+        handleScan={(location === 'upper') ? handleScan : () => {}}
+        handleExit={(location === 'upper') ? handleExit : () => {}}
+        handleClick={(location === 'upper') ? handleClick : () => {}}
         key={`bar_${location}_${i}`}
       />
       ));
@@ -28,7 +30,7 @@ const SongBar = ({
   });
 
   return (
-    <div id="player-songbar">
+    <div id="player-songbar" onPointerLeave={() => handleExit()}>
       <div id="player-songbar-upper">
         { bars[0] }
       </div>
@@ -45,6 +47,7 @@ SongBar.propTypes = {
   songProfile: PropTypes.object.isRequired,
   playState: PropTypes.object.isRequired,
   handleScan: PropTypes.func.isRequired,
+  handleExit: PropTypes.func.isRequired,
   handleClick: PropTypes.func.isRequired,
 };
 

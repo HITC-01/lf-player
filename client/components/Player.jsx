@@ -9,7 +9,9 @@ class Player extends React.Component {
     this.state = {
       song: { album_imageUrl: '', duration: 0 },
       playState: {
-        playing: false, intervalId: 0, currentTime: 0, hoverPosition: 0
+        playing: false, intervalId: 0,
+        currentTime: 0, hoverPosition: 0,
+        hovering: false,
       },
       comments: [],
       songProfile: { profile: [] },
@@ -24,6 +26,7 @@ class Player extends React.Component {
     this.handleAlbumClick = this.handleAlbumClick.bind(this);
     this.handleBarClick = this.handleBarClick.bind(this);
     this.handleBarHover = this.handleBarHover.bind(this);
+    this.handleBarExit = this.handleBarExit.bind(this);
     this.handleInfoClick = this.handleInfoClick.bind(this);
     this.handlePlayClick = this.handlePlayClick.bind(this);
     this.count = this.count.bind(this);
@@ -79,9 +82,8 @@ class Player extends React.Component {
   }
 
   getArtists(ids) {
-    let idString = '';
-    ids.forEach((id) => { idString += `${id},`; });
-    idString = idString.substring(0, idString.length - 2);
+    const idsArray = Array.from(ids);
+    const idString = idsArray.join(',') || '1';
     const url = `/artists?id=${idString}`;
     return fetch(url, { method: 'GET' })
       .then(stream => stream.json())
@@ -100,6 +102,14 @@ class Player extends React.Component {
   handleBarHover(bar) {
     const { playState, songProfile } = this.state;
     playState.hoverPosition = bar / songProfile.profile.length;
+    playState.hovering = true;
+    this.setState({ playState });
+  }
+
+  handleBarExit() {
+    const { playState } = this.state;
+    playState.hoverPosition = 0;
+    playState.hovering = false;
     this.setState({ playState });
   }
 
@@ -139,6 +149,7 @@ class Player extends React.Component {
     const { playState } = this.state;
     const intervalId = setInterval(this.count, 1000);
     playState.intervalId = intervalId;
+    playState.hoverPosition = null;
     this.setState({ playState });
   }
 
@@ -169,6 +180,7 @@ class Player extends React.Component {
           playState={playState}
           comments={comments}
           handleScan={this.handleBarHover}
+          handleExit={this.handleBarExit}
           handleBarClick={this.handleBarClick}
           handleReplyComment={() => {}}
         />
