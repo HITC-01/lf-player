@@ -54,7 +54,6 @@ app.get('/comments', (req, res) => {
 
 app.get('/artists', (req, res) => {
   const ids = req.query.id || '*';
-  console.log('this is my query', req.query.id);
   db.getArtists(ids)
     .then((artists) => {
       res.status(200).send(JSON.stringify({ data: artists }));

@@ -146,12 +146,12 @@ done
 
 for i in `seq 1 $NSONGS`;
 do
-  HEIGHT=$((RANDOM % 20 + 120))
+  HEIGHT=$((RANDOM % 20 + 100))
   NCOLS=1000
   PROFILE=''
   for j in `seq 1 $NCOLS` ;
   do
-    VAL="$((RANDOM % $HEIGHT)),"
+    VAL="$((RANDOM % $HEIGHT + 20)),"
     PROFILE=`echo "${PROFILE}${VAL}"`
   done
   PROFILE=`echo $PROFILE | sed "s/^ //"`

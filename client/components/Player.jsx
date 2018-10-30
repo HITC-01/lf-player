@@ -7,13 +7,14 @@ class Player extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      song: { album_imageUrl: '' },
+      song: { album_imageUrl: '', duration: 0 },
       comments: [],
       songProfile: { profile: [] },
       artists: new Set(),
       playing: false,
-      playtime: 0,
+      currentTime: 0,
       nSongs: 100,
+      intervalId: 0,
     };
 
     this.getSongData = this.getSongData.bind(this);
@@ -23,6 +24,9 @@ class Player extends React.Component {
     this.handleAlbumClick = this.handleAlbumClick.bind(this);
     this.handleInfoClick = this.handleInfoClick.bind(this);
     this.handlePlayClick = this.handlePlayClick.bind(this);
+    this.count = this.count.bind(this);
+    this.play = this.play.bind(this);
+    this.pause = this.pause.bind(this);
   }
 
   componentDidMount() {
@@ -86,27 +90,56 @@ class Player extends React.Component {
   }
 
   handleAlbumClick(type) {
-    window.alert(`On click, this would send you to the ${type} page`);
+    window.alert(`On click, this would send you
+      to the ${type} page`);
   }
 
   handleInfoClick(info) {
-    console.log('This info was clicked!', info);
+    window.alert(`On click, this would send you to
+      the ${info} page`);
   }
 
   handlePlayClick() {
     const { playing } = this.state;
-    console.log('Now playing is ', playing);
+    if (playing) {
+      this.pause();
+    } else {
+      this.play();
+    }
+    this.setState({ playing: !playing });
+  }
+
+  count() {
+    const { currentTime, song, intervalId } = this.state;
+    if (currentTime >= song.duration) {
+      this.setState({ currentTime: song.duration });
+      clearInterval(intervalId);
+      return;
+    }
+    this.setState({ currentTime: currentTime + 1 });
+  }
+
+  play() {
+    const intervalId = setInterval(this.count, 1000);
+    this.setState({ intervalId });
+  }
+
+  pause() {
+    const { intervalId } = this.state;
+    clearInterval(intervalId);
   }
 
   render() {
     const {
-      song, playing, playtime, songProfile, comments,
+      song, playing, currentTime, songProfile, comments,
     } = this.state;
 
     return (
-      <div id="player-btn">
+      <div
+        className={`player-background-${song.background_color}`}
+        id="player-all"
+      >
         <SongDisplay
-          id="player-display"
           song={song}
           playing={playing}
           handleAlbumClick={this.handleAlbumClick}
@@ -114,9 +147,9 @@ class Player extends React.Component {
           handlePlayClick={this.handlePlayClick}
         />
         <SongTracker
-          id="player-profile"
           songProfile={songProfile}
-          playtime={playtime}
+          currentTime={currentTime}
+          totalTime={song.duration}
           comments={comments}
           handleScan={() => {}}
           handleReplyComment={() => {}}

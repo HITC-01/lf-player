@@ -11,7 +11,7 @@ const SongArt = ({
   };
 
   return (
-    <div id="player-album">
+    <div id="player-display-album">
       <a href="#" onClick={handleClick}>
         <img src={songImage} alt="album-art" />
       </a>

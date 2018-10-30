@@ -8,19 +8,18 @@ const SongExtras = ({
 }) => {
   const handleLinkClick = (e) => {
     e.preventDefault();
-    window.alert('On click, this would send you to the genre page');
-    handleInfoClick(e.target);
+    handleInfoClick('Genre Tag');
   };
 
   return (
-    <div id="song-display-main-wrapper">
+    <div id="player-display-extras">
       <h4 id="player-song-date">{moment(song.song_added).fromNow()}</h4>
       <a
-        href="#"
         id="player-song-tag"
+        href="#"
         onClick={handleLinkClick}
       >
-        {song.tag}
+        <span>{`# ${song.tag}`}</span>
       </a>
     </div>
   );
