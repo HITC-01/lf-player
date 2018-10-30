@@ -115,6 +115,12 @@ a {
   width: #{$width}px;
 }
 
+.player-songbar-bar-to-play-playing-hover-middle,
+.player-songbar-bar-bar-hover-middle {
+  background: $light-orange;
+  width: #{$width}px;
+}
+
 #player-songbar:hover .player-songbar-bar-to-play-playing {
   background: $white;
 }

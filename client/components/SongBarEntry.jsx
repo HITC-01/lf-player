@@ -14,7 +14,7 @@ const SongBarEntry = ({
       className={barClass}
       style={{ height: Math.floor(height * bar) }}
       onClick={handleClick}
-      onMouseOver={() => { console.log(number); handleScan(number); }}
+      onMouseOver={() => handleScan(number)}
     />
   );
 };

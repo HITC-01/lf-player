@@ -126,23 +126,24 @@ class Player extends React.Component {
   count() {
     let { playState } = this.state;
     if (playState.currentTime >= playState.totalTime) {
-      playState = { playState, currentTime: playState.totalTime, playing: false };
+      playState = { ...playState, currentTime: playState.totalTime, playing: false };
       this.setState({ playState });
       clearInterval(playState.intervalId);
       return;
     }
-    playState = { playState, currentTime: playState.currentTime + 1 };
+    playState = { ...playState, currentTime: playState.currentTime + 1 };
     this.setState({ playState });
   }
 
   play() {
-    let { playState } = this.state;
-    playState = { playState, intervalId: setInterval(this.count, 1000) };
+    const { playState } = this.state;
+    const intervalId = setInterval(this.count, 1000);
+    playState.intervalId = intervalId;
     this.setState({ playState });
   }
 
   pause() {
-    let { playState } = this.state;
+    const { playState } = this.state;
     clearInterval(playState.intervalId);
   }
 
