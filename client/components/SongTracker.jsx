@@ -4,33 +4,28 @@ import SongBar from './SongBar.jsx';
 import SongComments from './SongComments.jsx';
 
 const SongTracker = ({
-  songProfile, comments, handleScan, handleReplyComment, currentTime, totalTime, playing,
-}) => {
-  return (
-    <div id="player-profile">
-      <SongBar
-        songProfile={songProfile}
-        handleScan={handleScan}
-        currentTime={currentTime}
-        totalTime={totalTime}
-        playing={playing}
-
-      />
-      <SongComments
-        comments={comments}
-        handleReplyComment={handleReplyComment}
-      />
-    </div>
-  );
-};
+  songProfile, comments, playState, handleScan, handleReplyComment, handleBarClick,
+}) => (
+  <div id="player-profile">
+    <SongBar
+      songProfile={songProfile}
+      playState={playState}
+      handleScan={handleScan}
+      handleClick={handleBarClick}
+    />
+    <SongComments
+      comments={comments}
+      handleReplyComment={handleReplyComment}
+    />
+  </div>
+);
 
 SongTracker.propTypes = {
   songProfile: PropTypes.object.isRequired,
-  currentTime: PropTypes.number.isRequired,
-  totalTime: PropTypes.number.isRequired,
+  playState: PropTypes.object.isRequired,
   comments: PropTypes.array.isRequired,
-  playing: PropTypes.bool.isRequired,
   handleScan: PropTypes.func.isRequired,
+  handleBarClick: PropTypes.func.isRequired,
   handleReplyComment: PropTypes.func.isRequired,
 };
 

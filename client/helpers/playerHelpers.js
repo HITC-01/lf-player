@@ -24,10 +24,16 @@ const convertToMinSec = (timeSec) => {
   return `${minutes}:${seconds}`;
 };
 
-const colorBar = (currentTime, totalTime, barFrac, playing) => {
+const colorBar = (barFrac, {
+  currentTime, totalTime, playing, hoverPosition,
+}) => {
+  const playPosition = currentTime / totalTime;
   let barString = 'player-songbar-bar';
-  barString += ((currentTime / totalTime) > barFrac) ? '' : '-to-play';
+  const barBetween = (((hoverPosition > barFrac) && (playPosition < barFrac))
+    || ((hoverPosition < barFrac) && (playPosition > barFrac)));
+  barString += (playPosition > barFrac) ? '' : '-to-play';
   barString += (playing) ? '-playing' : '';
+  barString += (playing && barBetween) ? '-hover-middle' : '';
   return barString;
 };
 

@@ -4,43 +4,36 @@ import SongBarEntry from './SongBarEntry.jsx';
 import helpers from '../helpers/playerHelpers.js';
 
 const SongBar = ({
-  songProfile, handleScan, currentTime, totalTime, playing,
+  songProfile, playState, handleScan, handleClick,
 }) => {
-  const upperBars = [];
-  const lowerBars = [];
-  const currentMinSec = helpers.convertToMinSec(currentTime);
-  const totalMinSec = helpers.convertToMinSec(totalTime);
+  const bars = [[], []];
+  const locations = ['upper', 'lower'];
+  const currentMinSec = helpers.convertToMinSec(playState.currentTime);
+  const totalMinSec = helpers.convertToMinSec(playState.totalTime);
 
   songProfile.profile.forEach((bar, i) => {
-    lowerBars.push((<SongBarEntry
-      position="lower"
-      bar={bar}
-      currentTime={currentTime}
-      totalTime={totalTime}
-      barFraction={i / songProfile.profile.length}
-      playing={playing}
-      key={`bar_lower_${i}`}
-    />
-    ));
-    upperBars.push((<SongBarEntry
-      position="upper"
-      bar={bar}
-      currentTime={currentTime}
-      totalTime={totalTime}
-      barFraction={i / songProfile.profile.length}
-      playing={playing}
-      key={`bar_upper_${i}`}
-    />
-    ));
+    locations.forEach((location, j) => {
+      bars[j].push((<SongBarEntry
+        position={location}
+        bar={bar}
+        number={i}
+        playState={playState}
+        barFraction={i / songProfile.profile.length}
+        handleScan={handleScan}
+        handleClick={handleClick}
+        key={`bar_${location}_${i}`}
+      />
+      ));
+    });
   });
 
   return (
     <div id="player-songbar">
       <div id="player-songbar-upper">
-        { upperBars }
+        { bars[0] }
       </div>
       <div id="player-songbar-lower">
-        { lowerBars }
+        { bars[1] }
       </div>
       <div id="player-songbar-current-time"><span>{currentMinSec}</span></div>
       <div id="player-songbar-total-time"><span>{totalMinSec}</span></div>
@@ -50,10 +43,9 @@ const SongBar = ({
 
 SongBar.propTypes = {
   songProfile: PropTypes.object.isRequired,
+  playState: PropTypes.object.isRequired,
   handleScan: PropTypes.func.isRequired,
-  currentTime: PropTypes.number.isRequired,
-  totalTime: PropTypes.number.isRequired,
-  playing: PropTypes.bool.isRequired,
+  handleClick: PropTypes.func.isRequired,
 };
 
 export default SongBar;

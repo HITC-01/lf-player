@@ -35,7 +35,9 @@ a {
   text-decoration: none;
 }
 
-#player-main-artist span, #player-main-title span, #player-main-album span{
+#player-main-artist span,
+#player-main-title span,
+#player-main-album span{
   background: $black-grey;
   color: $light-grey;
   padding: 2px 7px;
@@ -46,7 +48,8 @@ a {
   font-size: 24px;
 }
 
-#player-main-artist span:hover, #player-main-album span:hover {
+#player-main-artist span:hover,
+#player-main-album span:hover {
   color: $white;
 }
 
