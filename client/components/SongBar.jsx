@@ -15,12 +15,18 @@ const SongBar = ({
     lowerBars.push((<SongBarEntry
       position="lower"
       bar={bar}
+      currentTime={currentTime}
+      totalTime={totalTime}
+      barFraction={i / songProfile.profile.length}
       key={`bar_lower_${i}`}
     />
     ));
     upperBars.push((<SongBarEntry
       position="upper"
       bar={bar}
+      currentTime={currentTime}
+      totalTime={totalTime}
+      barFraction={i / songProfile.profile.length}
       key={`bar_upper_${i}`}
     />
     ));
@@ -28,18 +34,10 @@ const SongBar = ({
 
   return (
     <div id="player-songbar">
-      <div
-        id="player-songbar-upper"
-        currentTime={currentTime}
-        totalTime={totalTime}
-      >
+      <div id="player-songbar-upper">
         { upperBars }
       </div>
-      <div
-        id="player-songbar-lower"
-        currentTime={currentTime}
-        totalTime={totalTime}
-      >
+      <div id="player-songbar-lower">
         { lowerBars }
       </div>
       <div id="player-songbar-current-time"><span>{currentMinSec}</span></div>

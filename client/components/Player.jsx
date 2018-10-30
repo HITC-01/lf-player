@@ -112,7 +112,9 @@ class Player extends React.Component {
   count() {
     const { currentTime, song, intervalId } = this.state;
     if (currentTime >= song.duration) {
+      this.setState({ currentTime: song.duration });
       clearInterval(intervalId);
+      return;
     }
     this.setState({ currentTime: currentTime + 1 });
   }

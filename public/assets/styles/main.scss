@@ -82,15 +82,25 @@ a {
 }
 
 /* SONGBAR */
-.player-songbar-bar {
+.player-songbar-bar-to-play {
   background: $light-grey;
   width: 2.5px;
 }
 
-#player-songbar:hover .player-songbar-bar {
+#player-songbar:hover .player-songbar-bar-to-play {
   background: $white;
 }
 
+.player-songbar-bar {
+  background: $dark-orange;
+  width: 2.5px;
+}
+
+#player-songbar:hover .player-songbar-bar {
+  background: $dark-orange2;
+}
+
+/* TIME counters */
 #player-songbar-current-time span, #player-songbar-total-time span {
   background: $black;
   font-size: 12px;

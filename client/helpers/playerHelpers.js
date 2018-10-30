@@ -25,7 +25,10 @@ const convertToMinSec = (timeSec) => {
 };
 
 const colorBar = (currentTime, totalTime, barFrac) => {
-
+  if ((currentTime / totalTime) > barFrac) {
+    return 'player-songbar-bar';
+  }
+  return 'player-songbar-bar-to-play';
 };
 
 const helpers = { createSongBar, convertToMinSec, colorBar };
