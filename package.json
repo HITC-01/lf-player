@@ -13,7 +13,7 @@
   },
   "scripts": {
     "seed": "bash seeder.sh",
-    "test": "./node_modules/jest-cli/bin/jest.js playerHelpers.test.js"
+    "test": "jest playerHelpers.test.js"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
