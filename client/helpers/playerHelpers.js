@@ -1,8 +1,10 @@
-const createSongBar = (heights, max, nBars = 140) => {
+const createSongBar = (heights, max) => {
   const bars = [];
+  const nBars = 140;
   let profile = heights.split(',');
   profile = profile.map(height => Number(height));
   profile.pop();
+
   const barInterval = Math.floor(profile.length / nBars);
   for (let i = 0; i < nBars; i += 1) {
     let mean = profile.slice(i * barInterval, (i + 1) * barInterval);
@@ -13,9 +15,6 @@ const createSongBar = (heights, max, nBars = 140) => {
 };
 
 const convertToMinSec = (timeSec) => {
-  if (typeof timeSec !== 'number') {
-    return '0:00';
-  }
   const minutes = `${Math.floor(timeSec / 60)}`;
   let seconds = `${(timeSec - minutes * 60)}`;
   if (seconds.length === 1) {
