@@ -3,6 +3,8 @@ import SongDisplay from './SongDisplay.jsx';
 import SongTracker from './SongTracker.jsx';
 import helpers from '../helpers/playerHelpers.js';
 
+const nSongs = 100;
+
 class Player extends React.Component {
   constructor(props) {
     super(props);
@@ -18,14 +20,11 @@ class Player extends React.Component {
       },
       comments: [],
       songProfile: { profile: [] },
-      artists: new Set(),
-      nSongs: 100,
     };
 
     this.getSongData = this.getSongData.bind(this);
     this.getSongProfile = this.getSongProfile.bind(this);
     this.getComments = this.getComments.bind(this);
-    this.getArtists = this.getArtists.bind(this);
     this.handleAlbumClick = this.handleAlbumClick.bind(this);
     this.handleBarClick = this.handleBarClick.bind(this);
     this.handleBarHover = this.handleBarHover.bind(this);
@@ -38,15 +37,10 @@ class Player extends React.Component {
   }
 
   componentDidMount() {
-    const { nSongs } = this.state;
     const songId = Math.floor(Math.random() * nSongs) + 1;
     this.getSongData(songId)
       .then(() => this.getSongProfile(songId))
       .then(() => this.getComments(songId))
-      .then(() => {
-        const { artists } = this.state;
-        this.getArtists(artists);
-      })
       .catch(err => console.log(`Error: ${err}`));
   }
 
@@ -55,18 +49,20 @@ class Player extends React.Component {
     return fetch(url, { method: 'GET' })
       .then(stream => stream.json())
       .then((res) => {
-        const { artists, playState } = this.state;
-        artists.add(res.data.artist_id);
+        console.log('in song get', res.data);
+        const { playState } = this.state;
         playState.totalTime = res.data.duration;
-        this.setState({ song: res.data, artists, playState });
+        this.setState({ song: res.data, playState });
       });
   }
 
   getSongProfile(id) {
-    const url = `/songProfiles/${id}`;
+    const url = `/songs/${id}/songProfile`;
     return fetch(url, { method: 'GET' })
       .then(stream => stream.json())
       .then((res) => {
+        console.log('in song profile get', res.data);
+
         const songProfile = res.data;
         songProfile.profile = helpers.createSongBar(res.data.profile, res.data.height);
         this.setState({ songProfile });
@@ -74,26 +70,12 @@ class Player extends React.Component {
   }
 
   getComments(id) {
-    const url = `/comments?song=${id}`;
+    const url = `/songs/${id}/comments`;
     return fetch(url, { method: 'GET' })
       .then(stream => stream.json())
       .then((res) => {
-        const { artists } = this.state;
-        res.data.forEach(comment => artists.add(comment.artist_id));
-        this.setState({ comments: res.data, artists });
-      });
-  }
-
-  getArtists(ids) {
-    const idsArray = Array.from(ids);
-    const idString = idsArray.join(',') || '1';
-    const url = `/artists?id=${idString}`;
-    return fetch(url, { method: 'GET' })
-      .then(stream => stream.json())
-      .then((res) => {
-        const { song } = this.state;
-        song.artist = res.data.find(artist => artist.id === song.artist_id).name;
-        this.setState({ artists: res.data });
+        console.log('returning to comments: ', res.data);
+        this.setState({ comments: res.data });
       });
   }
 

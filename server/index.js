@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const db = require('../database');
+const db = require('../database/controllers');
 
 const app = express();
 
@@ -25,41 +25,30 @@ app.get('/songs/:song', (req, res) => {
       res.status(200).send(JSON.stringify({ data: songData[0] }));
     })
     .catch((err) => {
-      res.status(404).send(err);
+      res.status(500).send(`Error connecting to server: ${err}`);
     });
 });
 
-app.get('/songProfiles/:song', (req, res) => {
+app.get('/songs/:song/songProfile', (req, res) => {
   const { song } = req.params;
   db.getSoundProfile(song)
     .then((songProfile) => {
       res.status(200).send(JSON.stringify({ data: songProfile[0] }));
     })
     .catch((err) => {
-      res.status(404).send(err);
+      res.status(500).send(`Error connecting to server: ${err}`);
     });
 });
 
 // This is to return queries for comments sorted
-app.get('/comments', (req, res) => {
+app.get('/songs/:song/comments', (req, res) => {
   const song = req.query.song || '*';
   db.getComments(song)
     .then((comments) => {
       res.status(200).send(JSON.stringify({ data: comments }));
     })
     .catch((err) => {
-      res.status(404).send(err);
-    });
-});
-
-app.get('/artists', (req, res) => {
-  const ids = req.query.id || '*';
-  db.getArtists(ids)
-    .then((artists) => {
-      res.status(200).send(JSON.stringify({ data: artists }));
-    })
-    .catch((err) => {
-      res.status(404).send(err);
+      res.status(500).send(`Error connecting to server: ${err}`);
     });
 });
 
