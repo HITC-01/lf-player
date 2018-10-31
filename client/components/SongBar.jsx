@@ -4,41 +4,50 @@ import SongBarEntry from './SongBarEntry.jsx';
 import helpers from '../helpers/playerHelpers.js';
 
 const SongBar = ({
-  songProfile, handleScan, currentTime, totalTime,
+  songProfile, playState, handleScan, handleExit, handleClick,
 }) => {
-  const upperBars = [];
-  const lowerBars = [];
-  const currentMinSec = helpers.convertToMinSec(currentTime);
-  const totalMinSec = helpers.convertToMinSec(totalTime);
+  const bars = [[], []];
+  const locations = ['upper', 'lower'];
+  const currentMinSec = helpers.convertToMinSec(playState.currentTime);
+  const totalMinSec = helpers.convertToMinSec(playState.totalTime);
+  const nBars = songProfile.profile.length;
 
   songProfile.profile.forEach((bar, i) => {
-    lowerBars.push((<SongBarEntry
-      position="lower"
-      bar={bar}
-      currentTime={currentTime}
-      totalTime={totalTime}
-      barFraction={i / songProfile.profile.length}
-      key={`bar_lower_${i}`}
-    />
-    ));
-    upperBars.push((<SongBarEntry
-      position="upper"
-      bar={bar}
-      currentTime={currentTime}
-      totalTime={totalTime}
-      barFraction={i / songProfile.profile.length}
-      key={`bar_upper_${i}`}
-    />
-    ));
+    locations.forEach((location, j) => {
+      bars[j].push((<SongBarEntry
+        position={location}
+        bar={bar}
+        number={i}
+        playState={playState}
+        barFraction={i / nBars}
+        handleScan={(location === 'upper') ? handleScan : () => {}}
+        handleExit={(location === 'upper') ? handleExit : () => {}}
+        handleClick={(location === 'upper') ? handleClick : () => {}}
+        key={`bar_${location}_${i}`}
+      />
+      ));
+    });
   });
+  const handleBarClick = (e) => {
+    console.log('in bar', Object.keys(e.target.className, e.target.id), e.screenX, e.target.offsetLeft, e.target.offsetWidth);
+    if (e.target.offsetWidth < 5) {
+      handleClick(e.target.offsetLeft / nBars);
+    } else {
+      handleClick((e.screenX - e.target.offsetLeft) / e.target.offsetWidth);
+    }
+  };
 
   return (
-    <div id="player-songbar">
+    <div
+      id="player-songbar"
+      onPointerLeave={() => handleExit()}
+      onClick={handleBarClick}
+    >
       <div id="player-songbar-upper">
-        { upperBars }
+        { bars[0] }
       </div>
       <div id="player-songbar-lower">
-        { lowerBars }
+        { bars[1] }
       </div>
       <div id="player-songbar-current-time"><span>{currentMinSec}</span></div>
       <div id="player-songbar-total-time"><span>{totalMinSec}</span></div>
@@ -48,9 +57,10 @@ const SongBar = ({
 
 SongBar.propTypes = {
   songProfile: PropTypes.object.isRequired,
+  playState: PropTypes.object.isRequired,
   handleScan: PropTypes.func.isRequired,
-  currentTime: PropTypes.number.isRequired,
-  totalTime: PropTypes.number.isRequired,
+  handleExit: PropTypes.func.isRequired,
+  handleClick: PropTypes.func.isRequired,
 };
 
 export default SongBar;

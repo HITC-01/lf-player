@@ -8,13 +8,15 @@ class Player extends React.Component {
     super(props);
     this.state = {
       song: { album_imageUrl: '', duration: 0 },
+      playState: {
+        playing: false, intervalId: 0,
+        currentTime: 0, hoverPosition: 0,
+        hovering: false,
+      },
       comments: [],
       songProfile: { profile: [] },
       artists: new Set(),
-      playing: false,
-      currentTime: 0,
       nSongs: 100,
-      intervalId: 0,
     };
 
     this.getSongData = this.getSongData.bind(this);
@@ -22,6 +24,9 @@ class Player extends React.Component {
     this.getComments = this.getComments.bind(this);
     this.getArtists = this.getArtists.bind(this);
     this.handleAlbumClick = this.handleAlbumClick.bind(this);
+    this.handleBarClick = this.handleBarClick.bind(this);
+    this.handleBarHover = this.handleBarHover.bind(this);
+    this.handleBarExit = this.handleBarExit.bind(this);
     this.handleInfoClick = this.handleInfoClick.bind(this);
     this.handlePlayClick = this.handlePlayClick.bind(this);
     this.count = this.count.bind(this);
@@ -47,9 +52,10 @@ class Player extends React.Component {
     return fetch(url, { method: 'GET' })
       .then(stream => stream.json())
       .then((res) => {
-        const { artists } = this.state;
+        const { artists, playState } = this.state;
         artists.add(res.data.artist_id);
-        this.setState({ song: res.data, artists });
+        playState.totalTime = res.data.duration;
+        this.setState({ song: res.data, artists, playState });
       });
   }
 
@@ -76,9 +82,8 @@ class Player extends React.Component {
   }
 
   getArtists(ids) {
-    let idString = '';
-    ids.forEach((id) => { idString += `${id},`; });
-    idString = idString.substring(0, idString.length - 2);
+    const idsArray = Array.from(ids);
+    const idString = idsArray.join(',') || '1';
     const url = `/artists?id=${idString}`;
     return fetch(url, { method: 'GET' })
       .then(stream => stream.json())
@@ -94,44 +99,78 @@ class Player extends React.Component {
       to the ${type} page`);
   }
 
+  handleBarHover(bar) {
+    const { playState, songProfile } = this.state;
+    playState.hoverPosition = bar / songProfile.profile.length;
+    playState.hovering = true;
+    this.setState({ playState });
+  }
+
+  handleBarExit() {
+    const { playState } = this.state;
+    playState.hoverPosition = 0;
+    playState.hovering = false;
+    this.setState({ playState });
+  }
+
+  handleBarClick(fraction) {
+    let { playState } = this.state;
+    console.log('I was clicked!', fraction, playState.totalTime, Math.floor(fraction * playState.totalTime));
+    if (!playState.playing) {
+      this.handlePlayClick();
+    }
+    playState = {
+      ...playState,
+      currentTime: Math.floor(fraction * playState.totalTime),
+      hovering: false,
+    };
+    this.setState({ playState });
+  }
+
   handleInfoClick(info) {
     window.alert(`On click, this would send you to
       the ${info} page`);
   }
 
   handlePlayClick() {
-    const { playing } = this.state;
-    if (playing) {
+    const { playState } = this.state;
+    if (playState.playing) {
       this.pause();
     } else {
       this.play();
     }
-    this.setState({ playing: !playing });
+    playState.playing = !playState.playing;
+    this.setState({ playState });
   }
 
   count() {
-    const { currentTime, song, intervalId } = this.state;
-    if (currentTime >= song.duration) {
-      this.setState({ currentTime: song.duration });
-      clearInterval(intervalId);
+    let { playState } = this.state;
+    if (playState.currentTime >= playState.totalTime) {
+      playState = { ...playState, currentTime: playState.totalTime, playing: false };
+      this.setState({ playState });
+      clearInterval(playState.intervalId);
       return;
     }
-    this.setState({ currentTime: currentTime + 1 });
+    playState = { ...playState, currentTime: playState.currentTime + 1 };
+    this.setState({ playState });
   }
 
   play() {
+    const { playState } = this.state;
     const intervalId = setInterval(this.count, 1000);
-    this.setState({ intervalId });
+    playState.intervalId = intervalId;
+    playState.hoverPosition = null;
+    this.setState({ playState });
   }
 
   pause() {
-    const { intervalId } = this.state;
-    clearInterval(intervalId);
+    const { playState } = this.state;
+    clearInterval(playState.intervalId);
   }
 
   render() {
     const {
-      song, playing, currentTime, songProfile, comments,
+      song, playState, songProfile, comments,
     } = this.state;
 
     return (
@@ -141,17 +180,18 @@ class Player extends React.Component {
       >
         <SongDisplay
           song={song}
-          playing={playing}
+          playing={playState.playing}
           handleAlbumClick={this.handleAlbumClick}
           handleInfoClick={this.handleInfoClick}
           handlePlayClick={this.handlePlayClick}
         />
         <SongTracker
           songProfile={songProfile}
-          currentTime={currentTime}
-          totalTime={song.duration}
+          playState={playState}
           comments={comments}
-          handleScan={() => {}}
+          handleScan={this.handleBarHover}
+          handleExit={this.handleBarExit}
+          handleBarClick={this.handleBarClick}
           handleReplyComment={() => {}}
         />
       </div>

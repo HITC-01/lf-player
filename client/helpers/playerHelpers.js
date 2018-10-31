@@ -1,6 +1,6 @@
 const createSongBar = (heights, max) => {
   const bars = [];
-  const nBars = 150;
+  const nBars = 140;
   let profile = heights.split(',');
   profile = profile.map(height => Number(height));
   profile.pop();
@@ -20,15 +20,24 @@ const convertToMinSec = (timeSec) => {
   if (seconds.length === 1) {
     seconds = `0${seconds}`;
   }
-
   return `${minutes}:${seconds}`;
 };
 
-const colorBar = (currentTime, totalTime, barFrac) => {
-  if ((currentTime / totalTime) > barFrac) {
-    return 'player-songbar-bar';
+const colorBar = (barFrac, {
+  currentTime, totalTime, playing, hovering, hoverPosition,
+}) => {
+  const playPosition = currentTime / totalTime;
+  let barString = '';
+  const barBetween = (hovering && (((hoverPosition > barFrac) && (playPosition < barFrac))
+    || ((hoverPosition < barFrac) && (playPosition > barFrac))));
+
+  if (playing && barBetween) {
+    barString += '-hover-middle';
+  } else {
+    barString += (playing) ? '-playing' : '';
+    barString += (playPosition > barFrac) ? '' : '-to-play';
   }
-  return 'player-songbar-bar-to-play';
+  return barString;
 };
 
 const helpers = { createSongBar, convertToMinSec, colorBar };
