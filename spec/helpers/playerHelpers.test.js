@@ -2,9 +2,32 @@
 import helpers from '../../client/helpers/playerHelpers.js';
 
 describe('createSongBar', () => {
-  // test('', () => {
-  //   expect().toBe();
-  // });
+  let heights = '';
+  let max = 0;
+
+  beforeEach(() => {
+    heights = '';
+    max = Math.floor(Math.random() * 30) + 100;
+    const soundLength = Math.floor(Math.random() * 100) + 700;
+    for (let i = 0; i < soundLength; i += 1) {
+      heights += `${Math.floor(Math.random() * max)},`;
+    }
+  });
+
+  test('should return an array of default length (140) of numbers representing song profile', () => {
+    const songProfile = helpers.createSongBar(heights, max);
+    expect(songProfile.length).toBe(140);
+    expect(Math.max(...songProfile)).toBeLessThanOrEqual(1);
+    expect(Math.min(...songProfile)).toBeGreaterThanOrEqual(0);
+  });
+
+  test('should return an array of default length (70) of numbers representing song profile', () => {
+    const songProfile = helpers.createSongBar(heights, max, 70);
+    expect(songProfile.length).toBe(70);
+    expect(Math.max(...songProfile)).toBeLessThanOrEqual(1);
+    expect(Math.min(...songProfile)).toBeGreaterThanOrEqual(0);
+  });
+
   // test('', () => {
   //   expect().toBe();
   // });
@@ -33,10 +56,10 @@ describe('convertToMinSec', () => {
 
 
 // Tests for COLORBAR
-const barFrac = 0.5;
-let playStats = { };
-
 describe('colorBar', () => {
+  const barFrac = 0.5;
+  let playStats = { };
+
   beforeEach(() => {
     playStats = {
       currentTime: 0,

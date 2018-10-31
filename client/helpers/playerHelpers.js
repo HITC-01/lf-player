@@ -3,7 +3,6 @@ const createSongBar = (heights, max, nBars = 140) => {
   let profile = heights.split(',');
   profile = profile.map(height => Number(height));
   profile.pop();
-
   const barInterval = Math.floor(profile.length / nBars);
   for (let i = 0; i < nBars; i += 1) {
     let mean = profile.slice(i * barInterval, (i + 1) * barInterval);
