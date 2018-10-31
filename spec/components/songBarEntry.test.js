@@ -22,16 +22,17 @@ describe('SongBarEntry component', () => {
         hovering: false,
       },
       barFraction: 0.9,
-      handleScan: jest.fn(x => x),
-      handleClick: jest.fn(x => x),
+      handleScan: jest.fn(),
+      handleClick: jest.fn(),
     };
   });
 
   test('check props', () => {
     const component = shallow(<SongBarEntry {...props} />);
-    expect(component.props().length).toBe(4);
-    expect(component.props('position')).toBe('upper');
-    expect(component.props('onClick')).toBeInstanceOf(Function);
+    const propsOut = Array.from(Object.keys(component.props()));
+    expect(propsOut.length).toBe(4);
+    expect(component.prop('className')).toBe('player-songbar-upper-to-play');
+    expect(component.prop('onClick')).toBeInstanceOf(Function);
   });
 
   test('render single song bar upper bar with correct class', () => {
@@ -54,9 +55,15 @@ describe('SongBarEntry component', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  // test('respond to clicks', () => {
-  //   const component = shallow(<SongBarEntry {...props} />);
-  //   component.find('div').simulate('click');
-  //   expect(fraction).toBe(0.9);
-  // });
+  test('respond to clicks', () => {
+    const component = shallow(<SongBarEntry {...props} />);
+    component.find('div').simulate('click');
+    expect(props.handleClick).toHaveBeenCalled();
+  });
+
+  test('respond to pointerOver', () => {
+    const component = shallow(<SongBarEntry {...props} />);
+    component.find('div').simulate('pointerOver');
+    expect(props.handleScan).toHaveBeenCalled();
+  });
 });
