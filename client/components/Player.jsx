@@ -9,8 +9,11 @@ class Player extends React.Component {
     this.state = {
       song: { album_imageUrl: '', duration: 0 },
       playState: {
-        playing: false, intervalId: 0,
-        currentTime: 0, hoverPosition: 0,
+        playing: false,
+        intervalId: 0,
+        currentTime: 0,
+        totalTime: 1,
+        hoverPosition: 0,
         hovering: false,
       },
       comments: [],
@@ -100,7 +103,7 @@ class Player extends React.Component {
   }
 
   handleBarHover(fraction) {
-    const { playState, songProfile } = this.state;
+    const { playState } = this.state;
     playState.hoverPosition = fraction;
     playState.hovering = true;
     this.setState({ playState });

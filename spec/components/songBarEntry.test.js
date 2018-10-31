@@ -1,51 +1,62 @@
 /* eslint-env jest */
+/* eslint react/jsx-filename-extension: 0 */
+
 import React from 'react';
+import renderer from 'react-test-renderer';
 import { shallow } from '../enzyme';
 import SongBarEntry from '../../client/components/SongBarEntry.jsx';
 
 describe('SongBarEntry component', () => {
-  let props = {
-    position: 'upper',
-    number: 200,
-    bar: 0.5,
-    playState: {},
-    barFraction: ,
-    handleScan,
-    handleExit,
-    handleClick,
-  };
+  let props = { };
 
-  test('Should render single song bar bar', () => {
-    const component = renderer.create(<SongBarEntry />);
-    const tree = component.toJSON();
+  beforeEach(() => {
+    props = {
+      position: 'upper',
+      barHeight: 0.5,
+      playState: {
+        playing: false,
+        intervalId: 0,
+        currentTime: 0,
+        totalTime: 300,
+        hoverPosition: 0,
+        hovering: false,
+      },
+      barFraction: 0.9,
+      handleScan: jest.fn(x => x),
+      handleClick: jest.fn(x => x),
+    };
+  });
+
+  test('check props', () => {
+    const component = shallow(<SongBarEntry {...props} />);
+    expect(component.props().length).toBe(4);
+    expect(component.props('position')).toBe('upper');
+    expect(component.props('onClick')).toBeInstanceOf(Function);
+  });
+
+  test('render single song bar upper bar with correct class', () => {
+    const component = shallow(<SongBarEntry {...props} />);
+    expect(component.find('div')).toBeDefined();
+    expect(component.find('div').hasClass('player-songbar-upper-to-play')).toBe(true);
+  });
+
+  test('render single song bar lower bar with correct class', () => {
+    props.position = 'lower';
+    const component = shallow(<SongBarEntry {...props} />);
+    expect(component.find('div')).toBeDefined();
+    expect(component.find('div').hasClass('player-songbar-lower-to-play')).toBe(true);
+  });
+
+  test('render basic snapshot', () => {
+    const tree = renderer
+      .create(<SongBarEntry {...props} />)
+      .toJSON();
     expect(tree).toMatchSnapshot();
   });
-});
 
-describe('List tests', () => {
-
-  it('renders list-items', () => {
-    const items = ['one', 'two', 'three'];
-    const wrapper = shallow(<List items={items} />);
-
-    // Expect the wrapper object to be defined
-    expect(wrapper.find('.list-items')).toBeDefined();
-    expect(wrapper.find('.item')).toHaveLength(items.length);
-  });
-
-  it('renders a list item', () => {
-    const items = ['Thor', 'Loki'];
-    const wrapper = shallow(<List items={items} />);
-
-    // Check if an element in the Component exists
-    expect(wrapper.contains(<li key='Thor' className="item">Thor</li >)).toBeTruthy();
-  });
-
-  it('renders correct text in item', () => {
-    const items = ['John', 'James', 'Luke'];
-    const wrapper = shallow(<List items={items} />);
-
-    //Expect the child of the first item to be an array
-    expect(wrapper.find('.item').get(0).props.children).toEqual('John');
-  });
+  // test('respond to clicks', () => {
+  //   const component = shallow(<SongBarEntry {...props} />);
+  //   component.find('div').simulate('click');
+  //   expect(fraction).toBe(0.9);
+  // });
 });

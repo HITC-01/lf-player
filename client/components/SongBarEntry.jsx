@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import helpers from '../helpers/playerHelpers.js';
 
 const SongBarEntry = ({
-  position, bar, playState, barFraction,
-  handleScan, handleExit, handleClick,
+  position, barHeight, playState, barFraction,
+  handleScan, handleClick,
 }) => {
   const height = (position === 'lower') ? 30 : 70;
   let barClass = `player-songbar-${position}`;
@@ -13,7 +13,7 @@ const SongBarEntry = ({
   return (
     <div
       className={barClass}
-      style={{ height: Math.floor(height * bar) }}
+      style={{ height: Math.floor(height * barHeight) }}
       onClick={() => handleClick(barFraction)}
       onPointerOver={() => handleScan(barFraction)}
     />
@@ -22,11 +22,10 @@ const SongBarEntry = ({
 
 SongBarEntry.propTypes = {
   position: PropTypes.string.isRequired,
-  bar: PropTypes.number.isRequired,
+  barHeight: PropTypes.number.isRequired,
   playState: PropTypes.object.isRequired,
   barFraction: PropTypes.number.isRequired,
   handleScan: PropTypes.func.isRequired,
-  handleExit: PropTypes.func.isRequired,
   handleClick: PropTypes.func.isRequired,
 };
 

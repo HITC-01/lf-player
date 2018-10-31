@@ -12,15 +12,14 @@ const SongBar = ({
   const totalMinSec = helpers.convertToMinSec(playState.totalTime);
   const nBars = songProfile.profile.length;
 
-  songProfile.profile.forEach((bar, i) => {
+  songProfile.profile.forEach((barHeight, i) => {
     locations.forEach((location, j) => {
       bars[j].push((<SongBarEntry
         position={location}
-        bar={bar}
+        barHeight={barHeight}
         playState={playState}
         barFraction={i / nBars}
         handleScan={(location === 'upper') ? handleScan : () => {}}
-        handleExit={(location === 'upper') ? handleExit : () => {}}
         handleClick={(location === 'upper') ? handleClick : () => {}}
         key={`bar_${location}_${i}`}
       />
