@@ -61,8 +61,6 @@ class Player extends React.Component {
     return fetch(url, { method: 'GET' })
       .then(stream => stream.json())
       .then((res) => {
-        console.log('in song profile get', res.data);
-
         const songProfile = res.data;
         songProfile.profile = helpers.createSongBar(res.data.profile, res.data.height);
         this.setState({ songProfile });

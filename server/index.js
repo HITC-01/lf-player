@@ -25,7 +25,7 @@ app.get('/songs/:song', (req, res) => {
       res.status(200).send(JSON.stringify({ data: songData[0] }));
     })
     .catch((err) => {
-      res.status(500).send(`Error connecting to server: ${err}`);
+      res.status(500).send(`Error connecting to DB: ${err}`);
     });
 });
 
@@ -36,19 +36,19 @@ app.get('/songs/:song/songProfile', (req, res) => {
       res.status(200).send(JSON.stringify({ data: songProfile[0] }));
     })
     .catch((err) => {
-      res.status(500).send(`Error connecting to server: ${err}`);
+      res.status(500).send(`Error connecting to DB: ${err}`);
     });
 });
 
 // This is to return queries for comments sorted
 app.get('/songs/:song/comments', (req, res) => {
-  const song = req.query.song || '*';
+  const { song } = req.params;
   db.getComments(song)
     .then((comments) => {
       res.status(200).send(JSON.stringify({ data: comments }));
     })
     .catch((err) => {
-      res.status(500).send(`Error connecting to server: ${err}`);
+      res.status(500).send(`Error connecting to DB: ${err}`);
     });
 });
 
