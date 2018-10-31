@@ -85,7 +85,7 @@ class Player extends React.Component {
     const idsArray = Array.from(ids);
     const idString = idsArray.join(',') || '1';
     const url = `/artists?id=${idString}`;
-    return fetch(url, { method: 'GET' })
+    return window.fetch(url, { method: 'GET' })
       .then(stream => stream.json())
       .then((res) => {
         const { song } = this.state;
