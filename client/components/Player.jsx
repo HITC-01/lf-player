@@ -99,9 +99,9 @@ class Player extends React.Component {
       to the ${type} page`);
   }
 
-  handleBarHover(bar) {
+  handleBarHover(fraction) {
     const { playState, songProfile } = this.state;
-    playState.hoverPosition = bar / songProfile.profile.length;
+    playState.hoverPosition = fraction;
     playState.hovering = true;
     this.setState({ playState });
   }

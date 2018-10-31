@@ -17,7 +17,6 @@ const SongBar = ({
       bars[j].push((<SongBarEntry
         position={location}
         bar={bar}
-        number={i}
         playState={playState}
         barFraction={i / nBars}
         handleScan={(location === 'upper') ? handleScan : () => {}}
