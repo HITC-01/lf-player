@@ -2,6 +2,8 @@
 import helpers from '../../client/helpers/playerHelpers.js';
 
 describe('createSongBar', () => {
+  // TODO: Add in a test for edge case where len input < nBars
+  // TODO: addin in a test for different inputs?
   let heights = '';
   let max = 0;
 
@@ -21,22 +23,12 @@ describe('createSongBar', () => {
     expect(Math.min(...songProfile)).toBeGreaterThanOrEqual(0);
   });
 
-  test('should return an array of default length (70) of numbers representing song profile', () => {
-    const songProfile = helpers.createSongBar(heights, max, 70);
-    expect(songProfile.length).toBe(70);
+  test('should return an array of varied length (170) of numbers representing song profile', () => {
+    const songProfile = helpers.createSongBar(heights, max, 170);
+    expect(songProfile.length).toBe(170);
     expect(Math.max(...songProfile)).toBeLessThanOrEqual(1);
     expect(Math.min(...songProfile)).toBeGreaterThanOrEqual(0);
   });
-
-  // test('', () => {
-  //   expect().toBe();
-  // });
-  // test('', () => {
-  //   expect().toBe();
-  // });
-  // test('', () => {
-  //   expect().toBe();
-  // });
 });
 
 describe('convertToMinSec', () => {

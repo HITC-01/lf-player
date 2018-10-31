@@ -13,7 +13,7 @@
   },
   "scripts": {
     "seed": "bash seeder.sh",
-    "test": "jest playerHelpers.test.js"
+    "test": "jest"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
@@ -42,6 +42,7 @@
     "jest": "^23.6.0",
     "jest-cli": "^23.6.0",
     "nodemon": "^1.18.4",
+    "react-test-renderer": "^16.6.0",
     "sass": "^1.14.3",
     "webpack": "^4.23.0",
     "webpack-cli": "^3.1.2"
