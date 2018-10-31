@@ -27,7 +27,7 @@ const SongBar = ({
     });
   });
   const handleBarClick = (e) => {
-    console.log('in bar', Object.keys(e.target.className, e.target.id), e.screenX, e.target.offsetLeft, e.target.offsetWidth);
+    console.log('in bar', e.target.offsetLeft, e.target.offsetWidth);
     if (e.target.offsetWidth < 5) {
       handleClick(e.target.offsetLeft / nBars);
     } else {
