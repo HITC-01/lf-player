@@ -4,23 +4,11 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { shallow } from '../enzyme';
-import SongTracker from '../../client/components/SongTracker.jsx';
+import Player from '../../client/components/Player.jsx';
 
-describe('SongTracker component', () => {
-  let props = {};
-
-  beforeEach(() => {
-    props = {
-      songProfile: { profile: [] },
-      comments: [],
-      playState: {},
-      handleScan: jest.fn(),
-      handleBarClick: jest.fn(),
-    };
-  });
-
+describe('Player component', () => {
   test('check props', () => {
-    const component = shallow(<SongTracker {...props} />);
+    const component = shallow(<Player />);
     const propsOut = Array.from(Object.keys(component.props()));
     expect(propsOut.length).toBe(2);
     expect(component.prop('id')).toBe('player-profile');
@@ -38,7 +26,7 @@ describe('SongTracker component', () => {
 
   test('render basic snapshot', () => {
     const tree = renderer
-      .create(<SongTracker {...props} />)
+      .create(<Player />)
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
