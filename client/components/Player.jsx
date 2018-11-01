@@ -23,7 +23,6 @@ class Player extends React.Component {
     };
 
     this.getSongData = this.getSongData.bind(this);
-    this.getSongProfile = this.getSongProfile.bind(this);
     this.getComments = this.getComments.bind(this);
     this.handleAlbumClick = this.handleAlbumClick.bind(this);
     this.handleBarClick = this.handleBarClick.bind(this);
@@ -39,40 +38,50 @@ class Player extends React.Component {
   componentDidMount() {
     const songId = Math.floor(Math.random() * nSongs) + 1;
     this.getSongData(songId)
-      .then(() => this.getSongProfile(songId))
       .then(() => this.getComments(songId))
       .catch(err => console.log(`Error: ${err}`));
   }
 
   getSongData(id) {
-    const url = `/songs/${id}`;
+    const url = `sc/songs/${id}`;
     return fetch(url, { method: 'GET' })
       .then(stream => stream.json())
       .then((res) => {
         console.log('in song get', res.data);
-        const { playState } = this.state;
+        const {
+          title,
+          tag,
+          album,
+          song_added,
+          album_imageUrl,
+          artist_name,
+          background_color,
+          duration,
+          height,
+          profile,
+        } = res.data;
+        const song = { song_added, tag, title, album, album_imageUrl, artist_name, background_color, duration };
+        const playState = {
+          playing: false,
+          intervalId: 0,
+          currentTime: 0,
+          totalTime: 1,
+          hoverPosition: 0,
+          hovering: false,
+        };
+        const songProfile = { height };
         playState.totalTime = res.data.duration;
-        this.setState({ song: res.data, playState });
-      });
-  }
+        songProfile.profile = helpers.createSongBar(profile, height);
 
-  getSongProfile(id) {
-    const url = `/songs/${id}/songProfile`;
-    return fetch(url, { method: 'GET' })
-      .then(stream => stream.json())
-      .then((res) => {
-        const songProfile = res.data;
-        songProfile.profile = helpers.createSongBar(res.data.profile, res.data.height);
-        this.setState({ songProfile });
+        this.setState({ song, playState, songProfile });
       });
   }
 
   getComments(id) {
-    const url = `/songs/${id}/comments`;
+    const url = `sc/songs/${id}/comments`;
     return fetch(url, { method: 'GET' })
       .then(stream => stream.json())
       .then((res) => {
-        console.log('returning to comments: ', res.data);
         this.setState({ comments: res.data });
       });
   }
