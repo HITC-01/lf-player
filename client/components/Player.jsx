@@ -17,14 +17,13 @@ class Player extends React.Component {
       songProfile: { profile: [] },
     };
 
+    this.count = this.count.bind(this);
     this.getSongData = this.getSongData.bind(this);
     this.getComments = this.getComments.bind(this);
     this.getPlayStateCopy = this.getPlayStateCopy.bind(this);
     this.handleAlbumClick = this.handleAlbumClick.bind(this);
     this.handleBarClick = this.handleBarClick.bind(this);
-    this.handleBarHover = this.handleBarHover.bind(this);
-    this.handleBarExit = this.handleBarExit.bind(this);
-    this.handleInfoClick = this.handleInfoClick.bind(this);
+    this.handleBarScan = this.handleBarScan.bind(this);
     this.handlePlayClick = this.handlePlayClick.bind(this);
   }
 
@@ -67,17 +66,10 @@ class Player extends React.Component {
       to the ${type} modal`);
   }
 
-  handleBarHover(fraction) {
+  handleBarScan(hovering = false, fraction = 0) {
     const playState = this.getPlayStateCopy();
     playState.hoverPosition = fraction;
-    playState.hovering = true;
-    this.setState({ playState });
-  }
-
-  handleBarExit() {
-    const playState = this.getPlayStateCopy();
-    playState.hoverPosition = 0;
-    playState.hovering = false;
+    playState.hovering = hovering;
     this.setState({ playState });
   }
 
@@ -93,11 +85,6 @@ class Player extends React.Component {
       hovering: false,
     };
     this.setState({ playState });
-  }
-
-  handleInfoClick(info) {
-    window.alert(`On click, this would send you to
-      the ${info} page`);
   }
 
   handlePlayClick() {
@@ -124,6 +111,7 @@ class Player extends React.Component {
   }
 
   play() {
+    console.log('play', this);
     const playState = this.getPlayStateCopy();
     const intervalId = setInterval(this.count, 1000);
     playState.intervalId = intervalId;
@@ -150,15 +138,13 @@ class Player extends React.Component {
           song={song}
           playing={playState.playing}
           handleAlbumClick={this.handleAlbumClick}
-          handleInfoClick={this.handleInfoClick}
           handlePlayClick={this.handlePlayClick}
         />
         <SongTracker
           songProfile={songProfile}
           playState={playState}
           comments={comments}
-          handleScan={this.handleBarHover}
-          handleExit={this.handleBarExit}
+          handleScan={this.handleBarScan}
           handleBarClick={this.handleBarClick}
           handleReplyComment={() => {}}
         />

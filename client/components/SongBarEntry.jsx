@@ -15,7 +15,7 @@ const SongBarEntry = ({
       className={barClass}
       style={{ height: Math.floor(height * barHeight) }}
       onClick={() => handleClick(barFraction)}
-      onPointerOver={() => handleScan(barFraction)}
+      onPointerOver={() => handleScan(true, barFraction)}
     />
   );
 };

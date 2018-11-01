@@ -4,7 +4,7 @@ import SongBarEntry from './SongBarEntry.jsx';
 import helpers from '../helpers/playerHelpers.js';
 
 const SongBar = ({
-  songProfile, playState, handleScan, handleExit, handleClick,
+  songProfile, playState, handleScan, handleClick,
 }) => {
   const bars = [[], []];
   const locations = ['upper', 'lower'];
@@ -38,7 +38,7 @@ const SongBar = ({
   return (
     <div
       id="player-songbar"
-      onPointerLeave={() => handleExit()}
+      onPointerLeave={() => handleScan()}
       onClick={handleBarClick}
     >
       <div id="player-songbar-upper">
@@ -57,7 +57,6 @@ SongBar.propTypes = {
   songProfile: PropTypes.object.isRequired,
   playState: PropTypes.object.isRequired,
   handleScan: PropTypes.func.isRequired,
-  handleExit: PropTypes.func.isRequired,
   handleClick: PropTypes.func.isRequired,
 };
 
