@@ -17,6 +17,7 @@ class Player extends React.Component {
 
     this.getSongData = this.getSongData.bind(this);
     this.getComments = this.getComments.bind(this);
+    this.getPlayStateCopy = this.getPlayStateCopy.bind(this);
     this.handleAlbumClick = this.handleAlbumClick.bind(this);
     this.handleBarClick = this.handleBarClick.bind(this);
     this.handleBarHover = this.handleBarHover.bind(this);
@@ -33,6 +34,11 @@ class Player extends React.Component {
     this.getSongData(songId)
       .then(() => this.getComments(songId))
       .catch(err => console.log(`Error: ${err}`));
+  }
+
+  getPlayStateCopy() {
+    const { playState } = this.state;
+    return Object.assign({}, playState);
   }
 
   getSongData(id) {
@@ -58,19 +64,19 @@ class Player extends React.Component {
   }
 
   handleAlbumClick(type) {
-    window.alert(`On click, this would send you
-      to the ${type} page`);
+    window.alert(`On click, TODO
+      to the ${type} modal`);
   }
 
   handleBarHover(fraction) {
-    const { playState } = this.state;
+    const playState = this.getPlayStateCopy();
     playState.hoverPosition = fraction;
     playState.hovering = true;
     this.setState({ playState });
   }
 
   handleBarExit() {
-    const { playState } = this.state;
+    const playState = this.getPlayStateCopy();
     playState.hoverPosition = 0;
     playState.hovering = false;
     this.setState({ playState });
@@ -96,7 +102,8 @@ class Player extends React.Component {
   }
 
   handlePlayClick() {
-    const { playState } = this.state;
+    let { playState } = this.state;
+    playState = Object.assign({}, playState);
     if (playState.playing) {
       this.pause();
     } else {
@@ -119,7 +126,7 @@ class Player extends React.Component {
   }
 
   play() {
-    const { playState } = this.state;
+    const playState = this.getPlayStateCopy();
     const intervalId = setInterval(this.count, 1000);
     playState.intervalId = intervalId;
     playState.hoverPosition = null;
@@ -127,7 +134,7 @@ class Player extends React.Component {
   }
 
   pause() {
-    const { playState } = this.state;
+    const playState = this.getPlayStateCopy();
     clearInterval(playState.intervalId);
   }
 

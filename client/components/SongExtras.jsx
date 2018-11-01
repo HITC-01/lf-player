@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 
 const moment = require('moment');
 
-const SongExtras = ({
-  song, handleInfoClick,
-}) => {
+const SongExtras = ({ song, handleInfoClick }) => {
   const handleLinkClick = (e) => {
     e.preventDefault();
     handleInfoClick('Genre Tag');
