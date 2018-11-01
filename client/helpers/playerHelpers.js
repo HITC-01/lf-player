@@ -1,3 +1,36 @@
+const initializePlayState = () => ({
+  playing: false,
+  intervalId: 0,
+  currentTime: 0,
+  totalTime: 1,
+  hoverPosition: 0,
+  hovering: false,
+});
+
+const initializeStateFromData = ({
+  title,
+  tag,
+  album,
+  songAdded,
+  albumImageUrl,
+  artistName,
+  backgroundColor,
+  duration,
+  height,
+}) => ({
+  songProfile: { height },
+  song: {
+    title,
+    tag,
+    album,
+    songAdded,
+    albumImageUrl,
+    artistName,
+    backgroundColor,
+    duration,
+  },
+});
+
 const createSongBar = (heights, max, nBars = 140) => {
   const bars = [];
   let profile = heights.split(',');
@@ -42,5 +75,11 @@ const colorBar = (barFrac, {
   return barString;
 };
 
-const helpers = { createSongBar, convertToMinSec, colorBar };
+const helpers = {
+  createSongBar,
+  convertToMinSec,
+  colorBar,
+  initializePlayState,
+  initializeStateFromData,
+};
 export default helpers;

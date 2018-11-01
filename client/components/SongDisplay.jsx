@@ -19,7 +19,7 @@ const SongDisplay = ({
       handleInfoClick={handleInfoClick}
     />
     <SongArt
-      songImage={song.album_imageUrl}
+      songImage={song.albumImageUrl}
       handleAlbumClick={handleAlbumClick}
     />
   </div>

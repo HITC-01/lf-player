@@ -30,7 +30,7 @@ const SongMain = ({
         href="#"
         onClick={handleLinkClick}
       >
-        <span>{song.artist_name}</span>
+        <span>{song.artistName}</span>
       </a>
       <h1 id="player-main-title"><span>{song.title}</span></h1>
       <a

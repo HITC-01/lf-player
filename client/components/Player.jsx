@@ -9,15 +9,8 @@ class Player extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      song: { album_imageUrl: '', duration: 0 },
-      playState: {
-        playing: false,
-        intervalId: 0,
-        currentTime: 0,
-        totalTime: 1,
-        hoverPosition: 0,
-        hovering: false,
-      },
+      song: { albumImageUrl: '', duration: 0 },
+      playState: helpers.initializePlayState(),
       comments: [],
       songProfile: { profile: [] },
     };
@@ -47,32 +40,10 @@ class Player extends React.Component {
     return fetch(url, { method: 'GET' })
       .then(stream => stream.json())
       .then((res) => {
-        console.log('in song get', res.data);
-        const {
-          title,
-          tag,
-          album,
-          song_added,
-          album_imageUrl,
-          artist_name,
-          background_color,
-          duration,
-          height,
-          profile,
-        } = res.data;
-        const song = { song_added, tag, title, album, album_imageUrl, artist_name, background_color, duration };
-        const playState = {
-          playing: false,
-          intervalId: 0,
-          currentTime: 0,
-          totalTime: 1,
-          hoverPosition: 0,
-          hovering: false,
-        };
-        const songProfile = { height };
+        const { songProfile, song } = helpers.initializeStateFromData(res.data);
+        const playState = helpers.initializePlayState();
         playState.totalTime = res.data.duration;
-        songProfile.profile = helpers.createSongBar(profile, height);
-
+        songProfile.profile = helpers.createSongBar(res.data.profile, songProfile.height);
         this.setState({ song, playState, songProfile });
       });
   }
@@ -167,7 +138,7 @@ class Player extends React.Component {
 
     return (
       <div
-        className={`player-background-${song.background_color}`}
+        className={`player-background-${song.backgroundColor}`}
         id="player-all"
       >
         <SongDisplay

@@ -2,11 +2,11 @@ const connection = require('./index.js');
 
 module.exports.getSong = (songId) => {
   const select = `songs.album,
-    songs.album_imageUrl,
-    songs.background_color,
+    songs.album_imageUrl AS albumImageUrl,
+    songs.background_color AS backgroundColor,
     songs.duration,
-    artists.name AS artist_name,
-    songs.song_added,
+    artists.name AS artistName,
+    songs.song_added AS songAdded,
     songs.tag,
     songs.title,
     sound_profiles.height,
