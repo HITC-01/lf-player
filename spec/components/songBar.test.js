@@ -41,9 +41,16 @@ describe('SongBar component', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  test('respond to clicks', () => {
+  test('respond to clicks on individual bar', () => {
     const component = shallow(<SongBar {...props} />);
     const simTarget = { screenX: 0, target: { offsetWidth: 1, offsetLeft: 0 } };
+    component.find('#player-songbar').simulate('click', simTarget);
+    expect(props.handleClick).toHaveBeenCalled();
+  });
+
+  test('respond to clicks on parent', () => {
+    const component = shallow(<SongBar {...props} />);
+    const simTarget = { screenX: 0, target: { offsetWidth: 40, offsetLeft: 0 } };
     component.find('#player-songbar').simulate('click', simTarget);
     expect(props.handleClick).toHaveBeenCalled();
   });
