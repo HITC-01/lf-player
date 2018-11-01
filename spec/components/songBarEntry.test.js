@@ -15,7 +15,6 @@ describe('SongBarEntry component', () => {
       barHeight: 0.5,
       playState: {
         playing: false,
-        intervalId: 0,
         currentTime: 0,
         totalTime: 300,
         hoverPosition: 0,

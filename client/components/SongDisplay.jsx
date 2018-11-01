@@ -39,4 +39,3 @@ SongDisplay.propTypes = {
 };
 
 export default SongDisplay;
-
