@@ -8,6 +8,8 @@ const nSongs = 100;
 class Player extends React.Component {
   constructor(props) {
     super(props);
+
+    this.intervalId = 0;
     this.state = {
       song: { albumImageUrl: '', duration: 0 },
       playState: helpers.initializePlayState(),
@@ -24,9 +26,6 @@ class Player extends React.Component {
     this.handleBarExit = this.handleBarExit.bind(this);
     this.handleInfoClick = this.handleInfoClick.bind(this);
     this.handlePlayClick = this.handlePlayClick.bind(this);
-    this.count = this.count.bind(this);
-    this.play = this.play.bind(this);
-    this.pause = this.pause.bind(this);
   }
 
   componentDidMount() {
