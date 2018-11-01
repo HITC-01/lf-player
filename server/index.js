@@ -13,7 +13,7 @@ app.use((req, res, next) => {
 // Send out static files
 app.use(express.static(path.join(__dirname, '../public')));
 
-// TODO: is this the best way to do this?
+// Send routes to soundcloud
 app.use('/sc', songRoute);
 
 app.listen(process.env.PORT || 3004);

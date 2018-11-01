@@ -3,7 +3,9 @@ import SongDisplay from './SongDisplay.jsx';
 import SongTracker from './SongTracker.jsx';
 import helpers from '../helpers/playerHelpers.js';
 
-const nSongs = 100;
+const cloneDeep = require('lodash.clonedeep');
+
+const nSongsInDB = 100;
 
 class Player extends React.Component {
   constructor(props) {
@@ -20,7 +22,6 @@ class Player extends React.Component {
     this.count = this.count.bind(this);
     this.getSongData = this.getSongData.bind(this);
     this.getComments = this.getComments.bind(this);
-    this.getPlayStateCopy = this.getPlayStateCopy.bind(this);
     this.handleAlbumClick = this.handleAlbumClick.bind(this);
     this.handleBarClick = this.handleBarClick.bind(this);
     this.handleBarScan = this.handleBarScan.bind(this);
@@ -28,15 +29,10 @@ class Player extends React.Component {
   }
 
   componentDidMount() {
-    const songId = Math.floor(Math.random() * nSongs) + 1;
+    const songId = Math.floor(Math.random() * nSongsInDB) + 1;
     this.getSongData(songId)
       .then(() => this.getComments(songId))
       .catch(err => console.log(`Error: ${err}`));
-  }
-
-  getPlayStateCopy() {
-    const { playState } = this.state;
-    return Object.assign({}, playState);
   }
 
   getSongData(id) {
@@ -67,7 +63,7 @@ class Player extends React.Component {
   }
 
   handleBarScan(hovering = false, fraction = 0) {
-    const playState = this.getPlayStateCopy();
+    const { playState } = cloneDeep(this.state);
     playState.hoverPosition = fraction;
     playState.hovering = hovering;
     this.setState({ playState });
@@ -88,7 +84,7 @@ class Player extends React.Component {
   }
 
   handlePlayClick() {
-    const playState = this.getPlayStateCopy();
+    const { playState } = cloneDeep(this.state);
     if (playState.playing) {
       this.pause();
     } else {
@@ -103,7 +99,7 @@ class Player extends React.Component {
     if (playState.currentTime >= playState.totalTime) {
       playState = { ...playState, currentTime: playState.totalTime, playing: false };
       this.setState({ playState });
-      clearInterval(playState.intervalId);
+      clearInterval(this.intervalId);
       return;
     }
     playState = { ...playState, currentTime: playState.currentTime + 1 };
@@ -111,17 +107,14 @@ class Player extends React.Component {
   }
 
   play() {
-    console.log('play', this);
-    const playState = this.getPlayStateCopy();
-    const intervalId = setInterval(this.count, 1000);
-    playState.intervalId = intervalId;
+    const { playState } = cloneDeep(this.state);
+    this.intervalId = setInterval(this.count, 1000);
     playState.hoverPosition = null;
     this.setState({ playState });
   }
 
   pause() {
-    const playState = this.getPlayStateCopy();
-    clearInterval(playState.intervalId);
+    clearInterval(this.intervalId);
   }
 
   render() {

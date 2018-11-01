@@ -1,6 +1,5 @@
 const initializePlayState = () => ({
   playing: false,
-  intervalId: 0,
   currentTime: 0,
   totalTime: 1,
   hoverPosition: 0,
@@ -50,12 +49,17 @@ const convertToMinSec = (timeSec) => {
   if (typeof timeSec !== 'number') {
     return '0:00';
   }
-  const minutes = `${Math.floor(timeSec / 60)}`;
+
+  let hours = `${Math.floor(timeSec / 3600)}`;
+  hours = (hours === '0') ? '' : `${hours}:`;
+  let minutes = `${Math.floor(timeSec / 60)}`;
+  minutes = (hours === '' && minutes.length === 1) ? minutes : `0${minutes}`;
+
   let seconds = `${(timeSec - minutes * 60)}`;
   if (seconds.length === 1) {
     seconds = `0${seconds}`;
   }
-  return `${minutes}:${seconds}`;
+  return `${hours}${minutes}:${seconds}`;
 };
 
 const colorBar = (barFrac, {

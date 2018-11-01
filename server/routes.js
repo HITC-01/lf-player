@@ -3,21 +3,21 @@ const db = require('../database/controllers');
 
 const router = express.Router();
 
-const queryAll = (req, res) => {
+const queryAll = ({ type }) => ((req, res) => {
   const { song } = req.params;
-  let requestEnd = req.originalUrl.split('/');
-  requestEnd = requestEnd[requestEnd.length - 1];
-  const dbQuery = (requestEnd === 'comments') ? db.getComments : db.getSong;
+  const dbQuery = (type === 'comments') ? db.getComments : db.getSong;
 
   dbQuery(song)
-    .then((dbFind) => {
-      const returnData = (requestEnd === 'comments') ? dbFind : dbFind[0];
+    .then((dbData) => {
+      const returnData = (type === 'comments') ? dbData : dbData[0];
       res.status(200).send(JSON.stringify({ data: returnData }));
     })
     .catch((err) => {
       res.status(500).send(`Error connecting to DB: ${err}`);
     });
-};
+});
 
-router.get(['/songs/:song', '/songs/:song/comments'], queryAll);
+router.get('/songs/:song', queryAll({ type: 'song' }));
+router.get('/songs/:song/comments', queryAll({ type: 'comments' }));
+
 module.exports = router;
