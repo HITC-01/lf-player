@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import SongDisplay from './SongDisplay.jsx';
 import SongTracker from './SongTracker.jsx';
 import helpers from '../helpers/playerHelpers.js';
@@ -12,6 +13,7 @@ class Player extends React.Component {
     super(props);
 
     this.intervalId = 0;
+    this.url = props.url;
     this.state = {
       song: { albumImageUrl: '', duration: 0 },
       playState: helpers.initializePlayState(),
@@ -36,7 +38,8 @@ class Player extends React.Component {
   }
 
   getSongData(id) {
-    const url = `sc/songs/${id}`;
+    const url = `${this.url}/sc/songs/${id}`;
+    console.log(url);
     return fetch(url, { method: 'GET' })
       .then(stream => stream.json())
       .then((res) => {
@@ -49,7 +52,7 @@ class Player extends React.Component {
   }
 
   getComments(id) {
-    const url = `sc/songs/${id}/comments`;
+    const url = `${this.url}/sc/songs/${id}/comments`;
     return fetch(url, { method: 'GET' })
       .then(stream => stream.json())
       .then((res) => {
@@ -139,5 +142,13 @@ class Player extends React.Component {
     );
   }
 }
+
+Player.propTypes = {
+  url: PropTypes.string,
+};
+
+Player.defaultProps = {
+  url: '',
+};
 
 export default Player;
