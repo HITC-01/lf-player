@@ -1,6 +1,37 @@
-const createSongBar = (heights, max) => {
+const initializePlayState = () => ({
+  playing: false,
+  currentTime: 0,
+  totalTime: 1,
+  hoverPosition: 0,
+  hovering: false,
+});
+
+const initializeStateFromData = ({
+  title,
+  tag,
+  album,
+  songAdded,
+  albumImageUrl,
+  artistName,
+  backgroundColor,
+  duration,
+  height,
+}) => ({
+  songProfile: { height },
+  song: {
+    title,
+    tag,
+    album,
+    songAdded,
+    albumImageUrl,
+    artistName,
+    backgroundColor,
+    duration,
+  },
+});
+
+const createSongBar = (heights, max, nBars = 140) => {
   const bars = [];
-  const nBars = 140;
   let profile = heights.split(',');
   profile = profile.map(height => Number(height));
   profile.pop();
@@ -15,12 +46,20 @@ const createSongBar = (heights, max) => {
 };
 
 const convertToMinSec = (timeSec) => {
-  const minutes = `${Math.floor(timeSec / 60)}`;
+  if (typeof timeSec !== 'number') {
+    return '0:00';
+  }
+
+  let hours = `${Math.floor(timeSec / 3600)}`;
+  hours = (hours === '0') ? '' : `${hours}:`;
+  let minutes = `${Math.floor(timeSec / 60)}`;
+  minutes = (hours === '' && minutes.length === 1) ? minutes : `0${minutes}`;
+
   let seconds = `${(timeSec - minutes * 60)}`;
   if (seconds.length === 1) {
     seconds = `0${seconds}`;
   }
-  return `${minutes}:${seconds}`;
+  return `${hours}${minutes}:${seconds}`;
 };
 
 const colorBar = (barFrac, {
@@ -40,5 +79,11 @@ const colorBar = (barFrac, {
   return barString;
 };
 
-const helpers = { createSongBar, convertToMinSec, colorBar };
+const helpers = {
+  createSongBar,
+  convertToMinSec,
+  colorBar,
+  initializePlayState,
+  initializeStateFromData,
+};
 export default helpers;

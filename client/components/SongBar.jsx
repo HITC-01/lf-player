@@ -4,7 +4,7 @@ import SongBarEntry from './SongBarEntry.jsx';
 import helpers from '../helpers/playerHelpers.js';
 
 const SongBar = ({
-  songProfile, playState, handleScan, handleExit, handleClick,
+  songProfile, playState, handleScan, handleClick,
 }) => {
   const bars = [[], []];
   const locations = ['upper', 'lower'];
@@ -12,16 +12,14 @@ const SongBar = ({
   const totalMinSec = helpers.convertToMinSec(playState.totalTime);
   const nBars = songProfile.profile.length;
 
-  songProfile.profile.forEach((bar, i) => {
+  songProfile.profile.forEach((barHeight, i) => {
     locations.forEach((location, j) => {
       bars[j].push((<SongBarEntry
         position={location}
-        bar={bar}
-        number={i}
+        barHeight={barHeight}
         playState={playState}
         barFraction={i / nBars}
         handleScan={(location === 'upper') ? handleScan : () => {}}
-        handleExit={(location === 'upper') ? handleExit : () => {}}
         handleClick={(location === 'upper') ? handleClick : () => {}}
         key={`bar_${location}_${i}`}
       />
@@ -29,7 +27,7 @@ const SongBar = ({
     });
   });
   const handleBarClick = (e) => {
-    console.log('in bar', Object.keys(e.target.className, e.target.id), e.screenX, e.target.offsetLeft, e.target.offsetWidth);
+    console.log('in bar', e.target.offsetLeft, e.target.offsetWidth);
     if (e.target.offsetWidth < 5) {
       handleClick(e.target.offsetLeft / nBars);
     } else {
@@ -40,7 +38,7 @@ const SongBar = ({
   return (
     <div
       id="player-songbar"
-      onPointerLeave={() => handleExit()}
+      onPointerLeave={() => handleScan()}
       onClick={handleBarClick}
     >
       <div id="player-songbar-upper">
@@ -59,7 +57,6 @@ SongBar.propTypes = {
   songProfile: PropTypes.object.isRequired,
   playState: PropTypes.object.isRequired,
   handleScan: PropTypes.func.isRequired,
-  handleExit: PropTypes.func.isRequired,
   handleClick: PropTypes.func.isRequired,
 };
 

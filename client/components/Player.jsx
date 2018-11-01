@@ -3,113 +3,69 @@ import SongDisplay from './SongDisplay.jsx';
 import SongTracker from './SongTracker.jsx';
 import helpers from '../helpers/playerHelpers.js';
 
+const cloneDeep = require('lodash.clonedeep');
+
+const nSongsInDB = 100;
+
 class Player extends React.Component {
   constructor(props) {
     super(props);
+
+    this.intervalId = 0;
     this.state = {
-      song: { album_imageUrl: '', duration: 0 },
-      playState: {
-        playing: false, intervalId: 0,
-        currentTime: 0, hoverPosition: 0,
-        hovering: false,
-      },
+      song: { albumImageUrl: '', duration: 0 },
+      playState: helpers.initializePlayState(),
       comments: [],
       songProfile: { profile: [] },
-      artists: new Set(),
-      nSongs: 100,
     };
 
+    this.count = this.count.bind(this);
     this.getSongData = this.getSongData.bind(this);
-    this.getSongProfile = this.getSongProfile.bind(this);
     this.getComments = this.getComments.bind(this);
-    this.getArtists = this.getArtists.bind(this);
     this.handleAlbumClick = this.handleAlbumClick.bind(this);
     this.handleBarClick = this.handleBarClick.bind(this);
-    this.handleBarHover = this.handleBarHover.bind(this);
-    this.handleBarExit = this.handleBarExit.bind(this);
-    this.handleInfoClick = this.handleInfoClick.bind(this);
+    this.handleBarScan = this.handleBarScan.bind(this);
     this.handlePlayClick = this.handlePlayClick.bind(this);
-    this.count = this.count.bind(this);
-    this.play = this.play.bind(this);
-    this.pause = this.pause.bind(this);
   }
 
   componentDidMount() {
-    const { nSongs } = this.state;
-    const songId = Math.floor(Math.random() * nSongs) + 1;
+    const songId = Math.floor(Math.random() * nSongsInDB) + 1;
     this.getSongData(songId)
-      .then(() => this.getSongProfile(songId))
       .then(() => this.getComments(songId))
-      .then(() => {
-        const { artists } = this.state;
-        this.getArtists(artists);
-      })
       .catch(err => console.log(`Error: ${err}`));
   }
 
   getSongData(id) {
-    const url = `/songs/${id}`;
+    const url = `sc/songs/${id}`;
     return fetch(url, { method: 'GET' })
       .then(stream => stream.json())
       .then((res) => {
-        const { artists, playState } = this.state;
-        artists.add(res.data.artist_id);
+        const { songProfile, song } = helpers.initializeStateFromData(res.data);
+        const playState = helpers.initializePlayState();
         playState.totalTime = res.data.duration;
-        this.setState({ song: res.data, artists, playState });
-      });
-  }
-
-  getSongProfile(id) {
-    const url = `/songProfiles/${id}`;
-    return fetch(url, { method: 'GET' })
-      .then(stream => stream.json())
-      .then((res) => {
-        const songProfile = res.data;
-        songProfile.profile = helpers.createSongBar(res.data.profile, res.data.height);
-        this.setState({ songProfile });
+        songProfile.profile = helpers.createSongBar(res.data.profile, songProfile.height);
+        this.setState({ song, playState, songProfile });
       });
   }
 
   getComments(id) {
-    const url = `/comments?song=${id}`;
+    const url = `sc/songs/${id}/comments`;
     return fetch(url, { method: 'GET' })
       .then(stream => stream.json())
       .then((res) => {
-        const { artists } = this.state;
-        res.data.forEach(comment => artists.add(comment.artist_id));
-        this.setState({ comments: res.data, artists });
-      });
-  }
-
-  getArtists(ids) {
-    const idsArray = Array.from(ids);
-    const idString = idsArray.join(',') || '1';
-    const url = `/artists?id=${idString}`;
-    return fetch(url, { method: 'GET' })
-      .then(stream => stream.json())
-      .then((res) => {
-        const { song } = this.state;
-        song.artist = res.data.find(artist => artist.id === song.artist_id).name;
-        this.setState({ artists: res.data });
+        this.setState({ comments: res.data });
       });
   }
 
   handleAlbumClick(type) {
-    window.alert(`On click, this would send you
-      to the ${type} page`);
+    window.alert(`On click, TODO
+      to the ${type} modal`);
   }
 
-  handleBarHover(bar) {
-    const { playState, songProfile } = this.state;
-    playState.hoverPosition = bar / songProfile.profile.length;
-    playState.hovering = true;
-    this.setState({ playState });
-  }
-
-  handleBarExit() {
-    const { playState } = this.state;
-    playState.hoverPosition = 0;
-    playState.hovering = false;
+  handleBarScan(hovering = false, fraction = 0) {
+    const { playState } = cloneDeep(this.state);
+    playState.hoverPosition = fraction;
+    playState.hovering = hovering;
     this.setState({ playState });
   }
 
@@ -127,13 +83,8 @@ class Player extends React.Component {
     this.setState({ playState });
   }
 
-  handleInfoClick(info) {
-    window.alert(`On click, this would send you to
-      the ${info} page`);
-  }
-
   handlePlayClick() {
-    const { playState } = this.state;
+    const { playState } = cloneDeep(this.state);
     if (playState.playing) {
       this.pause();
     } else {
@@ -148,7 +99,7 @@ class Player extends React.Component {
     if (playState.currentTime >= playState.totalTime) {
       playState = { ...playState, currentTime: playState.totalTime, playing: false };
       this.setState({ playState });
-      clearInterval(playState.intervalId);
+      clearInterval(this.intervalId);
       return;
     }
     playState = { ...playState, currentTime: playState.currentTime + 1 };
@@ -156,16 +107,14 @@ class Player extends React.Component {
   }
 
   play() {
-    const { playState } = this.state;
-    const intervalId = setInterval(this.count, 1000);
-    playState.intervalId = intervalId;
+    const { playState } = cloneDeep(this.state);
+    this.intervalId = setInterval(this.count, 1000);
     playState.hoverPosition = null;
     this.setState({ playState });
   }
 
   pause() {
-    const { playState } = this.state;
-    clearInterval(playState.intervalId);
+    clearInterval(this.intervalId);
   }
 
   render() {
@@ -175,22 +124,20 @@ class Player extends React.Component {
 
     return (
       <div
-        className={`player-background-${song.background_color}`}
+        className={`player-background-${song.backgroundColor}`}
         id="player-all"
       >
         <SongDisplay
           song={song}
           playing={playState.playing}
           handleAlbumClick={this.handleAlbumClick}
-          handleInfoClick={this.handleInfoClick}
           handlePlayClick={this.handlePlayClick}
         />
         <SongTracker
           songProfile={songProfile}
           playState={playState}
           comments={comments}
-          handleScan={this.handleBarHover}
-          handleExit={this.handleBarExit}
+          handleScan={this.handleBarScan}
           handleBarClick={this.handleBarClick}
           handleReplyComment={() => {}}
         />
