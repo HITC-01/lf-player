@@ -1,8 +1,7 @@
 const mysql = require('promise-mysql');
-// const
 
-// TODO: put these vars in process.env
 module.exports = mysql.createPool({
-  user: 'root',
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
   database: 'soundcloud',
 });
