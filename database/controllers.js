@@ -20,6 +20,6 @@ module.exports.getSong = (songId) => {
 
 module.exports.getComments = (songId) => {
   const queryString = 'SELECT * FROM comments INNER JOIN artists ON comments.song_id = ? '
-    + ' AND comments.artist_id = artists.id;';
+    + ' AND comments.artist_id = artists.id ORDER BY comments.time;';
   return connection.query(queryString, songId);
 };
