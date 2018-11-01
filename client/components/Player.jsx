@@ -102,8 +102,7 @@ class Player extends React.Component {
   }
 
   handlePlayClick() {
-    let { playState } = this.state;
-    playState = Object.assign({}, playState);
+    const playState = this.getPlayStateCopy();
     if (playState.playing) {
       this.pause();
     } else {
