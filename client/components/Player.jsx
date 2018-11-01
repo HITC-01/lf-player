@@ -71,26 +71,25 @@ class Player extends React.Component {
 
   handleBarClick(fraction) {
     let { playState } = this.state;
-    console.log('I was clicked!', fraction, playState.totalTime, Math.floor(fraction * playState.totalTime));
-    if (!playState.playing) {
-      this.handlePlayClick();
-    }
-    playState = {
-      ...playState,
-      currentTime: Math.floor(fraction * playState.totalTime),
-      hovering: false,
-    };
-    this.setState({ playState });
+    this.handlePlayClick(Math.floor(fraction * playState.totalTime));
   }
 
-  handlePlayClick() {
+  handlePlayClick(currentTime) {
     const { playState } = cloneDeep(this.state);
-    if (playState.playing) {
+
+    if (currentTime) {
+      playState.currentTime = currentTime;
+      clearInterval(this.intervalId);
+    }
+
+    playState.playing = (currentTime) ? true : !playState.playing;
+
+    if (!playState.playing) {
       this.pause();
     } else {
       this.play();
     }
-    playState.playing = !playState.playing;
+    playState.hovering = false;
     this.setState({ playState });
   }
 
@@ -107,10 +106,7 @@ class Player extends React.Component {
   }
 
   play() {
-    const { playState } = cloneDeep(this.state);
     this.intervalId = setInterval(this.count, 1000);
-    playState.hoverPosition = null;
-    this.setState({ playState });
   }
 
   pause() {
