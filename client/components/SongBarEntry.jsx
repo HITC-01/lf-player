@@ -13,7 +13,6 @@ const SongBarEntry = ({
   return (
     <div
       className={barClass}
-      fraction={barFraction}
       style={{ height: Math.floor(height * barHeight) }}
       onClick={() => handleClick(barFraction)}
       onPointerOver={() => handleScan(true, barFraction)}

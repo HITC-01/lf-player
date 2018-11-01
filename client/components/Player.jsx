@@ -83,7 +83,6 @@ class Player extends React.Component {
     }
 
     playState.playing = (currentTime) ? true : !playState.playing;
-
     if (!playState.playing) {
       this.pause();
     } else {
@@ -135,7 +134,6 @@ class Player extends React.Component {
           comments={comments}
           handleScan={this.handleBarScan}
           handleBarClick={this.handleBarClick}
-          handleReplyComment={() => {}}
         />
       </div>
     );

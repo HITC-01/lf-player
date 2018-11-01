@@ -8,31 +8,32 @@ import SongTracker from '../../client/components/SongTracker.jsx';
 
 describe('SongTracker component', () => {
   let props = {};
-  let event = {};
 
   beforeEach(() => {
     props = {
-      playing: false,
-      song: { tag: 'Blues', songAdded: Date.now() },
-      handlePlayClick: jest.fn(),
-      handleInfoClick: jest.fn(),
+      songProfile: { profile: [] },
+      comments: [],
+      playState: {},
+      handleScan: jest.fn(),
+      handleBarClick: jest.fn(),
     };
-    event = { preventDefault: () => {} };
   });
 
   test('check props', () => {
     const component = shallow(<SongTracker {...props} />);
     const propsOut = Array.from(Object.keys(component.props()));
     expect(propsOut.length).toBe(2);
-    expect(component.prop('id')).toBe('player-display-extras');
-    const tag = Array.from(Object.keys(component.find('a').props()));
-    expect(tag.length).toBe(4);
-    expect(component.find('a').prop('id')).toBe('player-song-tag');
-    expect(component.find('a').prop('href')).toBe('#');
+    expect(component.prop('id')).toBe('player-profile');
+    const bar = Array.from(Object.keys(component.find('SongBar').props()));
+    expect(bar.length).toBe(4);
+    expect(component.find('SongBar').prop('songProfile') instanceof Object).toBe(true);
+    expect(component.find('SongBar').prop('playState') instanceof Object).toBe(true);
+    expect(component.find('SongBar').prop('handleScan') instanceof Function).toBe(true);
+    expect(component.find('SongBar').prop('handleClick') instanceof Function).toBe(true);
 
-    // spans with input info
-    expect(component.find('span').prop('children')).toBe('# Blues');
-    expect(component.find('h4').prop('children')).toBe('a few seconds ago');
+    const comments = Array.from(Object.keys(component.find('SongComments').props()));
+    expect(comments.length).toBe(1);
+    expect(component.find('SongComments').prop('comments') instanceof Object).toBe(true);
   });
 
   test('render basic snapshot', () => {
@@ -40,11 +41,5 @@ describe('SongTracker component', () => {
       .create(<SongTracker {...props} />)
       .toJSON();
     expect(tree).toMatchSnapshot();
-  });
-
-  test('respond to clicks on genre tag', () => {
-    const component = shallow(<SongTracker {...props} />);
-    component.find('a').simulate('click', event);
-    expect(props.handleInfoClick).toHaveBeenCalled();
   });
 });

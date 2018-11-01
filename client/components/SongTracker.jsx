@@ -5,7 +5,7 @@ import SongComments from './SongComments.jsx';
 
 const SongTracker = ({
   songProfile, comments, playState,
-  handleScan, handleReplyComment, handleBarClick,
+  handleScan, handleBarClick,
 }) => (
   <div id="player-profile">
     <SongBar
@@ -16,7 +16,6 @@ const SongTracker = ({
     />
     <SongComments
       comments={comments}
-      handleReplyComment={handleReplyComment}
     />
   </div>
 );
@@ -27,7 +26,6 @@ SongTracker.propTypes = {
   comments: PropTypes.array.isRequired,
   handleScan: PropTypes.func.isRequired,
   handleBarClick: PropTypes.func.isRequired,
-  handleReplyComment: PropTypes.func.isRequired,
 };
 
 export default SongTracker;
