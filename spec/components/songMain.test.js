@@ -4,9 +4,9 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { shallow } from '../enzyme';
-import SongArt from '../../client/components/SongArt.jsx';
+import SongMain from '../../client/components/SongMain.jsx';
 
-describe('SongArt component', () => {
+describe('SongMain component', () => {
   let props = { };
 
   beforeEach(() => {
@@ -17,7 +17,7 @@ describe('SongArt component', () => {
   });
 
   test('check props', () => {
-    const component = shallow(<SongArt {...props} />);
+    const component = shallow(<SongMain {...props} />);
     const propsOut = Array.from(Object.keys(component.props()));
     expect(propsOut.length).toBe(2);
     expect(component.prop('id')).toBe('player-display-album');
@@ -29,13 +29,13 @@ describe('SongArt component', () => {
 
   test('render basic snapshot', () => {
     const tree = renderer
-      .create(<SongArt {...props} />)
+      .create(<SongMain {...props} />)
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
 
   test('respond to clicks on art', () => {
-    const component = shallow(<SongArt {...props} />);
+    const component = shallow(<SongMain {...props} />);
     component.find('a').simulate('click', {
       preventDefault: () => {},
       target: { id: '' },
