@@ -12,8 +12,9 @@ class Player extends React.Component {
   constructor(props) {
     super(props);
 
-    this.intervalId = 0;
+    this.intervalId = null;
     this.url = props.url;
+
     this.state = {
       song: { albumImageUrl: '', duration: 0 },
       playState: helpers.initializePlayState(),
@@ -39,7 +40,6 @@ class Player extends React.Component {
 
   getSongData(id) {
     const url = `${this.url}/sc/songs/${id}`;
-    console.log(url);
     return fetch(url, { method: 'GET' })
       .then(stream => stream.json())
       .then((res) => {
@@ -67,13 +67,13 @@ class Player extends React.Component {
 
   handleBarScan(hovering = false, fraction = 0) {
     const { playState } = cloneDeep(this.state);
-    playState.hoverPosition = fraction;
     playState.hovering = hovering;
+    playState.hoverPosition = (hovering) ? fraction : null;
     this.setState({ playState });
   }
 
   handleBarClick(fraction) {
-    let { playState } = this.state;
+    const { playState } = this.state;
     this.handlePlayClick(Math.floor(fraction * playState.totalTime));
   }
 
@@ -113,6 +113,7 @@ class Player extends React.Component {
 
   pause() {
     clearInterval(this.intervalId);
+    this.intervalId = null;
   }
 
   render() {
