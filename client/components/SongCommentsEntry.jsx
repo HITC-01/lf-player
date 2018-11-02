@@ -33,6 +33,7 @@ class SongCommentsEntry extends React.Component {
   }
 
   showComment() {
+    this.props.resetNowPLaying();
     this.setState({ show: true });
   }
 
@@ -42,8 +43,8 @@ class SongCommentsEntry extends React.Component {
 
   render() {
     const { show } = this.state;
-    const { comment, handleReply } = this.props;
-    const commentDetails = (show) ? (<p className={`${this.position}`}>{this.comments}</p>) : '';
+    const { comment, handleReply, nowPlaying } = this.props;
+    const commentDetails = (nowPlaying || show) ? (<p className={`${this.position}`}>{this.comments}</p>) : '';
 
     return (
       <div
@@ -65,6 +66,7 @@ class SongCommentsEntry extends React.Component {
 
 SongCommentsEntry.propTypes = {
   comment: PropTypes.object.isRequired,
+  nowPlaying: PropTypes.bool.isRequired,
   handleReply: PropTypes.func.isRequired,
 };
 
