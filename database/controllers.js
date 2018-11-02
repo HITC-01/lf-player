@@ -1,7 +1,8 @@
 const connection = require('./index.js');
 
 module.exports.getSong = (songId) => {
-  const select = `songs.album,
+  const select = `
+    songs.album,
     songs.album_imageUrl AS albumImageUrl,
     songs.background_color AS backgroundColor,
     songs.duration,
@@ -19,7 +20,13 @@ module.exports.getSong = (songId) => {
 };
 
 module.exports.getComments = (songId) => {
-  const queryString = 'SELECT * FROM comments INNER JOIN artists ON comments.song_id = ? '
+  const select = `
+    comments.time,
+    comments.text,
+    artists.name AS artistName,
+    artists.artist_imageUrl AS artistImageUrl
+  `;
+  const queryString = `SELECT ${select} FROM comments INNER JOIN artists ON comments.song_id = ? `
     + ' AND comments.artist_id = artists.id ORDER BY comments.time;';
   return connection.query(queryString, songId);
 };

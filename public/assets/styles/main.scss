@@ -93,7 +93,6 @@ a {
 /*************************/
 /* SONGBAR */
 /*************************/
-
 #player-songbar {
   cursor: pointer;
 }
@@ -178,6 +177,26 @@ div[class*="-playing-to-play"] {
 }
 
 /*************************/
+/* COMMENTS */
+/*************************/
+.player-comment-artist,
+.player-comment-text {
+  color: $dark-orange;
+  display: inline;
+  font-size: 14px;
+  position: absolute;
+  top: 20px;
+}
+
+.player-comment-artist {
+  color: $dark-orange;
+}
+
+.player-comment-text {
+  color: $white;
+}
+
+/*************************/
 /* Background gradient! */
 /*************************/
 .player-background-grey {
@@ -215,7 +234,25 @@ GRIDS
     grid-column: play-left / profile-right;
     grid-row: profile-top / bottom-pad;
     display: grid;
+    grid-template-rows: [top] 70.5px [middle] 30px [bottom];
+    grid-template-columns: [left] auto [right];
+
+
+    #player-comments {
+      grid-row: middle / bottom;
+      grid-column: left / right;
+      position: relative;
+
+      .player-comment-single {
+        position: absolute;
+        top: 0px;
+      }
+    }
+
     #player-songbar {
+      grid-row: top / bottom;
+      grid-column: left / right;
+
       display: grid;
       grid-template-rows: [top] 52px [time] 18px [top-end] 0.5px [bottom] 30px [bottom-end];
       grid-template-columns: [start] 20px [middle] auto [middle-end] 26px [end];
