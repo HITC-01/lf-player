@@ -179,17 +179,28 @@ div[class*="-playing-to-play"] {
 /*************************/
 /* COMMENTS */
 /*************************/
-.player-comment-artist,
-.player-comment-text {
-  color: $dark-orange;
-  display: inline;
+#player-comment-all {
+  display: inline-block;
   font-size: 14px;
   position: absolute;
-  top: 20px;
+  top: 28px;
+  left: 0px;
+  white-space: nowrap;
+}
+
+.player-comment-artist,
+.player-comment-text {
+  display: inline-block;
+  padding-right: 6px;
+}
+
+.player-comment-left {
+  float: right;
+  white-space: nowrap;
 }
 
 .player-comment-artist {
-  color: $dark-orange;
+  color: $dark-orange2;
 }
 
 .player-comment-text {

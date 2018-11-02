@@ -10,19 +10,25 @@ class SongCommentsEntry extends React.Component {
     this.hideComment = this.hideComment.bind(this);
   }
 
-  createComments({ comment, position }) {
+  createComments({ comment }) {
     const max = 22;
-    const { text, artistName } = comment;
+    const { text, artistName, time } = comment;
     const data = { artist: artistName };
     data.text = (text.length > max) ? `${text.slice(0, max)}...` : text;
 
     let words = ['artist', 'text'];
+    let position = 'player-comment-right';
     this.comments = [];
-    if (position > 50) {
+    if (time > 50) {
       words = ['text', 'artist'];
+      position = 'player-comment-left';
     }
     words.forEach((word) => {
-      this.comments.push(<p className={`player-comment-${word}`} key={word}>{data[word]}</p>);
+      this.comments.push(
+        <span key={word} className={`player-comment-${word} ${position}`}>
+          {`${data[word]}    `}
+        </span>,
+      );
     });
   }
 
@@ -31,13 +37,13 @@ class SongCommentsEntry extends React.Component {
   }
 
   hideComment() {
-    this.setState({ show: false });
+    this.setState({ show: true });
   }
 
   render() {
     const { show } = this.state;
     const { comment, handleReply } = this.props;
-    const commentDetails = (show) ? this.comments : '';
+    const commentDetails = (show) ? (<p id="player-comment-all">{this.comments}</p>) : '';
 
     return (
       <div
