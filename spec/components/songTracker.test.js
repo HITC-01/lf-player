@@ -14,8 +14,10 @@ describe('SongTracker component', () => {
       songProfile: { profile: [] },
       comments: [],
       playState: {},
-      handleScan: jest.fn(),
-      handleBarClick: jest.fn(),
+      nowPlaying: -1,
+      resetNowPLaying: jest.fn().mockName('resetNowPLaying'),
+      handleScan: jest.fn().mockName('handleScan'),
+      handleBarClick: jest.fn().mockName('handleBarClick'),
     };
   });
 
@@ -28,12 +30,14 @@ describe('SongTracker component', () => {
     expect(bar.length).toBe(4);
     expect(component.find('SongBar').prop('songProfile') instanceof Object).toBe(true);
     expect(component.find('SongBar').prop('playState') instanceof Object).toBe(true);
-    expect(component.find('SongBar').prop('handleScan')).toBeTruthy();
-    expect(component.find('SongBar').prop('handleClick')).toBeTruthy();
+    expect(component.find('SongBar').prop('handleScan').getMockName()).toBe('handleScan');
+    expect(component.find('SongBar').prop('handleClick').getMockName()).toBe('handleBarClick');
 
     const comments = Array.from(Object.keys(component.find('SongComments').props()));
-    expect(comments.length).toBe(1);
+    expect(comments.length).toBe(3);
     expect(component.find('SongComments').prop('comments') instanceof Object).toBe(true);
+    expect(component.find('SongComments').prop('nowPlaying')).toBe(-1);
+    expect(component.find('SongComments').prop('resetNowPLaying').getMockName()).toBe('resetNowPLaying');
   });
 
   test('render basic snapshot', () => {
