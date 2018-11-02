@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import SongDisplay from './SongDisplay.jsx';
 import SongTracker from './SongTracker.jsx';
 import helpers from '../helpers/playerHelpers.js';
@@ -11,7 +12,9 @@ class Player extends React.Component {
   constructor(props) {
     super(props);
 
-    this.intervalId = 0;
+    this.intervalId = null;
+    this.url = props.url;
+
     this.state = {
       song: { albumImageUrl: '', duration: 0 },
       playState: helpers.initializePlayState(),
@@ -36,7 +39,7 @@ class Player extends React.Component {
   }
 
   getSongData(id) {
-    const url = `sc/songs/${id}`;
+    const url = `${this.url}/sc/songs/${id}`;
     return fetch(url, { method: 'GET' })
       .then(stream => stream.json())
       .then((res) => {
@@ -49,7 +52,7 @@ class Player extends React.Component {
   }
 
   getComments(id) {
-    const url = `sc/songs/${id}/comments`;
+    const url = `${this.url}/sc/songs/${id}/comments`;
     return fetch(url, { method: 'GET' })
       .then(stream => stream.json())
       .then((res) => {
@@ -64,33 +67,31 @@ class Player extends React.Component {
 
   handleBarScan(hovering = false, fraction = 0) {
     const { playState } = cloneDeep(this.state);
-    playState.hoverPosition = fraction;
     playState.hovering = hovering;
+    playState.hoverPosition = (hovering) ? fraction : null;
     this.setState({ playState });
   }
 
   handleBarClick(fraction) {
-    let { playState } = this.state;
-    console.log('I was clicked!', fraction, playState.totalTime, Math.floor(fraction * playState.totalTime));
-    if (!playState.playing) {
-      this.handlePlayClick();
-    }
-    playState = {
-      ...playState,
-      currentTime: Math.floor(fraction * playState.totalTime),
-      hovering: false,
-    };
-    this.setState({ playState });
+    const { playState } = this.state;
+    this.handlePlayClick(Math.floor(fraction * playState.totalTime));
   }
 
-  handlePlayClick() {
+  handlePlayClick(currentTime) {
     const { playState } = cloneDeep(this.state);
-    if (playState.playing) {
+
+    if (currentTime) {
+      playState.currentTime = currentTime;
+      clearInterval(this.intervalId);
+    }
+
+    playState.playing = (currentTime) ? true : !playState.playing;
+    if (!playState.playing) {
       this.pause();
     } else {
       this.play();
     }
-    playState.playing = !playState.playing;
+    playState.hovering = false;
     this.setState({ playState });
   }
 
@@ -107,14 +108,12 @@ class Player extends React.Component {
   }
 
   play() {
-    const { playState } = cloneDeep(this.state);
     this.intervalId = setInterval(this.count, 1000);
-    playState.hoverPosition = null;
-    this.setState({ playState });
   }
 
   pause() {
     clearInterval(this.intervalId);
+    this.intervalId = null;
   }
 
   render() {
@@ -139,11 +138,18 @@ class Player extends React.Component {
           comments={comments}
           handleScan={this.handleBarScan}
           handleBarClick={this.handleBarClick}
-          handleReplyComment={() => {}}
         />
       </div>
     );
   }
 }
+
+Player.propTypes = {
+  url: PropTypes.string,
+};
+
+Player.defaultProps = {
+  url: '',
+};
 
 export default Player;

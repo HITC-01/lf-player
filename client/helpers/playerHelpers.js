@@ -67,7 +67,7 @@ const colorBar = (barFrac, {
 }) => {
   const playPosition = currentTime / totalTime;
   let barString = '';
-  const barBetween = (hovering && (((hoverPosition > barFrac) && (playPosition < barFrac))
+  const barBetween = (hovering && (((hoverPosition >= barFrac) && (playPosition <= barFrac))
     || ((hoverPosition < barFrac) && (playPosition > barFrac))));
 
   if (playing && barBetween) {

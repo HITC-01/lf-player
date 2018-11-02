@@ -27,10 +27,13 @@ const SongBar = ({
     });
   });
   const handleBarClick = (e) => {
-    console.log('in bar', e.target.offsetLeft, e.target.offsetWidth);
-    if (e.target.offsetWidth < 5) {
+    if (e.target.className.includes('player-songbar-upper-')) {
+      console.log('in click', e.target.offsetLeft, e.screenX, e.target.parentNode.offsetWidth);
+      handleClick(e.target.offsetLeft / e.target.parentNode.offsetWidth);
+    } else if (e.target.className === 'player-songbar-upper') {
       handleClick(e.target.offsetLeft / nBars);
     } else {
+      console.log('else', e.screenX, e.target.offsetLeft, e.target.offsetWidth);
       handleClick((e.screenX - e.target.offsetLeft) / e.target.offsetWidth);
     }
   };
