@@ -43,7 +43,7 @@ describe('Player component', () => {
     const instance = mount(<Player url="http://localhost:3004" />).instance();
     instance.state.playState.totalTime = 300;
     instance.handleBarClick(0.75);
-    const { playState } = instance.state;
+    const playState = instance.state('playState');
     expect(playState.playing).toBe(true);
     expect(playState.currentTime).toBe(225);
   });
@@ -53,7 +53,7 @@ describe('Player component', () => {
     const newTime = 220;
     instance.state.playState.totalTime = 300;
     instance.handlePlayClick(newTime);
-    const { playState } = instance.state;
+    const playState = instance.state('playState');
     expect(playState.playing).toBe(true);
     expect(playState.hovering).toBe(false);
     expect(playState.currentTime).toBe(newTime);
@@ -63,7 +63,7 @@ describe('Player component', () => {
     const instance = mount(<Player url="http://localhost:3004" />).instance();
     instance.state.playState.totalTime = 300;
     instance.handlePlayClick();
-    const { playState } = instance.state;
+    const playState = instance.state('playState');
     expect(playState.playing).toBe(true);
     expect(playState.hovering).toBe(false);
   });
@@ -73,7 +73,7 @@ describe('Player component', () => {
     instance.state.playState.totalTime = 300;
     instance.state.playState.playing = true;
     instance.handlePlayClick();
-    const { playState } = instance.state;
+    const playState = instance.state('playState');
     expect(playState.playing).toBe(false);
     expect(playState.hovering).toBe(false);
   });
@@ -81,7 +81,7 @@ describe('Player component', () => {
   test('method: handleBarScan', () => {
     const instance = mount(<Player url="http://localhost:3004" />).instance();
     instance.handleBarScan(true, 0.5);
-    const { playState } = instance.state;
+    const playState = instance.state('playState');
     expect(playState.playing).toBe(false);
     expect(playState.hovering).toBe(true);
     expect(playState.hoverPosition).toBe(0.5);
@@ -90,7 +90,7 @@ describe('Player component', () => {
   test('method: handleBarScan 2', () => {
     const instance = mount(<Player url="http://localhost:3004" />).instance();
     instance.handleBarScan(false, 0.5);
-    const { playState } = instance.state;
+    const playState = instance.state('playState');
     expect(playState.hovering).toBe(false);
     expect(playState.hoverPosition).toBe(null);
   });
@@ -113,7 +113,7 @@ describe('Player component', () => {
     const instance = mount(<Player url="http://localhost:3004" />).instance();
     expect(instance.intervalId).toBe(null);
     instance.count();
-    const { playState } = instance.state;
+    const playState = instance.state('playState');
     expect(playState.currentTime).toBe(1);
   });
 
@@ -121,7 +121,7 @@ describe('Player component', () => {
     const instance = mount(<Player url="http://localhost:3004" />).instance();
     instance.state.playState.currentTime = 2;
     instance.count();
-    const { playState } = instance.state;
+    const playState = instance.state('playState');
     expect(playState.currentTime).toBe(1);
     expect(playState.playing).toBe(false);
   });
@@ -129,6 +129,6 @@ describe('Player component', () => {
   test('method: getComments', () => {
     const instance = mount(<Player url="http://localhost:3004" />).instance();
     instance.getComments();
-    expect(instance.state.comments).not.toBe([]);
+    expect(instance.state('comments')).not.toBe([]);
   });
 });

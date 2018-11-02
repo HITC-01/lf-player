@@ -33,7 +33,8 @@ class SongCommentsEntry extends React.Component {
   }
 
   showComment() {
-    this.props.resetNowPLaying();
+    const { resetNowPLaying } = this.props;
+    resetNowPLaying();
     this.setState({ show: true });
   }
 
@@ -68,6 +69,7 @@ SongCommentsEntry.propTypes = {
   comment: PropTypes.object.isRequired,
   nowPlaying: PropTypes.bool.isRequired,
   handleReply: PropTypes.func.isRequired,
+  resetNowPLaying: PropTypes.func.isRequired,
 };
 
 export default SongCommentsEntry;

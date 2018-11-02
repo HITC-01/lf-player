@@ -20,6 +20,7 @@ class Player extends React.Component {
       playState: helpers.initializePlayState(),
       comments: [],
       nowPlaying: [null, -1],
+      commentHover: false,
       songProfile: { profile: [] },
     };
 
@@ -71,8 +72,7 @@ class Player extends React.Component {
 
   // Modal display
   handleAlbumClick(type) {
-    window.alert(`On click, TODO
-      to the ${type} modal`);
+    window.alert(`On click, TODO to the ${type} modal`);
   }
 
   // Event handlers
@@ -137,11 +137,11 @@ class Player extends React.Component {
   findNowPlaying(newTime) {
     const showTime = 3;
     let { nowPlaying } = this.state;
-    const { songTimes } = this.state;
+    const { songTimes, commentHover } = this.state;
 
-    if (newTime in songTimes) {
+    if (!commentHover && !(newTime in songTimes)) {
       nowPlaying = [newTime, songTimes[newTime]];
-    } else if (nowPlaying[0] !== null) {
+    } else if (!commentHover && (nowPlaying[0] !== null)) {
       const diff = newTime - nowPlaying[0];
       if ((diff >= showTime)) {
         nowPlaying = [null, -1];
@@ -151,7 +151,7 @@ class Player extends React.Component {
   }
 
   resetNowPLaying() {
-    this.setState({ nowPlaying: [null, -1] });
+    this.setState({ nowPlaying: [null, -1], commentHover: true });
   }
 
   render() {

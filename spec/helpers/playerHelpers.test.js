@@ -1,8 +1,57 @@
 /* eslint-env jest */
 import helpers from '../../client/helpers/playerHelpers.js';
 
+describe('initializePlayState', () => {
+  const returnObject = {
+    playing: false,
+    currentTime: 0,
+    totalTime: 1,
+    hoverPosition: 0,
+    hovering: false,
+  };
+
+  test('should create object with defaul values for playState ', () => {
+    const playState = helpers.initializePlayState();
+    expect(Object.keys(playState).length).toBe(Object.keys(returnObject).length);
+    expect(playState.playing).toBe(returnObject.playing);
+    expect(playState.currentTime).toBe(returnObject.currentTime);
+    expect(playState.totalTime).toBe(returnObject.totalTime);
+    expect(playState.hoverPosition).toBe(returnObject.hoverPosition);
+    expect(playState.hovering).toBe(returnObject.hovering);
+  });
+});
+
+describe('initializeStateFromData', () => {
+  const input = {
+    title: 'test',
+    tag: 'cool',
+    album: 'hello',
+    songAdded: 'date',
+    albumImageUrl: 'pic.jpg',
+    artistName: 'lisa',
+    backgroundColor: 'grey',
+    duration: 10,
+    height: 3,
+  };
+
+  test('should create object with defaul values for playState ', () => {
+    const { song, songProfile } = helpers.initializeStateFromData(input);
+    expect(Object.keys(song).length).toBe(8);
+    expect(song.title).toBe(input.title);
+    expect(song.tag).toBe(input.tag);
+    expect(song.album).toBe(input.album);
+    expect(song.songAdded).toBe(input.songAdded);
+    expect(song.albumImageUrl).toBe(input.albumImageUrl);
+    expect(song.artistName).toBe(input.artistName);
+    expect(song.backgroundColor).toBe(input.backgroundColor);
+    expect(song.duration).toBe(input.duration);
+
+    expect(Object.keys(songProfile).length).toBe(1);
+    expect(songProfile.height).toBe(input.height);
+  });
+});
+
 describe('createSongBar', () => {
-  // TODO: Add in a test for edge case where len input < nBars
   // TODO: addin in a test for different inputs?
   let heights = '';
   let max = 0;
