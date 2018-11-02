@@ -17,15 +17,15 @@ class SongCommentsEntry extends React.Component {
     data.text = (text.length > max) ? `${text.slice(0, max)}...` : text;
 
     let words = ['artist', 'text'];
-    let position = 'player-comment-right';
+    this.position = 'player-comment-right';
     this.comments = [];
     if (time > 50) {
       words = ['text', 'artist'];
-      position = 'player-comment-left';
+      this.position = 'player-comment-left';
     }
     words.forEach((word) => {
       this.comments.push(
-        <span key={word} className={`player-comment-${word} ${position}`}>
+        <span key={word} className={`player-comment-${word}`}>
           {`${data[word]}    `}
         </span>,
       );
@@ -37,13 +37,13 @@ class SongCommentsEntry extends React.Component {
   }
 
   hideComment() {
-    this.setState({ show: true });
+    this.setState({ show: false });
   }
 
   render() {
     const { show } = this.state;
     const { comment, handleReply } = this.props;
-    const commentDetails = (show) ? (<p id="player-comment-all">{this.comments}</p>) : '';
+    const commentDetails = (show) ? (<p className={`${this.position}`}>{this.comments}</p>) : '';
 
     return (
       <div

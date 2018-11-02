@@ -179,8 +179,9 @@ div[class*="-playing-to-play"] {
 /*************************/
 /* COMMENTS */
 /*************************/
-#player-comment-all {
-  display: inline-block;
+.player-comment-right,
+.player-comment-left {
+  display: flex;
   font-size: 14px;
   position: absolute;
   top: 28px;
@@ -190,13 +191,12 @@ div[class*="-playing-to-play"] {
 
 .player-comment-artist,
 .player-comment-text {
-  display: inline-block;
   padding-right: 6px;
 }
 
 .player-comment-left {
-  float: right;
-  white-space: nowrap;
+  left: auto;
+  right: 20px;
 }
 
 .player-comment-artist {
