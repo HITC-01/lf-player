@@ -34,11 +34,13 @@ class SongCommentsEntry extends React.Component {
 
   showComment() {
     const { resetNowPLaying } = this.props;
-    resetNowPLaying();
+    resetNowPLaying(true);
     this.setState({ show: true });
   }
 
   hideComment() {
+    const { resetNowPLaying } = this.props;
+    resetNowPLaying();
     this.setState({ show: false });
   }
 

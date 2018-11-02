@@ -20,6 +20,7 @@ class Player extends React.Component {
       playState: helpers.initializePlayState(),
       comments: [],
       nowPlaying: [null, -1],
+      songTimes: [[]],
       commentHover: false,
       songProfile: { profile: [] },
     };
@@ -139,7 +140,7 @@ class Player extends React.Component {
     let { nowPlaying } = this.state;
     const { songTimes, commentHover } = this.state;
 
-    if (!commentHover && !(newTime in songTimes)) {
+    if (!commentHover && (newTime in songTimes)) {
       nowPlaying = [newTime, songTimes[newTime]];
     } else if (!commentHover && (nowPlaying[0] !== null)) {
       const diff = newTime - nowPlaying[0];
@@ -150,8 +151,8 @@ class Player extends React.Component {
     return nowPlaying;
   }
 
-  resetNowPLaying() {
-    this.setState({ nowPlaying: [null, -1], commentHover: true });
+  resetNowPLaying(commentHover = false) {
+    this.setState({ nowPlaying: [null, -1], commentHover });
   }
 
   render() {
