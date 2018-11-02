@@ -104,9 +104,7 @@ class Player extends React.Component {
   }
 
   count() {
-    let { playState, nowPlaying, songTimes } = this.state;
-    songTimes = cloneDeep(songTimes);
-    nowPlaying = nowPlaying.concat();
+    let { playState } = this.state;
     const newTime = playState.currentTime + 1;
 
     if (playState.currentTime >= playState.totalTime) {
@@ -115,8 +113,16 @@ class Player extends React.Component {
       clearInterval(this.intervalId);
       return;
     }
+    const nowPlaying = this.findNowPlaying(newTime);
+    playState = { ...playState, currentTime: newTime };
+    this.setState({ playState, nowPlaying });
+  }
 
+  findNowPlaying(newTime) {
     const showTime = 3;
+    let { nowPlaying } = this.state;
+    const { songTimes } = this.state;
+
     if (newTime in songTimes) {
       nowPlaying = [newTime, songTimes[newTime]];
     } else if (nowPlaying[0] !== null) {
@@ -125,9 +131,7 @@ class Player extends React.Component {
         nowPlaying = [null, -1];
       }
     }
-
-    playState = { ...playState, currentTime: newTime };
-    this.setState({ playState, nowPlaying, songTimes });
+    return nowPlaying;
   }
 
   play() {

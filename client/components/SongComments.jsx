@@ -27,6 +27,7 @@ const SongComments = ({ comments, nowPlaying, resetNowPLaying }) => {
 SongComments.propTypes = {
   comments: PropTypes.array.isRequired,
   nowPlaying: PropTypes.number.isRequired,
+  resetNowPLaying: PropTypes.func.isRequired,
 };
 
 export default SongComments;

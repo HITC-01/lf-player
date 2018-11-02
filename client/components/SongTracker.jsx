@@ -27,6 +27,7 @@ SongTracker.propTypes = {
   playState: PropTypes.object.isRequired,
   comments: PropTypes.array.isRequired,
   nowPlaying: PropTypes.number.isRequired,
+  resetNowPLaying: PropTypes.func.isRequired,
   handleScan: PropTypes.func.isRequired,
   handleBarClick: PropTypes.func.isRequired,
 };

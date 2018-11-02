@@ -56,7 +56,7 @@ class SongCommentsEntry extends React.Component {
         <img
           src={comment.artistImageUrl}
           alt="user-profile"
-          onClick={() => handleReply(comment.name)}
+          onClick={() => handleReply(comment.artistName)}
         />
         {commentDetails}
       </div>
