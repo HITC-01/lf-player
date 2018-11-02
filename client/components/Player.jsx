@@ -40,6 +40,7 @@ class Player extends React.Component {
       .catch(err => console.log(`Error: ${err}`));
   }
 
+  // Queries to server
   getSongData(id) {
     const url = `${this.url}/sc/songs/${id}`;
     return fetch(url, { method: 'GET' })
@@ -68,11 +69,13 @@ class Player extends React.Component {
       });
   }
 
+  // Modal display
   handleAlbumClick(type) {
     window.alert(`On click, TODO
       to the ${type} modal`);
   }
 
+  // Event handlers
   handleBarScan(hovering = false, fraction = 0) {
     const { playState } = cloneDeep(this.state);
     playState.hovering = hovering;
@@ -103,6 +106,7 @@ class Player extends React.Component {
     this.setState({ playState });
   }
 
+  // Player play button functions
   count() {
     let { playState } = this.state;
     const newTime = playState.currentTime + 1;
@@ -113,11 +117,23 @@ class Player extends React.Component {
       clearInterval(this.intervalId);
       return;
     }
+
     const nowPlaying = this.findNowPlaying(newTime);
     playState = { ...playState, currentTime: newTime };
     this.setState({ playState, nowPlaying });
   }
 
+  play() {
+    this.intervalId = setInterval(this.count, 1000);
+  }
+
+  pause() {
+    clearInterval(this.intervalId);
+    this.resetNowPLaying();
+    this.intervalId = null;
+  }
+
+  // Methods for finding a comment to display
   findNowPlaying(newTime) {
     const showTime = 3;
     let { nowPlaying } = this.state;
@@ -132,16 +148,6 @@ class Player extends React.Component {
       }
     }
     return nowPlaying;
-  }
-
-  play() {
-    this.intervalId = setInterval(this.count, 1000);
-  }
-
-  pause() {
-    clearInterval(this.intervalId);
-    this.resetNowPLaying();
-    this.intervalId = null;
   }
 
   resetNowPLaying() {
