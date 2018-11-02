@@ -20,10 +20,10 @@
 
 To run everything, follow this process.
 
-1. Install dependencies (see [Dependencies](dependencies))
+1. Install dependencies (see [Dependencies](#dependencies))
 2. Edit the created .env file for your environment, with the following format: `VAR=input`
-3. Seed the database (see [DB section](database))
-4. Run the [development commands](development) on different terminals.
+3. Seed the database (see [DB section](#database))
+4. Run the [development commands](#development) on different terminals.
 5. Navigate to `localhost:PORT` on a browser!
 
 ## Database
@@ -35,6 +35,7 @@ cd database/seeding
 bash dbSeed.sh
 $MYSQL_EXEC  -u root < ../playerSchema.sql
 $MYSQL_EXEC  -u root < dataSeeded.sql
+cd ../../
 ```
 
 Where `$MYSQL_EXEC` is the path/name of mySQL on your local
