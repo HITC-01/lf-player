@@ -124,7 +124,7 @@ RANDOM=`date +"%s"`
 
 for i in `seq 1 $NCOMMENTS`;
 do
-  idx=$((RANDOM % 10 + 1))
+  idx=$((RANDOM % 7 + 1))
   COMMENT=''
   for j in `seq 1 $idx` ;
   do
@@ -136,11 +136,6 @@ do
   ARTIST_ID=$((RANDOM % NARTISTS + 1))
   SONG_ID=$((RANDOM % NSONGS + 1))
   COMMENT_TIME=$((RANDOM % 100))
-
-  CHARS=${#COMMENT}
-  if [ "$CHARS" -gt "150" ]; then
-    COMMENT=`echo 'MOTEST' | cut -c1-140`
-  fi
 
   INSERT=`echo $COMMENT_INSERT | sed "s/SONG_ID/${SONG_ID}/"`
   INSERT=`echo $INSERT | sed "s/ARTIST_ID/${ARTIST_ID}/"`
@@ -167,3 +162,7 @@ do
   INSERT=`echo $INSERT | sed "s/PROFILE/${PROFILE}/"`
   echo $INSERT >> dataSeeded.sql
 done
+
+# adding to DB
+echo "$MYSQL_EXEC -u root < ../playerSchema.sql"
+echo "${MYSQL_EXEC} -u root < dataSeeded.sql"

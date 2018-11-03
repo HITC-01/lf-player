@@ -31,8 +31,14 @@ To run everything, follow this process.
 > To seed the DB run the following lines. You may need to change the username depending on your machine
 
 ```sh
-npm run seed
+cd database/seeding
+bash dbSeed.sh
+$MYSQL_EXEC  -u root < ../playerSchema.sql
+$MYSQL_EXEC  -u root < dataSeeded.sql
+cd ../../
 ```
+
+Where `$MYSQL_EXEC` is the path/name of mySQL on your local
 
 ## Requirements
 
