@@ -18,12 +18,10 @@
 ## Usage
 
 > To seed the DB run the following lines. You may need to change the username depending on your machine
+in the .env file. Also, this works super SLOW (~6min).
 
 ```sh
-cd database/seeding
-bash dbSeed.sh
-$MYSQL_EXEC  -u root < ../playerSchema.sql
-$MYSQL_EXEC  -u root < dataSeeded.sql
+npm run seed
 ```
 
 ## Requirements
@@ -31,15 +29,16 @@ $MYSQL_EXEC  -u root < dataSeeded.sql
 An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
 - Node 6.13.0
-- etc
+- mysql
 
 ## Development
 
 From within the root directory:
 
 ```sh
-nodemon server/index.js
-webpack-cli  --watch
+npm start
+npm run dev:react
+npm run dev:sass
 ```
 
 ### Installing Dependencies
@@ -47,6 +46,5 @@ webpack-cli  --watch
 From within the root directory:
 
 ```sh
-npm install -g webpack
 npm install
 ```

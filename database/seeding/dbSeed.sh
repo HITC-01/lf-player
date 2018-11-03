@@ -89,6 +89,11 @@ do
   done
   TITLE=`echo $TITLE | sed "s/^ //"`
 
+  CHAR=${#TITLE}
+  if [ "$CHAR" -gt "69" ]; then
+    TITLE=${TITLE:0:69}
+  fi
+
   idx=$((RANDOM % 4 + 1))
   ALBUM=''
   for j in `seq 1 $idx` ;
@@ -97,6 +102,11 @@ do
     ALBUM=`echo "$ALBUM $WORD"`
   done
   ALBUM=`echo $ALBUM | sed "s/^ //"`
+
+  CHAR=${#ALBUM}
+  if [ "$CHAR" -gt "39" ]; then
+    ALBUM=${ALBUM:0:39}
+  fi
 
   DURATION=$((RANDOM % 100 + 180))
   ARTIST_ID=$((RANDOM % NARTISTS + 1))
@@ -132,6 +142,11 @@ do
     COMMENT=`echo "$COMMENT $WORD"`
   done
   COMMENT=`echo $COMMENT | sed "s/^ //"`
+
+  CHAR=${#COMMENT}
+  if [ "$CHAR" -gt "149" ]; then
+    COMMENT=${COMMENT:0:149}
+  fi
 
   ARTIST_ID=$((RANDOM % NARTISTS + 1))
   SONG_ID=$((RANDOM % NSONGS + 1))
