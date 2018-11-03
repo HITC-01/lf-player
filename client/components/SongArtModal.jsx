@@ -34,7 +34,7 @@ const SongArtModal = ({
       <button
         type="button"
         className="player-art-modal-close-button"
-        onClick={() => onCloseRequest(false)}
+        onClick={(e) => onCloseRequest(false, e)}
       >
         <i className="fas fa-times  fa-3x" />
       </button>

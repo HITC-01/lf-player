@@ -15,7 +15,11 @@ class SongArt extends React.Component {
     this.toggleModal(true);
   }
 
-  toggleModal(bool) {
+  toggleModal(bool, e) {
+    if (e) {
+      e.preventDefault();
+    }
+
     this.setState({ showModal: bool });
   }
 
