@@ -230,6 +230,58 @@ div[class*="-playing-to-play"] {
 /*************************/
 /*  MODAL                */
 /*************************/
+$transparency: 0.8;
+.player-art-modal-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  color: $black-grey;
+  font-size: 25px;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  padding: 1rem;
+  background-color: rgba(255, 255, 255, $transparency);
+  z-index: 9999;
+  overflow-x: hidden;
+  overflow-y: auto;
+  animation: show .5s ease;
+}
+
+.player-art-modal {
+  padding: 20px 25px;
+  display: flex;
+  flex-direction: column;
+  background: $white;
+  word-wrap: break-word;
+  #player-art-modal-image {
+    height: 500px;
+    width: 500px;
+  }
+
+  hr {
+    border: solid 1px $light-grey;
+    width: 100%;
+  }
+
+  #player-art-modal-title {
+    align-items: left;
+    width: 500px;
+  }
+}
+
+.player-art-modal-close-button {
+  position: fixed;
+  cursor: pointer;
+  top: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+}
+
+
 
 /*************************/
 /* Background gradient!  */
