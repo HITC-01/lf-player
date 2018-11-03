@@ -13,7 +13,7 @@ COLORS=('grey' 'red');
 
 # this is the seeded data file
 rm -rf dataSeeded.sql
-echo "USE soundcloud;" > dataSeeded.sql
+echo "USE soundcloud_player;" > dataSeeded.sql
 
 # images
 ALBUM_IMGS=($(ls ../../public/assets/media/album*))

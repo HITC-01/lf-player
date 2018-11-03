@@ -27,14 +27,12 @@ const SongBar = ({
     });
   });
   const handleBarClick = (e) => {
-    if (e.target.className.includes('player-songbar-upper-')) {
-      console.log('in click', e.target.offsetLeft, e.screenX, e.target.parentNode.offsetWidth);
-      handleClick(e.target.offsetLeft / e.target.parentNode.offsetWidth);
-    } else if (e.target.className === 'player-songbar-upper') {
-      handleClick(e.target.offsetLeft / nBars);
+    const eT = e.target;
+    if (eT.className.includes('player-songbar-upper')) {
+      handleClick((eT.offsetLeft - eT.parentNode.offsetLeft) / eT.parentNode.offsetWidth);
     } else {
-      console.log('else', e.screenX, e.target.offsetLeft, e.target.offsetWidth);
-      handleClick((e.screenX - e.target.offsetLeft) / e.target.offsetWidth);
+      console.log('e', eT.id, e.pageX, eT.offsetLeft, eT.parentNode.offsetWidth);
+      handleClick((e.pageX - eT.offsetLeft) / eT.offsetWidth);
     }
   };
 

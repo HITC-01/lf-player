@@ -31,6 +31,10 @@ body {
   background-color: $white;
 }
 
+#player-all {
+  margin: 0 auto;
+}
+
 /* LINKS */
 a {
   text-decoration: none;
@@ -42,6 +46,7 @@ a {
   background: $black-grey;
   color: $light-grey;
   padding: 2px 7px;
+  line-height: 1.5em;
 }
 
 #player-main-title span {
@@ -59,6 +64,7 @@ a {
   padding: 1px 8px;
   background: $tag-grey;
   border-radius: 20px;
+  white-space: nowrap;
 }
 
 #player-song-tag span:hover {
@@ -93,7 +99,6 @@ a {
 /*************************/
 /* SONGBAR */
 /*************************/
-
 #player-songbar {
   cursor: pointer;
 }
@@ -178,6 +183,51 @@ div[class*="-playing-to-play"] {
 }
 
 /*************************/
+/* COMMENTS */
+/*************************/
+.player-comment-image-hide,
+.player-comment-image-show {
+  position: inherit;
+}
+
+.player-comment-image-show {
+  border-radius: 50%;
+  z-index: 1000;
+}
+
+.player-comment-image-hide {
+  z-index:0;
+}
+
+.player-comment-right,
+.player-comment-left {
+  display: flex;
+  font-size: 14px;
+  position: absolute;
+  top: 28px;
+  left: 0px;
+  white-space: nowrap;
+}
+
+.player-comment-artist,
+.player-comment-text {
+  padding-right: 6px;
+}
+
+.player-comment-left {
+  left: auto;
+  right: 20px;
+}
+
+.player-comment-artist {
+  color: $dark-orange2;
+}
+
+.player-comment-text {
+  color: $white;
+}
+
+/*************************/
 /* Background gradient! */
 /*************************/
 .player-background-grey {
@@ -215,9 +265,27 @@ GRIDS
     grid-column: play-left / profile-right;
     grid-row: profile-top / bottom-pad;
     display: grid;
+    grid-template-rows: [top] 70.5px [middle] 30px [bottom];
+    grid-template-columns: [left] auto [right];
+
+
+    #player-comments {
+      grid-row: middle / bottom;
+      grid-column: left / right;
+      position: relative;
+
+      .player-comment-single {
+        position: absolute;
+        top: 0px;
+      }
+    }
+
     #player-songbar {
+      grid-row: top / bottom;
+      grid-column: left / right;
+
       display: grid;
-      grid-template-rows: [top] 52px [time] 18px [top-end] 0.5px [bottom] 30px [bottom-end];
+      grid-template-rows: [top] 52px [time] 18px [top-end] 0.15em [bottom] 30px [bottom-end];
       grid-template-columns: [start] 20px [middle] auto [middle-end] 26px [end];
 
       #player-songbar-current-time {
@@ -274,26 +342,23 @@ GRIDS
       grid-row-start: extra-bottom / bottom;
       display: grid;
       grid-template-columns: [player] 60px [player-end] 10px [rest] auto;
-      grid-template-rows: [artist] 35px [play-bottom] 25px [title-bottom] 45px [rest] auto [bottom] 15px;
+      grid-template-rows: [artist] 35px [play-bottom] 25px [title-bottom] 45px [rest] auto [bottom] 15px [end];
 
       .player-main-play {
         grid-column: player / player-end;
         grid-row: artist / title-bottom;
       }
 
-      #player-main-artist {
+      #player-main-all {
         grid-column-start: rest;
-        grid-row: artist / play-bottom;
-      }
+        display: flex;
+        flex-direction: column;
 
-      #player-main-title {
-        grid-column-start: rest;
-        grid-row: play-bottom / bottom;
-      }
-
-      #player-main-album {
-        grid-column-start: rest;
-        grid-row-start: bottom;
+        #player-main-artist,
+        #player-main-title,
+        #player-main-album {
+          padding-bottom: 15px;
+        }
       }
     }
   }

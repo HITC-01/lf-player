@@ -8,6 +8,15 @@ import SongBar from '../../client/components/SongBar.jsx';
 
 describe('SongBar component', () => {
   let props = { };
+  const simTarget = {
+    screenX: 0,
+    target: {
+      className: '',
+      offsetWidth: 1,
+      offsetLeft: 0,
+      parentNode: { offsetWidth: 10 },
+    },
+  };
 
   beforeEach(() => {
     props = {
@@ -41,14 +50,12 @@ describe('SongBar component', () => {
 
   test('respond to clicks on individual bar', () => {
     const component = shallow(<SongBar {...props} />);
-    const simTarget = { screenX: 0, target: { className: '', offsetWidth: 1, offsetLeft: 0 } };
     component.find('#player-songbar').simulate('click', simTarget);
     expect(props.handleClick).toHaveBeenCalled();
   });
 
   test('respond to clicks on parent', () => {
     const component = shallow(<SongBar {...props} />);
-    const simTarget = { screenX: 0, target: { className: 'player-songbar-upper', offsetWidth: 40, offsetLeft: 0 } };
     component.find('#player-songbar').simulate('click', simTarget);
     expect(props.handleClick).toHaveBeenCalled();
   });
