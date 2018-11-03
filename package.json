@@ -13,6 +13,9 @@
   },
   "scripts": {
     "seed": "bash seeder.sh",
+    "start": "nodemon server/index.js",
+    "dev:react": "webpack -d --watch",
+    "dev:sass": "sass --watch public/assets/styles/main.scss public/assets/styles/main.css",
     "test": "jest"
   },
   "dependencies": {

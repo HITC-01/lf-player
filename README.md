@@ -31,15 +31,16 @@ $MYSQL_EXEC  -u root < dataSeeded.sql
 An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
 - Node 6.13.0
-- etc
+- mysql
 
 ## Development
 
 From within the root directory:
 
 ```sh
-nodemon server/index.js
-webpack-cli  --watch
+npm start
+npm run dev:react
+npm run dev:sass
 ```
 
 ### Installing Dependencies
