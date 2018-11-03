@@ -10,7 +10,7 @@ const SongExtras = ({ song, handleInfoClick }) => {
 
   return (
     <div id="player-display-extras">
-      <h4 id="player-song-date">{moment(song.songAdded).from(new Date().setHours(0, 0, 0, 0))}</h4>
+      <h4 id="player-song-date">{moment(song.songAdded).fromNow()}</h4>
       <a
         id="player-song-tag"
         href="#"

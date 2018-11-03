@@ -185,6 +185,20 @@ div[class*="-playing-to-play"] {
 /*************************/
 /* COMMENTS */
 /*************************/
+.player-comment-image-hide,
+.player-comment-image-show {
+  position: inherit;
+}
+
+.player-comment-image-show {
+  border-radius: 50%;
+  z-index: 1000;
+}
+
+.player-comment-image-hide {
+  z-index:0;
+}
+
 .player-comment-right,
 .player-comment-left {
   display: flex;
@@ -271,7 +285,7 @@ GRIDS
       grid-column: left / right;
 
       display: grid;
-      grid-template-rows: [top] 52px [time] 18px [top-end] 0.5px [bottom] 30px [bottom-end];
+      grid-template-rows: [top] 52px [time] 18px [top-end] 0.15em [bottom] 30px [bottom-end];
       grid-template-columns: [start] 20px [middle] auto [middle-end] 26px [end];
 
       #player-songbar-current-time {

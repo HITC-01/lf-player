@@ -6,8 +6,7 @@ class SongCommentsEntry extends React.Component {
     super(props);
     this.state = { show: false };
     this.createComments(props);
-    this.showComment = this.showComment.bind(this);
-    this.hideComment = this.hideComment.bind(this);
+    this.toggleComment = this.toggleComment.bind(this);
   }
 
   createComments({ comment }) {
@@ -32,16 +31,10 @@ class SongCommentsEntry extends React.Component {
     });
   }
 
-  showComment() {
+  toggleComment(show = false) {
     const { resetNowPLaying } = this.props;
-    resetNowPLaying(true);
-    this.setState({ show: true });
-  }
-
-  hideComment() {
-    const { resetNowPLaying } = this.props;
-    resetNowPLaying();
-    this.setState({ show: false });
+    resetNowPLaying(show);
+    this.setState({ show });
   }
 
   render() {
@@ -52,11 +45,12 @@ class SongCommentsEntry extends React.Component {
     return (
       <div
         className="player-comment-single"
-        onMouseOver={this.showComment}
-        onMouseLeave={this.hideComment}
+        onMouseEnter={() => this.toggleComment(true)}
+        onMouseLeave={() => this.toggleComment(false)}
         style={{ left: `${comment.time}%` }}
       >
         <img
+          className={`player-comment-image-${show ? 'show' : 'hide'}`}
           src={comment.artistImageUrl}
           alt="user-profile"
           onClick={() => handleReply(comment.artistName)}
