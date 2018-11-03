@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cloneDeep from 'lodash.clonedeep';
 import SongDisplay from './SongDisplay.jsx';
 import SongTracker from './SongTracker.jsx';
 import helpers from '../helpers/playerHelpers.js';
-
-const cloneDeep = require('lodash.clonedeep');
 
 const nSongsInDB = 100;
 
