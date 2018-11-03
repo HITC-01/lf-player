@@ -124,7 +124,7 @@ describe('Player component', () => {
     instance.state.playState.currentTime = 2;
     instance.count();
     const { playState } = instance.state;
-    expect(playState.currentTime).toBe(1);
+    expect(playState.currentTime).toBe(0);
     expect(playState.playing).toBe(false);
   });
 
