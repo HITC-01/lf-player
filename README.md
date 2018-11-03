@@ -20,10 +20,7 @@
 > To seed the DB run the following lines. You may need to change the username depending on your machine
 
 ```sh
-cd database/seeding
-bash dbSeed.sh
-$MYSQL_EXEC  -u root < ../playerSchema.sql
-$MYSQL_EXEC  -u root < dataSeeded.sql
+npm run seed
 ```
 
 ## Requirements
@@ -48,6 +45,5 @@ npm run dev:sass
 From within the root directory:
 
 ```sh
-npm install -g webpack
 npm install
 ```
