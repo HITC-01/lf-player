@@ -28,13 +28,14 @@ describe('SongCommentsEntry component', () => {
     const propsOut = Array.from(Object.keys(component.props()));
     expect(propsOut.length).toBe(5);
     expect(component.prop('className')).toBe('player-comment-single');
-    expect(component.prop('onMouseOver') instanceof Function).toBe(true);
+    expect(component.prop('onMouseEnter') instanceof Function).toBe(true);
     expect(component.prop('onMouseLeave') instanceof Function).toBe(true);
     expect(component.prop('style')).toBeTruthy();
 
     const image = Array.from(Object.keys(component.find('img').props()));
-    expect(image.length).toBe(3);
+    expect(image.length).toBe(4);
     expect(component.find('img').prop('src')).toBe('text.jpg');
+    expect(component.find('img').prop('className').includes('player-comment-image-')).toBe(true);
     expect(component.find('img').prop('onClick') instanceof Function).toBe(true);
 
     const name = Array.from(Object.keys(component.find('.player-comment-artist').props()));
@@ -60,13 +61,13 @@ describe('SongCommentsEntry component', () => {
 
   test('respond to hover on comment image', () => {
     const instance = mount(<SongCommentsEntry {...props} />);
-    instance.simulate('mouseover');
+    instance.simulate('mouseenter');
     expect(instance.state('show')).toBe(true);
   });
 
   test('respond to hover exit', () => {
     const instance = mount(<SongCommentsEntry {...props} />);
-    instance.simulate('mouseover');
+    instance.simulate('mouseenter');
     expect(instance.state('show')).toBe(true);
     instance.simulate('mouseleave');
     expect(instance.state('show')).toBe(false);
