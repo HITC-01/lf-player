@@ -91,7 +91,7 @@ class Player extends React.Component {
   handlePlayClick(currentTime) {
     const { playState } = cloneDeep(this.state);
 
-    if (currentTime) {
+    if (currentTime !== undefined) {
       playState.currentTime = currentTime;
       clearInterval(this.intervalId);
     }

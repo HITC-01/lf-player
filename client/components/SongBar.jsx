@@ -26,15 +26,13 @@ const SongBar = ({
       ));
     });
   });
+
   const handleBarClick = (e) => {
-    if (e.target.className.includes('player-songbar-upper-')) {
-      console.log('in click', e.target.offsetLeft, e.screenX, e.target.parentNode.offsetWidth);
-      handleClick(e.target.offsetLeft / e.target.parentNode.offsetWidth);
-    } else if (e.target.className === 'player-songbar-upper') {
-      handleClick(e.target.offsetLeft / nBars);
+    const click = e.target;
+    if (e.target.className.includes('player-songbar-upper')) {
+      handleClick((click.offsetLeft - click.parentNode.offsetLeft) / click.parentNode.offsetWidth);
     } else {
-      console.log('else', e.screenX, e.target.offsetLeft, e.target.offsetWidth);
-      handleClick((e.screenX - e.target.offsetLeft) / e.target.offsetWidth);
+      handleClick((e.pageX - click.offsetLeft) / click.parentNode.offsetWidth);
     }
   };
 
