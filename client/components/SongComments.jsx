@@ -1,21 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import SongCommentsEntry from './SongCommentsEntry.jsx';
 
-const SongComments = ({ comments, nowPlaying, resetNowPLaying }) => {
+const SongComments = ({ comments }) => {
   const handleReply = (user) => {
-    window.alert(`On click, this would allow you to comment @${user}`);
+    window.alert(`On click, this would allow you to comment @ ${user}`);
   };
 
   const commentsAll = comments.map((comment, i) => (
-    <SongCommentsEntry
+    <span
       key={i}
-      comment={comment}
-      nowPlaying={i === nowPlaying}
       handleReply={handleReply}
-      resetNowPLaying={resetNowPLaying}
-    />
+    >
+      {comment.text}
+    </span>
   ));
+
 
   return (
     <div id="player-comments">
@@ -26,8 +25,6 @@ const SongComments = ({ comments, nowPlaying, resetNowPLaying }) => {
 
 SongComments.propTypes = {
   comments: PropTypes.array.isRequired,
-  nowPlaying: PropTypes.number.isRequired,
-  resetNowPLaying: PropTypes.func.isRequired,
 };
 
 export default SongComments;
