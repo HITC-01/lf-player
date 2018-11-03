@@ -21,7 +21,7 @@ const SongMain = ({
         className="player-main-play"
         id={`player-main-${playState}`}
         type="button"
-        onClick={() => { handlePlayClick(); }}
+        onClick={handlePlayClick}
       >
         {playIcon}
       </button>

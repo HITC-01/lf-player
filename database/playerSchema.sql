@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS soundcloud;
-USE soundcloud;
+CREATE DATABASE IF NOT EXISTS soundcloud_player;
+USE soundcloud_player;
 
 -- ---
 -- Table 'comments'

@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cloneDeep from 'lodash.clonedeep';
 import SongDisplay from './SongDisplay.jsx';
 import SongTracker from './SongTracker.jsx';
 import helpers from '../helpers/playerHelpers.js';
-
-const cloneDeep = require('lodash.clonedeep');
 
 const nSongsInDB = 100;
 
@@ -62,12 +61,13 @@ class Player extends React.Component {
       .then(stream => stream.json())
       .then((res) => {
         const { song } = this.state;
+        const comments = res.data;
         const songTimes = {};
-        res.data.forEach((comment, i) => {
+        comments.forEach((comment, i) => {
           const timeStamp = Math.floor(comment.time * song.duration / 100);
           songTimes[timeStamp] = i;
         });
-        this.setState({ comments: res.data, songTimes });
+        this.setState({ comments, songTimes });
       });
   }
 
@@ -92,7 +92,7 @@ class Player extends React.Component {
   handlePlayClick(currentTime) {
     const { playState } = cloneDeep(this.state);
 
-    if (currentTime) {
+    if (currentTime !== undefined) {
       playState.currentTime = currentTime;
       clearInterval(this.intervalId);
     }
