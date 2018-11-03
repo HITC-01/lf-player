@@ -25,24 +25,22 @@ const SongMain = ({
       >
         {playIcon}
       </button>
-      <div id="player-main-all">
-        <a
-          id="player-main-artist"
-          href="#"
-          onClick={handleLinkClick}
-        >
-          <span>{song.artistName}</span>
-        </a>
-        <h1 id="player-main-title"><span>{song.title}</span></h1>
-        <a
-          id="player-main-album"
-          href="#"
-          hidden={hidden}
-          onClick={handleLinkClick}
-        >
-          <span>{song.album}</span>
-        </a>
-      </div>
+      <a
+        id="player-main-artist"
+        href="#"
+        onClick={handleLinkClick}
+      >
+        <span>{song.artistName}</span>
+      </a>
+      <h1 id="player-main-title"><span>{song.title}</span></h1>
+      <a
+        id="player-main-album"
+        href="#"
+        hidden={hidden}
+        onClick={handleLinkClick}
+      >
+        <span>{song.album}</span>
+      </a>
     </div>
   );
 };
