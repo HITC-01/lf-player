@@ -5,7 +5,7 @@ import SongArtModal from './SongArtModal.jsx';
 class SongArt extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { showModal: true };
+    this.state = { showModal: false };
     this.handleModalClick = this.handleModalClick.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
   }

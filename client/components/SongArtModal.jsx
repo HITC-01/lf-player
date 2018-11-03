@@ -5,20 +5,16 @@ const SongArtModal = ({
   onCloseRequest, image, title, artist,
 }) => {
   const keyCheck = (e) => {
+    console.log('calling');
     if (e.keyCode === 27) {
       onCloseRequest(false);
     }
   };
 
   window.addEventListener('keyup', keyCheck);
-  const clickCheck = () => {
-
-  };
-
   return (
     <div
       className="player-art-modal-overlay"
-      onClick={clickCheck}
     >
       <div
         className="player-art-modal"
