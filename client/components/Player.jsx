@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import cloneDeep from 'lodash.clonedeep';
 import SongDisplay from './SongDisplay.jsx';
 import SongTracker from './SongTracker.jsx';
 import helpers from '../helpers/playerHelpers.js';
+
+const cloneDeep = require('lodash.clonedeep');
 
 const nSongsInDB = 100;
 
@@ -18,6 +19,9 @@ class Player extends React.Component {
       song: { albumImageUrl: '', duration: 0 },
       playState: helpers.initializePlayState(),
       comments: [],
+      nowPlaying: [null, -1],
+      songTimes: [[]],
+      commentHover: false,
       songProfile: { profile: [] },
     };
 
@@ -28,6 +32,7 @@ class Player extends React.Component {
     this.handleBarClick = this.handleBarClick.bind(this);
     this.handleBarScan = this.handleBarScan.bind(this);
     this.handlePlayClick = this.handlePlayClick.bind(this);
+    this.resetNowPLaying = this.resetNowPLaying.bind(this);
   }
 
   componentDidMount() {
@@ -37,6 +42,7 @@ class Player extends React.Component {
       .catch(err => console.log(`Error: ${err}`));
   }
 
+  // Queries to server
   getSongData(id) {
     const url = `${this.url}/sc/songs/${id}`;
     return fetch(url, { method: 'GET' })
@@ -55,15 +61,22 @@ class Player extends React.Component {
     return fetch(url, { method: 'GET' })
       .then(stream => stream.json())
       .then((res) => {
-        this.setState({ comments: res.data });
+        const { song } = this.state;
+        const songTimes = {};
+        res.data.forEach((comment, i) => {
+          const timeStamp = Math.floor(comment.time * song.duration / 100);
+          songTimes[timeStamp] = i;
+        });
+        this.setState({ comments: res.data, songTimes });
       });
   }
 
+  // Modal display
   handleAlbumClick(type) {
-    window.alert(`On click, TODO
-      to the ${type} modal`);
+    window.alert(`On click, TODO to the ${type} modal`);
   }
 
+  // Event handlers
   handleBarScan(hovering = false, fraction = 0) {
     const { playState } = cloneDeep(this.state);
     playState.hovering = hovering;
@@ -79,7 +92,7 @@ class Player extends React.Component {
   handlePlayClick(currentTime) {
     const { playState } = cloneDeep(this.state);
 
-    if (currentTime !== undefined) {
+    if (currentTime) {
       playState.currentTime = currentTime;
       clearInterval(this.intervalId);
     }
@@ -94,16 +107,21 @@ class Player extends React.Component {
     this.setState({ playState });
   }
 
+  // Player play button functions
   count() {
     let { playState } = this.state;
+    const newTime = playState.currentTime + 1;
+
     if (playState.currentTime >= playState.totalTime) {
       playState = { ...playState, currentTime: playState.totalTime, playing: false };
       this.setState({ playState });
       clearInterval(this.intervalId);
       return;
     }
-    playState = { ...playState, currentTime: playState.currentTime + 1 };
-    this.setState({ playState });
+
+    const nowPlaying = this.findNowPlaying(newTime);
+    playState = { ...playState, currentTime: newTime };
+    this.setState({ playState, nowPlaying });
   }
 
   play() {
@@ -112,12 +130,34 @@ class Player extends React.Component {
 
   pause() {
     clearInterval(this.intervalId);
+    this.resetNowPLaying();
     this.intervalId = null;
+  }
+
+  // Methods for finding a comment to display
+  findNowPlaying(newTime) {
+    const showTime = 3;
+    let { nowPlaying } = this.state;
+    const { songTimes, commentHover } = this.state;
+
+    if (!commentHover && (newTime in songTimes)) {
+      nowPlaying = [newTime, songTimes[newTime]];
+    } else if (!commentHover && (nowPlaying[0] !== null)) {
+      const diff = newTime - nowPlaying[0];
+      if ((diff >= showTime)) {
+        nowPlaying = [null, -1];
+      }
+    }
+    return nowPlaying;
+  }
+
+  resetNowPLaying(commentHover = false) {
+    this.setState({ nowPlaying: [null, -1], commentHover });
   }
 
   render() {
     const {
-      song, playState, songProfile, comments,
+      song, playState, songProfile, comments, nowPlaying,
     } = this.state;
 
     return (
@@ -135,6 +175,8 @@ class Player extends React.Component {
           songProfile={songProfile}
           playState={playState}
           comments={comments}
+          nowPlaying={nowPlaying[1]}
+          resetNowPLaying={this.resetNowPLaying}
           handleScan={this.handleBarScan}
           handleBarClick={this.handleBarClick}
         />
