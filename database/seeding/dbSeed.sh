@@ -90,7 +90,7 @@ do
   TITLE=`echo $TITLE | sed "s/^ //"`
 
   CHAR=${#TITLE}
-  if ['$CHAR' -gt '69']; then
+  if [ "$CHAR" -gt "69" ]; then
     TITLE=${TITLE:0:69}
   fi
 
@@ -104,7 +104,7 @@ do
   ALBUM=`echo $ALBUM | sed "s/^ //"`
 
   CHAR=${#ALBUM}
-  if ['$CHAR' -gt '39']; then
+  if [ "$CHAR" -gt "39" ]; then
     ALBUM=${ALBUM:0:39}
   fi
 
@@ -144,7 +144,7 @@ do
   COMMENT=`echo $COMMENT | sed "s/^ //"`
 
   CHAR=${#COMMENT}
-  if ['$CHAR' -gt '149']; then
+  if [ "$CHAR" -gt "149" ]; then
     COMMENT=${COMMENT:0:149}
   fi
 
