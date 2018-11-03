@@ -18,6 +18,7 @@
 ## Usage
 
 > To seed the DB run the following lines. You may need to change the username depending on your machine
+in the .env file. Also, this works super SLOW (~6min).
 
 ```sh
 npm run seed

@@ -1,4 +1,5 @@
-CREATE DATABASE IF NOT EXISTS soundcloud_player;
+DROP DATABASE IF EXISTS soundcloud_player;
+CREATE DATABASE soundcloud_player;
 USE soundcloud_player;
 
 -- ---
