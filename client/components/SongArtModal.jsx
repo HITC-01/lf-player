@@ -5,9 +5,12 @@ const SongArtModal = ({
   onCloseRequest, image, title, artist,
 }) => {
   const keyCheck = (e) => {
-
+    if (e.keyCode === 27) {
+      onCloseRequest(false);
+    }
   };
 
+  window.addEventListener('keyup', keyCheck);
   const clickCheck = () => {
 
   };
@@ -21,7 +24,7 @@ const SongArtModal = ({
         className="player-art-modal"
       >
         <p id="player-art-modal-title">{`${title} - ${artist}`}</p>
-        <hr/>
+        <hr />
         <img
           id="player-art-modal-image"
           src={image}
@@ -31,10 +34,9 @@ const SongArtModal = ({
       <button
         type="button"
         className="player-art-modal-close-button"
-        onClick={onCloseRequest}
-        onKeyPress={keyCheck}
+        onClick={() => onCloseRequest(false)}
       >
-        <i className="fas fa-times  fa-3x"/>
+        <i className="fas fa-times  fa-3x" />
       </button>
     </div>
   );

@@ -7,12 +7,16 @@ class SongArt extends React.Component {
     super(props);
     this.state = { showModal: true };
     this.handleModalClick = this.handleModalClick.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
   }
 
   handleModalClick(e) {
     e.preventDefault();
-    const { showModal } = this.state;
-    this.setState({ showModal: !showModal });
+    this.toggleModal(true);
+  }
+
+  toggleModal(bool) {
+    this.setState({ showModal: bool });
   }
 
   render() {
@@ -24,7 +28,7 @@ class SongArt extends React.Component {
           image={songImage}
           title={songTitle}
           artist={songArtist}
-          onCloseRequest={this.handleModalClick}
+          onCloseRequest={this.toggleModal}
         />
       )
       : '';
