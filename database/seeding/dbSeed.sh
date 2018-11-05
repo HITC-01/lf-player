@@ -10,22 +10,23 @@ GENRES=('Alternative' 'Blues' 'Classical' 'Country'
   'Jazz' 'Latin' 'New Age' 'Opera' 'Pop' 'RnB' 'Soul' 'Reggae'
   'Rock' 'Singer-Songwriter' 'Folk' 'World');
 COLORS=('grey' 'red');
+AWS='https:\/\/s3-us-west-1.amazonaws.com\/head-in-the-clouds-player\/'
 
 # this is the seeded data file
 rm -rf dataSeeded.sql
-echo "USE soundcloud;" > dataSeeded.sql
+echo "USE soundcloud_player;" > dataSeeded.sql
 
 # images
 ALBUM_IMGS=($(ls ../../public/assets/media/album*))
 for i in `seq 1 ${#ALBUM_IMGS[@]}`
 do
-  ALBUM_IMGS[$((i - 1))]=`echo ${ALBUM_IMGS[$((i - 1))]} | sed "s/\.\.\/\.\.\/public//"`
+  ALBUM_IMGS[$((i - 1))]=`echo ${ALBUM_IMGS[$((i - 1))]} | sed "s/\.\.\/\.\.\/public/${AWS}/"`
 done
 
 USER_IMGS=($(ls ../../public/assets/media/user*))
 for i in `seq 1 ${#USER_IMGS[@]}`
 do
-  USER_IMGS[$((i - 1))]=`echo ${USER_IMGS[$((i - 1))]} | sed "s/\.\.\/\.\.\/public//"`
+  USER_IMGS[$((i - 1))]=`echo ${USER_IMGS[$((i - 1))]} | sed "s/\.\.\/\.\.\/public/${AWS}/"`
 done
 
 # name file details
