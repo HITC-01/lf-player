@@ -10,10 +10,9 @@ module.exports = (grunt) => {
         bucket: '<%= aws.bucket %>',
         access: 'public-read',
         headers: {
-          // Two Year cache policy (1000 * 60 * 60 * 24 * 730)
-          "Cache-Control": "max-age=630720000, public",
-          "Expires": new Date(Date.now() + 63072000000).toUTCString()
-        }
+          'Cache-Control': 'max-age=630720000, public',
+          Expires: new Date(Date.now() + 63072000000).toUTCString(),
+        },
       },
       dev: {
         // Files to be uploaded.
@@ -30,7 +29,7 @@ module.exports = (grunt) => {
     },
   });
 
-  // Load the plugin that provides the "uglify" task.
+  // Load the plugin that provides the 'uglify' task.
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-s3');
 
