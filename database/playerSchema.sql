@@ -1,5 +1,5 @@
--- DROP DATABASE IF EXISTS lfelberg;
--- CREATE DATABASE lfelberg;
+DROP DATABASE IF EXISTS lfelberg;
+CREATE DATABASE lfelberg;
 USE lfelberg;
 
 -- ---

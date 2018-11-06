@@ -10,7 +10,7 @@ GENRES=('Alternative' 'Blues' 'Classical' 'Country'
   'Jazz' 'Latin' 'New Age' 'Opera' 'Pop' 'RnB' 'Soul' 'Reggae'
   'Rock' 'Singer-Songwriter' 'Folk' 'World');
 COLORS=('grey' 'red');
-AWS='https:\/\/s3-us-west-1.amazonaws.com\/head-in-the-clouds-player\/'
+AWS='https:\/\/s3-us-west-1.amazonaws.com\/head-in-the-clouds-player'
 
 # this is the seeded data file
 rm -rf dataSeeded.sql
