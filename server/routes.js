@@ -10,7 +10,6 @@ const queryAll = ({ type }) => ((req, res) => {
   dbQuery(song)
     .then((dbData) => {
       const returnData = (type === 'comments') ? dbData : dbData[0];
-      console.log('found', dbData);
       res.status(200).send(JSON.stringify({ data: returnData }));
     })
     .catch((err) => {

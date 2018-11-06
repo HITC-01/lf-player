@@ -1,9 +1,14 @@
+// Player server
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
 const path = require('path');
 const songRoute = require('./routes');
 
 const app = express();
+
+// middleware
+app.use(cors());
 
 app.use((req, res, next) => {
   console.log(`INCOMING ${req.method} from ${req.originalUrl}`);

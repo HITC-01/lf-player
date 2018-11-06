@@ -14,6 +14,7 @@ class Player extends React.Component {
 
     this.intervalId = null;
     this.url = props.url;
+    this.songId = props.songId;
 
     this.state = {
       song: {
@@ -40,8 +41,7 @@ class Player extends React.Component {
   }
 
   componentDidMount() {
-    const songId = Math.floor(Math.random() * nSongsInDB) + 1;
-    this.getSongData(songId)
+    this.getSongData(this.songId)
       .then(() => this.getComments(songId))
       .catch(err => console.log(`Error: ${err}`));
   }
@@ -186,10 +186,12 @@ class Player extends React.Component {
 
 Player.propTypes = {
   url: PropTypes.string,
+  songId: PropTypes.number,
 };
 
 Player.defaultProps = {
   url: '',
+  songId: 1,
 };
 
 export default Player;
