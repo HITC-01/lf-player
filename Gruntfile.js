@@ -1,13 +1,17 @@
+require('dotenv').config();
+
 module.exports = (grunt) => {
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    env: grunt.file.readJSON('.env'),
+    awskey: process.env.AWS_KEY,
+    awssecret: process.env.AWS_SECRET,
+    awsbucket: process.env.AWS_BUCKET,
     s3: {
       options: {
-        key: '<%= aws.key %>',
-        secret: '<%= aws.secret %>',
-        bucket: '<%= aws.bucket %>',
+        key: '<%= awskey %>',
+        secret: '<%= awssecret %>',
+        bucket: '<%= awsbucket %>',
         access: 'public-read',
         headers: {
           'Cache-Control': 'max-age=630720000, public',
@@ -15,24 +19,26 @@ module.exports = (grunt) => {
         },
       },
       dev: {
-        // Files to be uploaded.
         upload: [
           {
-            src: '/public/dist/player-bundle.min.js',
+            src: 'public/dist/player-bundle.min.js',
             dest: 'player-bundle.min.js',
-
-            // These values will override the above settings.
-            bucket: 'some-specific-bucket',
+          },
+          {
+            src: 'public/assets/styles/main.css',
+            dest: 'main.css',
+          },
+          {
+            src: 'public/assets/styles/clearAll.css',
+            dest: 'clearAll.css',
           },
         ],
       },
     },
   });
 
-  // Load the plugin that provides the 'uglify' task.
-  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-s3');
 
   // Default task(s).
-  grunt.registerTask('default', ['uglify']);
+  grunt.registerTask('default', ['s3']);
 };

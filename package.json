@@ -17,7 +17,8 @@
     "start": "nodemon server/index.js",
     "dev:react": "webpack -d --watch",
     "dev:sass": "sass --watch public/assets/styles/main.scss public/assets/styles/main.css",
-    "test": "jest"
+    "test": "jest",
+    "grunt": "grunt --verbose s3"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
