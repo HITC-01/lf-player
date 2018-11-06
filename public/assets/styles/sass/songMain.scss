@@ -53,6 +53,7 @@ $black-grey: #292827;
 
 .a {
   text-decoration: none;
+  padding: 0;
 }
 
 .player-main-all {
@@ -65,11 +66,11 @@ $black-grey: #292827;
 .player-main-artist,
 .player-main-title,
 .player-main-album {
-  padding-bottom: 15px;
+  padding-bottom: 5px;
 }
 
 .player-main-artist-span,
-.player-main-title-span,
+.player-main-title-all,
 .player-main-album-span {
   background: $black-grey;
   color: $light-grey;
@@ -78,6 +79,7 @@ $black-grey: #292827;
 }
 
 .player-main-title-span {
+  composes: player-main-title-all;
   color: white;
   font-size: 24px;
 }

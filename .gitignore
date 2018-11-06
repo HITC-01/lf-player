@@ -31,7 +31,6 @@ dist/
 main.css
 main.css.map
 
-
 # super secret files
 .env
 

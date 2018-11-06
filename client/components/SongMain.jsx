@@ -43,7 +43,7 @@ const SongMain = ({
           hidden={hidden}
           onClick={handleLinkClick}
         >
-          <span>{song.album}</span>
+          <span className={styles['player-main-album-span']}>{song.album}</span>
         </a>
       </div>
     </div>

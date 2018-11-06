@@ -4,7 +4,6 @@ import SongBar from './SongBar.jsx';
 import SongComments from './SongComments.jsx';
 import styles from '../../public/assets/styles/songTracker.css';
 
-
 const SongTracker = ({
   songProfile, comments, playState, nowPlaying,
   handleScan, handleBarClick, resetNowPLaying,

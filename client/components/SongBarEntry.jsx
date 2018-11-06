@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import helpers from '../helpers/playerHelpers.js';
+import styles from '../../public/assets/styles/songBarEntry.css';
 
 const SongBarEntry = ({
   position, barHeight, playState, barFraction,
@@ -10,6 +11,7 @@ const SongBarEntry = ({
   let barClass = `player-songbar-${position}`;
 
   barClass += helpers.colorBar(barFraction, playState);
+  barClass = styles[`${barClass}`];
   return (
     <div
       className={barClass}

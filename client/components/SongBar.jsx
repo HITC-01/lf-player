@@ -48,8 +48,12 @@ const SongBar = ({
       <div className={styles['player-songbar-lower']}>
         { bars[1] }
       </div>
-      <div className={styles['player-songbar-current-time']}><span>{currentMinSec}</span></div>
-      <div className={styles['player-songbar-total-time']}><span>{totalMinSec}</span></div>
+      <div className={styles['player-songbar-current-time']}>
+        <span className={styles['player-songbar-current-time-span']}>{currentMinSec}</span>
+      </div>
+      <div className={styles['player-songbar-total-time']}>
+        <span className={styles['player-songbar-total-time-span']}>{totalMinSec}</span>
+      </div>
     </div>
   );
 };

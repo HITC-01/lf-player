@@ -1,0 +1,63 @@
+$light-orange: #f4c09c; /* color for lower song profile */
+$dark-orange: #f50; /* play button */
+$dark-orange2: #f30; /* when you hover over play button */
+$white: #fff;
+$songbar-grey: #ebece6;
+
+$width: 3;
+
+.player-songbar-all {
+  width: #{$width}px;
+  align-self: flex-end;
+}
+
+.player-songbar-lower-all {
+  composes: player-songbar-all;
+  align-self: flex-start;
+}
+
+.player-songbar-upper-to-play {
+  composes: player-songbar-all;
+  background: $songbar-grey;
+}
+
+.player-songbar-lower-to-play {
+  composes: player-songbar-lower-all;
+  background: $songbar-grey;
+}
+
+.player-songbar-upper-playing,
+.player-songbar-upper {
+  composes: player-songbar-all;
+  background: $dark-orange;
+  background: -webkit-linear-gradient(top, $dark-orange, $dark-orange2);
+  background: -o-linear-gradient(bottom, $dark-orange, $dark-orange2);
+  background: -moz-linear-gradient(bottom, $dark-orange, $dark-orange2);
+  background: linear-gradient(to bottom, $dark-orange , $dark-orange2);
+}
+
+.player-songbar-upper-to-play-playing-hover-middle,
+.player-songbar-upper-hover-middle {
+  composes: player-songbar-all;
+  background: $light-orange;
+}
+.player-songbar-lower-to-play-playing-hover-middle,
+.player-songbar-lower-hover-middle {
+  composes: player-songbar-lower-all;
+  background: $light-orange;
+}
+
+.player-songbar-upper-playing-to-play {
+  composes: player-songbar-all;
+  background: $white;
+}
+.player-songbar-lower-playing-to-play {
+  composes: player-songbar-lower-all;
+  background: $white;
+}
+
+.player-songbar-lower-playing,
+.player-songbar-lower {
+  composes: player-songbar-lower-all;
+  background: $light-orange;
+}
