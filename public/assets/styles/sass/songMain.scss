@@ -66,6 +66,7 @@ $black-grey: #292827;
 .player-main-artist,
 .player-main-title,
 .player-main-album {
+  composes: a;
   padding-bottom: 5px;
 }
 

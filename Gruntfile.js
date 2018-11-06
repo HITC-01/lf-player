@@ -10,10 +10,10 @@ module.exports = (grunt) => {
     aws_s3: {
       options: {
         accessKeyId: '<%= awskey %>',
-        secretAccessKey: '<%= awssecret %>', // You can also use env variables
+        secretAccessKey: '<%= awssecret %>',
         region: 'us-west-1',
-        uploadConcurrency: 5, // 5 simultaneous uploads
-        downloadConcurrency: 5, // 5 simultaneous downloads
+        uploadConcurrency: 5,
+        downloadConcurrency: 5,
       },
       staging: {
         options: {
@@ -29,25 +29,8 @@ module.exports = (grunt) => {
         ],
       },
     },
-    s3: {
-      options: {
-        key: '<%= awskey %>',
-        secret: '<%= awssecret %>',
-        bucket: '<%= awsbucket %>',
-        access: 'public-read',
-      },
-      dev: {
-        upload: [
-          {
-            src: 'public/dist/player-bundle.min.js',
-            dest: 'player-bundle.min.js',
-          },
-        ],
-      },
-    },
   });
 
-  // grunt.loadNpmTasks('grunt-s3');
   grunt.loadNpmTasks('grunt-aws-s3');
 
   // Default task(s).

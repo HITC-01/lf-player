@@ -34,7 +34,8 @@
   grid-template-rows: [artist] 35px [play-bottom] 25px [title-bottom] 45px [rest] auto [bottom] 15px [end]; }
 
 .a {
-  text-decoration: none; }
+  text-decoration: none;
+  padding: 0; }
 
 .player-main-all {
   composes: a;
@@ -45,6 +46,7 @@
 .player-main-artist,
 .player-main-title,
 .player-main-album {
+  composes: a;
   padding-bottom: 5px; }
 
 .player-main-artist-span,

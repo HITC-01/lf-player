@@ -1,5 +1,4 @@
 module.exports = {
-  // verbose: true,
   transform: { '.*': 'babel-jest' },
   collectCoverage: true,
   coverageReporters: [

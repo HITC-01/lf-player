@@ -17,7 +17,6 @@
     "start": "nodemon server/index.js",
     "dev:react": "webpack -d --watch",
     "scss": "node-sass --watch public/assets/styles/sass -o public/assets/styles",
-    "dev:sass": "sass --watch public/assets/styles/main.scss public/assets/styles/main.css",
     "test": "jest",
     "grunt": "grunt --verbose"
   },
