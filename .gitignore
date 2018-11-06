@@ -5,6 +5,7 @@
 npm
 npm-debug.log
 node_modules/
+.elasticbeanstalk/
 
 pids
 *.pid
@@ -32,3 +33,8 @@ main.css.map
 
 # super secret files
 .env
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

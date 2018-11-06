@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SongMain from './SongMain.jsx';
-import SongArt from './SongArt.jsx';
 import SongExtras from './SongExtras.jsx';
+import SongArt from './SongArt.jsx';
 
 const SongDisplay = ({
-  song, playing, handleAlbumClick, handlePlayClick,
+  song, playing, handlePlayClick,
 }) => {
   const handleInfoClick = (info) => {
     window.alert(`On click, this would send you to the ${info} page`);
@@ -25,7 +25,8 @@ const SongDisplay = ({
       />
       <SongArt
         songImage={song.albumImageUrl}
-        handleAlbumClick={handleAlbumClick}
+        songTitle={song.title}
+        songArtist={song.artistName}
       />
     </div>
   );
@@ -34,7 +35,6 @@ const SongDisplay = ({
 SongDisplay.propTypes = {
   song: PropTypes.object.isRequired,
   playing: PropTypes.bool.isRequired,
-  handleAlbumClick: PropTypes.func.isRequired,
   handlePlayClick: PropTypes.func.isRequired,
 };
 

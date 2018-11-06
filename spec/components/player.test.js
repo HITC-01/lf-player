@@ -18,10 +18,9 @@ describe('Player component', () => {
     expect(component.prop('className')).toBeTruthy();
 
     const display = Array.from(Object.keys(component.find('SongDisplay').props()));
-    expect(display.length).toBe(4);
+    expect(display.length).toBe(3);
     expect(component.find('SongDisplay').prop('song') instanceof Object).toBe(true);
     expect(component.find('SongDisplay').prop('playing')).toBe(false);
-    expect(component.find('SongDisplay').prop('handleAlbumClick') instanceof Function).toBe(true);
     expect(component.find('SongDisplay').prop('handlePlayClick') instanceof Function).toBe(true);
 
     const comments = Array.from(Object.keys(component.find('SongTracker').props()));
@@ -125,7 +124,7 @@ describe('Player component', () => {
     instance.state.playState.currentTime = 2;
     instance.count();
     const { playState } = instance.state;
-    expect(playState.currentTime).toBe(1);
+    expect(playState.currentTime).toBe(0);
     expect(playState.playing).toBe(false);
   });
 

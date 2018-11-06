@@ -12,8 +12,11 @@ describe('SongDisplay component', () => {
   beforeEach(() => {
     props = {
       playing: false,
-      song: { albumImageUrl: 'test.jpg' },
-      handleAlbumClick: jest.fn(),
+      song: {
+        albumImageUrl: 'test.jpg',
+        title: 'test',
+        artistName: 'Lisa',
+      },
       handlePlayClick: jest.fn(),
     };
   });
@@ -33,8 +36,10 @@ describe('SongDisplay component', () => {
     expect(component.find('SongExtras').prop('song') instanceof Object).toBe(true);
 
     const art = Array.from(Object.keys(component.find('SongArt').props()));
-    expect(art.length).toBe(2);
+    expect(art.length).toBe(3);
     expect(component.find('SongArt').prop('songImage')).toBe('test.jpg');
+    expect(component.find('SongArt').prop('songTitle')).toBe('test');
+    expect(component.find('SongArt').prop('songArtist')).toBe('Lisa');
   });
 
   test('render basic snapshot', () => {

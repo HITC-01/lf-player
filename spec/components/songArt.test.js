@@ -12,7 +12,8 @@ describe('SongArt component', () => {
   beforeEach(() => {
     props = {
       songImage: 'test.jpg',
-      handleAlbumClick: jest.fn(),
+      songTitle: 'best song',
+      songArtist: 'Lisa',
     };
   });
 
@@ -36,10 +37,10 @@ describe('SongArt component', () => {
 
   test('respond to clicks on art', () => {
     const component = shallow(<SongArt {...props} />);
+    expect(component.state('showModal')).toBe(false);
     component.find('a').simulate('click', {
       preventDefault: () => {},
-      target: { id: '' },
     });
-    expect(props.handleAlbumClick).toHaveBeenCalled();
+    expect(component.state('showModal')).toBe(true);
   });
 });

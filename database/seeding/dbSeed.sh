@@ -10,6 +10,7 @@ GENRES=('Alternative' 'Blues' 'Classical' 'Country'
   'Jazz' 'Latin' 'New Age' 'Opera' 'Pop' 'RnB' 'Soul' 'Reggae'
   'Rock' 'Singer-Songwriter' 'Folk' 'World');
 COLORS=('grey' 'red');
+AWS='https:\/\/s3-us-west-1.amazonaws.com\/head-in-the-clouds-player'
 
 # this is the seeded data file
 rm -rf dataSeeded.sql
@@ -19,13 +20,13 @@ echo "USE soundcloud_player;" > dataSeeded.sql
 ALBUM_IMGS=($(ls ../../public/assets/media/album*))
 for i in `seq 1 ${#ALBUM_IMGS[@]}`
 do
-  ALBUM_IMGS[$((i - 1))]=`echo ${ALBUM_IMGS[$((i - 1))]} | sed "s/\.\.\/\.\.\/public//"`
+  ALBUM_IMGS[$((i - 1))]=`echo ${ALBUM_IMGS[$((i - 1))]} | sed "s/\.\.\/\.\.\/public/${AWS}/"`
 done
 
 USER_IMGS=($(ls ../../public/assets/media/user*))
 for i in `seq 1 ${#USER_IMGS[@]}`
 do
-  USER_IMGS[$((i - 1))]=`echo ${USER_IMGS[$((i - 1))]} | sed "s/\.\.\/\.\.\/public//"`
+  USER_IMGS[$((i - 1))]=`echo ${USER_IMGS[$((i - 1))]} | sed "s/\.\.\/\.\.\/public/${AWS}/"`
 done
 
 # name file details
@@ -89,11 +90,6 @@ do
   done
   TITLE=`echo $TITLE | sed "s/^ //"`
 
-  CHAR=${#TITLE}
-  if [ "$CHAR" -gt "69" ]; then
-    TITLE=${TITLE:0:69}
-  fi
-
   idx=$((RANDOM % 4 + 1))
   ALBUM=''
   for j in `seq 1 $idx` ;
@@ -102,11 +98,6 @@ do
     ALBUM=`echo "$ALBUM $WORD"`
   done
   ALBUM=`echo $ALBUM | sed "s/^ //"`
-
-  CHAR=${#ALBUM}
-  if [ "$CHAR" -gt "39" ]; then
-    ALBUM=${ALBUM:0:39}
-  fi
 
   DURATION=$((RANDOM % 100 + 180))
   ARTIST_ID=$((RANDOM % NARTISTS + 1))
@@ -142,11 +133,6 @@ do
     COMMENT=`echo "$COMMENT $WORD"`
   done
   COMMENT=`echo $COMMENT | sed "s/^ //"`
-
-  CHAR=${#COMMENT}
-  if [ "$CHAR" -gt "149" ]; then
-    COMMENT=${COMMENT:0:149}
-  fi
 
   ARTIST_ID=$((RANDOM % NARTISTS + 1))
   SONG_ID=$((RANDOM % NSONGS + 1))

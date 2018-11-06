@@ -1,27 +1,57 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import SongArtModal from './SongArtModal.jsx';
 
-const SongArt = ({
-  songImage, handleAlbumClick,
-}) => {
-  const handleClick = (e) => {
+class SongArt extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { showModal: false };
+    this.handleModalClick = this.handleModalClick.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
+  }
+
+  handleModalClick(e) {
     e.preventDefault();
-    const type = (e.target.id === 'player-song-artist') ? 'Artist' : 'Album';
-    handleAlbumClick(type);
-  };
+    this.toggleModal(true);
+  }
 
-  return (
-    <div id="player-display-album">
-      <a href="#" onClick={handleClick}>
-        <img src={songImage} alt="album-art" />
-      </a>
-    </div>
-  );
-};
+  toggleModal(bool, e) {
+    if (e) {
+      e.preventDefault();
+    }
+
+    this.setState({ showModal: bool });
+  }
+
+  render() {
+    const { songImage, songTitle, songArtist } = this.props;
+    const { showModal } = this.state;
+    const modal = (showModal)
+      ? (
+        <SongArtModal
+          image={songImage}
+          title={songTitle}
+          artist={songArtist}
+          onCloseRequest={this.toggleModal}
+        />
+      )
+      : '';
+
+    return (
+      <div id="player-display-album">
+        <a href="#" onClick={this.handleModalClick}>
+          <img src={songImage} alt="album-art" />
+        </a>
+        {modal}
+      </div>
+    );
+  }
+}
 
 SongArt.propTypes = {
   songImage: PropTypes.string.isRequired,
-  handleAlbumClick: PropTypes.func.isRequired,
+  songTitle: PropTypes.string.isRequired,
+  songArtist: PropTypes.string.isRequired,
 };
 
 export default SongArt;

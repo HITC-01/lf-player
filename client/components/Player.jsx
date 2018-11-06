@@ -15,7 +15,12 @@ class Player extends React.Component {
     this.url = props.url;
 
     this.state = {
-      song: { albumImageUrl: '', duration: 0 },
+      song: {
+        albumImageUrl: '',
+        title: '',
+        artistName: '',
+        duration: 0,
+      },
       playState: helpers.initializePlayState(),
       comments: [],
       nowPlaying: [null, -1],
@@ -27,7 +32,6 @@ class Player extends React.Component {
     this.count = this.count.bind(this);
     this.getSongData = this.getSongData.bind(this);
     this.getComments = this.getComments.bind(this);
-    this.handleAlbumClick = this.handleAlbumClick.bind(this);
     this.handleBarClick = this.handleBarClick.bind(this);
     this.handleBarScan = this.handleBarScan.bind(this);
     this.handlePlayClick = this.handlePlayClick.bind(this);
@@ -71,11 +75,6 @@ class Player extends React.Component {
       });
   }
 
-  // Modal display
-  handleAlbumClick(type) {
-    window.alert(`On click, TODO to the ${type} modal`);
-  }
-
   // Event handlers
   handleBarScan(hovering = false, fraction = 0) {
     const { playState } = cloneDeep(this.state);
@@ -92,12 +91,12 @@ class Player extends React.Component {
   handlePlayClick(currentTime) {
     const { playState } = cloneDeep(this.state);
 
-    if (currentTime !== undefined) {
+    if (typeof currentTime === 'number') {
       playState.currentTime = currentTime;
       clearInterval(this.intervalId);
     }
 
-    playState.playing = (currentTime) ? true : !playState.playing;
+    playState.playing = (typeof currentTime === 'number') ? true : !playState.playing;
     if (!playState.playing) {
       this.pause();
     } else {
@@ -112,8 +111,8 @@ class Player extends React.Component {
     let { playState } = this.state;
     const newTime = playState.currentTime + 1;
 
-    if (playState.currentTime >= playState.totalTime) {
-      playState = { ...playState, currentTime: playState.totalTime, playing: false };
+    if (playState.currentTime > playState.totalTime) {
+      playState = { ...playState, currentTime: 0, playing: false };
       this.setState({ playState });
       clearInterval(this.intervalId);
       return;
@@ -168,7 +167,6 @@ class Player extends React.Component {
         <SongDisplay
           song={song}
           playing={playState.playing}
-          handleAlbumClick={this.handleAlbumClick}
           handlePlayClick={this.handlePlayClick}
         />
         <SongTracker
