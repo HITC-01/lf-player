@@ -23,14 +23,6 @@ module.exports = (grunt) => {
             src: 'public/dist/player-bundle.min.js',
             dest: 'player-bundle.min.js',
           },
-          {
-            src: 'public/assets/styles/main.css',
-            dest: 'main.css',
-          },
-          {
-            src: 'public/assets/styles/clearAll.css',
-            dest: 'clearAll.css',
-          },
         ],
       },
     },
