@@ -1,7 +1,6 @@
 require('dotenv').config();
 
 module.exports = (grunt) => {
-  // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     awskey: process.env.AWS_KEY,
