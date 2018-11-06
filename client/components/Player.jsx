@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import cloneDeep from 'lodash.clonedeep';
 import SongDisplay from './SongDisplay.jsx';
 import SongTracker from './SongTracker.jsx';
+import styles from '../../public/assets/styles/player.css';
 import helpers from '../helpers/playerHelpers.js';
 
 const nSongsInDB = 100;
@@ -159,10 +160,10 @@ class Player extends React.Component {
       song, playState, songProfile, comments, nowPlaying,
     } = this.state;
 
+    const playerStyle = styles[`player-background-${song.backgroundColor}`];
     return (
       <div
-        className={`player-background-${song.backgroundColor}`}
-        id="player-all"
+        className={playerStyle}
       >
         <SongDisplay
           song={song}

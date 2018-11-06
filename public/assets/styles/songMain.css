@@ -1,0 +1,64 @@
+/*************************/
+/*** PLAY BUTTON */
+/*************************/
+/* background gradient */
+/* color for lower song profile */
+/* play button */
+/* when you hover over play button */
+/* hover color for tag */
+/*************************/
+/*** PLAY BUTTON */
+/*************************/
+.player-main-play {
+  background: #f50;
+  border-radius: 50%;
+  border: solid #f50 5px;
+  color: #fff;
+  cursor: pointer;
+  grid-column: player / player-end;
+  grid-row: artist / title-bottom; }
+
+.player-main-play:hover {
+  background: #f30;
+  border: solid #f30 5px; }
+
+.player-main-on {
+  background: #f30;
+  border: solid #f30 5px; }
+
+.player-display-main {
+  grid-column: main-width / extra-width;
+  grid-row-start: extra-bottom / bottom;
+  display: grid;
+  grid-template-columns: [player] 60px [player-end] 10px [rest] auto;
+  grid-template-rows: [artist] 35px [play-bottom] 25px [title-bottom] 45px [rest] auto [bottom] 15px [end]; }
+
+.a {
+  text-decoration: none; }
+
+.player-main-all {
+  composes: a;
+  grid-column-start: rest;
+  display: flex;
+  flex-direction: column; }
+
+.player-main-artist,
+.player-main-title,
+.player-main-album {
+  padding-bottom: 15px; }
+
+.player-main-artist-span,
+.player-main-title-span,
+.player-main-album-span {
+  background: #292827;
+  color: #ccc;
+  padding: 2px 7px;
+  line-height: 1.5em; }
+
+.player-main-title-span {
+  color: white;
+  font-size: 24px; }
+
+.player-main-artist-span:hover,
+.player-main-album-span:hover {
+  color: #fff; }

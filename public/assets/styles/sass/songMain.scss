@@ -1,0 +1,88 @@
+/*************************/
+/*** PLAY BUTTON */
+/*************************/
+$white: #fff;
+$black: #000;
+
+/* background gradient */
+$backgroundDarkGrey: #8d9190;
+$backgroundLightGrey: #ded8d5;
+$backgroundPurple: #816471;
+$backgroundRed: #dc8873;
+
+$light-orange: #f4c09c; /* color for lower song profile */
+$dark-orange: #f50; /* play button */
+$dark-orange2: #f30; /* when you hover over play button */
+$light-grey: #ccc;
+$songbar-grey: #ebece6;
+$tag-grey: #999;
+$med-grey: #666; /* hover color for tag */
+$black-grey: #292827;
+
+/*************************/
+/*** PLAY BUTTON */
+/*************************/
+.player-main-play {
+  background: $dark-orange;
+  border-radius: 50%;
+  border: solid $dark-orange 5px;
+  color: $white;
+  cursor: pointer;
+
+  grid-column: player / player-end;
+  grid-row: artist / title-bottom;
+}
+
+.player-main-play:hover {
+  background: $dark-orange2;
+  border: solid $dark-orange2 5px;
+}
+
+.player-main-on {
+  background: $dark-orange2;
+  border: solid $dark-orange2 5px;
+}
+
+.player-display-main {
+  grid-column: main-width / extra-width;
+  grid-row-start: extra-bottom / bottom;
+  display: grid;
+  grid-template-columns: [player] 60px [player-end] 10px [rest] auto;
+  grid-template-rows: [artist] 35px [play-bottom] 25px [title-bottom] 45px [rest] auto [bottom] 15px [end];
+}
+
+.a {
+  text-decoration: none;
+}
+
+.player-main-all {
+  composes: a;
+  grid-column-start: rest;
+  display: flex;
+  flex-direction: column;
+}
+
+.player-main-artist,
+.player-main-title,
+.player-main-album {
+  padding-bottom: 15px;
+}
+
+.player-main-artist-span,
+.player-main-title-span,
+.player-main-album-span {
+  background: $black-grey;
+  color: $light-grey;
+  padding: 2px 7px;
+  line-height: 1.5em;
+}
+
+.player-main-title-span {
+  color: white;
+  font-size: 24px;
+}
+
+.player-main-artist-span:hover,
+.player-main-album-span:hover {
+  color: $white;
+}

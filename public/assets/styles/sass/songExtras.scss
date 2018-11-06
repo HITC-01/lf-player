@@ -1,0 +1,30 @@
+$white: #fff;
+$tag-grey: #999;
+$med-grey: #666; /* hover color for tag */
+
+.a {
+  text-decoration: none;
+}
+
+.player-song-tag {
+  composes: a;
+}
+
+.player-song-tag-span {
+  color: $white;
+  padding: 1px 8px;
+  background: $tag-grey;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.player-song-tag-span:hover {
+  background: $med-grey;
+}
+
+.player-display-extras {
+  text-align: right;
+  display: grid;
+  grid-column: extra-width / extra-pad;
+  grid-row: extra-bottom / bottom;
+}

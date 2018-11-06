@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styles from '../../public/assets/styles/songCommentsEntry.css';
 
 class SongCommentsEntry extends React.Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class SongCommentsEntry extends React.Component {
     }
     words.forEach((word) => {
       this.comments.push(
-        <span key={word} className={`player-comment-${word}`}>
+        <span key={word} className={styles[`player-comment-${word}`]}>
           {`${data[word]}    `}
         </span>,
       );
@@ -40,17 +41,17 @@ class SongCommentsEntry extends React.Component {
   render() {
     const { show } = this.state;
     const { comment, handleReply, nowPlaying } = this.props;
-    const commentDetails = (nowPlaying || show) ? (<p className={`${this.position}`}>{this.comments}</p>) : '';
+    const commentDetails = (nowPlaying || show) ? (<p className={styles[`${this.position}`]}>{this.comments}</p>) : '';
 
     return (
       <div
-        className="player-comment-single"
+        className={styles['player-comment-single']}
         onMouseEnter={() => this.toggleComment(true)}
         onMouseLeave={() => this.toggleComment(false)}
         style={{ left: `${comment.time}%` }}
       >
         <img
-          className={`player-comment-image-${show ? 'show' : 'hide'}`}
+          className={styles[`player-comment-image-${show ? 'show' : 'hide'}`]}
           src={comment.artistImageUrl}
           alt="user-profile"
           onClick={() => handleReply(comment.artistName)}

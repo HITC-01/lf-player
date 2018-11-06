@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styles from '../../public/assets/styles/songArtModal.css';
 
 const SongArtModal = ({
   onCloseRequest, image, title, artist,
 }) => {
   const keyCheck = (e) => {
-    console.log('calling');
     if (e.keyCode === 27) {
       onCloseRequest(false);
     }
@@ -14,25 +14,25 @@ const SongArtModal = ({
   window.addEventListener('keyup', keyCheck);
   return (
     <div
-      className="player-art-modal-overlay"
+      className={styles['player-art-modal-overlay']}
     >
       <div
-        className="player-art-modal"
+        className={styles['player-art-modal']}
       >
-        <p id="player-art-modal-title">{`${title} - ${artist}`}</p>
-        <hr />
+        <p className={styles['player-art-modal-title']}>{`${title} - ${artist}`}</p>
+        <hr className={styles['player-art-modal-hr']} />
         <img
-          id="player-art-modal-image"
+          className={styles['player-art-modal-image']}
           src={image}
           alt="album-art"
         />
       </div>
       <button
         type="button"
-        className="player-art-modal-close-button"
+        className={styles['player-art-modal-close-button']}
         onClick={(e) => onCloseRequest(false, e)}
       >
-        <i className="fas fa-times  fa-3x" />
+        <i className="fas fa-times fa-3x" />
       </button>
     </div>
   );

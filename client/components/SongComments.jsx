@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SongCommentsEntry from './SongCommentsEntry.jsx';
+import styles from '../../public/assets/styles/songComments.css';
 
 const SongComments = ({ comments, nowPlaying, resetNowPLaying }) => {
   const handleReply = (user) => {
@@ -18,7 +19,7 @@ const SongComments = ({ comments, nowPlaying, resetNowPLaying }) => {
   ));
 
   return (
-    <div id="player-comments">
+    <div className={styles['player-comments']}>
       {commentsAll}
     </div>
   );

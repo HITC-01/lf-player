@@ -10,26 +10,34 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.jsx?$/,
         loader: 'babel-loader',
         options: {
           presets: ['@babel/preset-env', '@babel/preset-react'],
         },
-        test: /\.jsx?$/,
         include: [
           path.resolve(__dirname, './client'),
         ],
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'),
+        loader: 'style-loader',
+      },
+      {
+        test: /\.css$/,
+        loader: 'css-loader',
+        query: {
+          modules: true,
+          localIdentName: '[name]__[local]___[hash:base64:5]',
+        },
         include: [
           path.resolve(__dirname, './public/assets/styles'),
         ],
       },
     ],
-    plugins: [
-      new StaticSiteGeneratorPlugin('main', locals.routes),
-      new ExtractTextPlugin('styles.css'),
-    ],
+    // plugins: [
+    //   new StaticSiteGeneratorPlugin('main', locals.routes),
+    //   new ExtractTextPlugin('styles.css'),
+    // ],
   },
 };

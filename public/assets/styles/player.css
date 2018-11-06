@@ -1,0 +1,36 @@
+/*************************/
+/* Background gradient!  */
+/*************************/
+.body {
+  font-family: "Overpass", sans-serif;
+  background-color: #fff;
+}
+
+.player-all {
+  composes: body;
+  margin: 0 auto;
+  color: #fff;
+  width: 960px;
+  height: 380px;
+  display: grid;
+  grid-template-rows: [top-pad] 20px [play-top] 240px [profile-top] 100px [bottom-pad] 20px [bottom];
+  grid-template-columns: [left-pad] 30px [play-left] 560px [profile-right] auto [pad-right] 30px;
+}
+
+.player-background-grey {
+  composes: player-all;
+  background: #8d9190;
+  background: -webkit-linear-gradient(left top, #ded8d5, #8d9190);
+  background: -o-linear-gradient(bottom right, #ded8d5, #8d9190);
+  background: -moz-linear-gradient(bottom right, #ded8d5, #8d9190);
+  background: linear-gradient(to bottom right, #ded8d5, #8d9190);
+}
+
+.player-background-red {
+  composes: player-all;
+  background: #dc8873;
+  background: -webkit-linear-gradient(left top, #816471, #dc8873);
+  background: -o-linear-gradient(bottom right, #816471, #dc8873);
+  background: -moz-linear-gradient(bottom right, #816471, #dc8873);
+  background: linear-gradient(to bottom right, #816471, #dc8873);
+}

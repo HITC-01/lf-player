@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styles from '../../public/assets/styles/songMain.css';
 
 const SongMain = ({
   song, playing, handlePlayClick, handleInfoClick,
@@ -14,28 +15,30 @@ const SongMain = ({
     const type = (e.target.id === 'player-main-artist') ? 'Artist' : 'Album';
     handleInfoClick(type);
   };
+  const playStateClass = `player-main-${playState}`;
 
   return (
-    <div id="player-display-main">
+    <div className={styles['player-display-main']}>
       <button
-        className="player-main-play"
-        id={`player-main-${playState}`}
+        className={`${styles['player-main-play']} ${playStateClass}`}
         type="button"
         onClick={handlePlayClick}
       >
         {playIcon}
       </button>
-      <div id="player-main-all">
+      <div className={styles['player-main-all']}>
         <a
-          id="player-main-artist"
+          className={styles['player-main-artist']}
           href="#"
           onClick={handleLinkClick}
         >
-          <span>{song.artistName}</span>
+          <span className={styles['player-main-artist-span']}>{song.artistName}</span>
         </a>
-        <h1 id="player-main-title"><span>{song.title}</span></h1>
+        <h1 className={styles['player-main-title']}>
+          <span className={styles['player-main-title-span']}>{song.title}</span>
+        </h1>
         <a
-          id="player-main-album"
+          className={styles['player-main-album']}
           href="#"
           hidden={hidden}
           onClick={handleLinkClick}

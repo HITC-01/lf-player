@@ -1,0 +1,5 @@
+.player-comments {
+  grid-row: middle / bottom;
+  grid-column: left / right;
+  position: relative;
+}
