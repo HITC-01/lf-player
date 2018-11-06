@@ -30,7 +30,7 @@ const SongBar = ({
   const handleBarClick = (e) => {
     const eT = e.target;
     if (eT.className.includes('player-songbar-upper')) {
-      handleClick((eT.offsetLeft - eT.parentNode.offsetLeft) / eT.parentNode.offsetWidth);
+      handleClick((e.pageX - eT.parentNode.offsetLeft) / eT.parentNode.offsetWidth);
     } else {
       handleClick((e.pageX - eT.offsetLeft) / eT.offsetWidth);
     }
