@@ -19,7 +19,7 @@
     "scss": "node-sass --watch public/assets/styles/sass -o public/assets/styles",
     "dev:sass": "sass --watch public/assets/styles/main.scss public/assets/styles/main.css",
     "test": "jest",
-    "grunt": "grunt --verbose s3"
+    "grunt": "grunt --verbose"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
@@ -49,7 +49,7 @@
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.11.1",
     "grunt": "^1.0.3",
-    "grunt-s3": "^0.2.0-alpha.3",
+    "grunt-aws-s3": "^2.0.0",
     "isomorphic-fetch": "^2.2.1",
     "jest": "^23.6.0",
     "jest-cli": "^23.6.0",
