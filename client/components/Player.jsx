@@ -42,7 +42,7 @@ class Player extends React.Component {
 
   componentDidMount() {
     this.getSongData(this.songId)
-      .then(() => this.getComments(songId))
+      .then(() => this.getComments(this.songId))
       .catch(err => console.log(`Error: ${err}`));
   }
 
