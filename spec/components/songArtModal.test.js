@@ -26,7 +26,7 @@ describe('SongArtModal component', () => {
     expect(component.prop('className')).toBe('player-art-modal-overlay');
     const p = Array.from(Object.keys(component.find('p').props()));
     expect(p.length).toBe(2);
-    expect(component.find('p').prop('id')).toBe('player-art-modal-title');
+    expect(component.find('p').prop('className')).toBe('player-art-modal-title');
     expect(component.find('p').prop('children')).toBe('best song - Lisa');
   });
 

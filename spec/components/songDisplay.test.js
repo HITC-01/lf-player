@@ -25,7 +25,7 @@ describe('SongDisplay component', () => {
     const component = shallow(<SongDisplay {...props} />);
     const propsOut = Array.from(Object.keys(component.props()));
     expect(propsOut.length).toBe(2);
-    expect(component.prop('id')).toBe('player-display');
+    expect(component.prop('className')).toBe('player-display');
 
     const main = Array.from(Object.keys(component.find('SongMain').props()));
     expect(main.length).toBe(4);

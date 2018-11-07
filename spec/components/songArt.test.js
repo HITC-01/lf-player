@@ -21,7 +21,7 @@ describe('SongArt component', () => {
     const component = shallow(<SongArt {...props} />);
     const propsOut = Array.from(Object.keys(component.props()));
     expect(propsOut.length).toBe(2);
-    expect(component.prop('id')).toBe('player-display-album');
+    expect(component.prop('className')).toBe('player-display-album');
     const albumImg = Array.from(Object.keys(component.find('img').props()));
     expect(albumImg.length).toBe(2);
     expect(component.find('img').prop('src')).toBe(props.songImage);

@@ -25,7 +25,7 @@ describe('SongTracker component', () => {
     const component = shallow(<SongTracker {...props} />);
     const propsOut = Array.from(Object.keys(component.props()));
     expect(propsOut.length).toBe(2);
-    expect(component.prop('id')).toBe('player-profile');
+    expect(component.prop('className')).toBe('player-profile');
     const bar = Array.from(Object.keys(component.find('SongBar').props()));
     expect(bar.length).toBe(4);
     expect(component.find('SongBar').prop('songProfile') instanceof Object).toBe(true);
