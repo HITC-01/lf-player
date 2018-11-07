@@ -23,7 +23,7 @@ module.exports = (grunt) => {
           {
             expand: true,
             cwd: 'public/dist/',
-            src: 'player-bundle.min.js',
+            src: 'sc-player.js',
             dest: 'dist/',
           },
         ],

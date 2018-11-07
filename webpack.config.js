@@ -5,7 +5,7 @@ module.exports = {
   entry: path.resolve(__dirname, './client/index.jsx'),
   output: {
     path: path.resolve(__dirname, './public/dist'),
-    filename: 'player-bundle.min.js',
+    filename: 'sc-player.js',
   },
   module: {
     rules: [

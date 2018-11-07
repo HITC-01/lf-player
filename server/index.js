@@ -18,8 +18,7 @@ app.use((req, res, next) => {
 // Send out static files
 app.use(express.static(path.join(__dirname, '../public')));
 
-// Send routes to soundcloud
-app.use('/player/sc', songRoute);
+// Send routes to router
 app.use('/player', songRoute);
 
 app.listen(process.env.PORT || 3004);
