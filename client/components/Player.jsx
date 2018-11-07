@@ -48,7 +48,7 @@ class Player extends React.Component {
 
   // Queries to server
   getSongData(id) {
-    const url = `${this.url}/sc/songs/${id}`;
+    const url = `${this.url}/player/songs/${id}`;
     return fetch(url, { method: 'GET' })
       .then(stream => stream.json())
       .then((res) => {
@@ -61,7 +61,7 @@ class Player extends React.Component {
   }
 
   getComments(id) {
-    const url = `${this.url}/sc/songs/${id}/comments`;
+    const url = `${this.url}/player/songs/${id}/comments`;
     return fetch(url, { method: 'GET' })
       .then(stream => stream.json())
       .then((res) => {

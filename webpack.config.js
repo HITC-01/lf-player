@@ -35,9 +35,5 @@ module.exports = {
         ],
       },
     ],
-    // plugins: [
-    //   new StaticSiteGeneratorPlugin('main', locals.routes),
-    //   new ExtractTextPlugin('styles.css'),
-    // ],
   },
 };
