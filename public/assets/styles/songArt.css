@@ -1,0 +1,4 @@
+.player-display-album {
+  display: grid;
+  grid-column-start: album;
+}

@@ -24,10 +24,10 @@ describe('SongExtras component', () => {
     const component = shallow(<SongExtras {...props} />);
     const propsOut = Array.from(Object.keys(component.props()));
     expect(propsOut.length).toBe(2);
-    expect(component.prop('id')).toBe('player-display-extras');
+    expect(component.prop('className')).toBe('player-display-extras');
     const tag = Array.from(Object.keys(component.find('a').props()));
     expect(tag.length).toBe(4);
-    expect(component.find('a').prop('id')).toBe('player-song-tag');
+    expect(component.find('a').prop('className')).toBe('player-song-tag');
     expect(component.find('a').prop('href')).toBe('#');
 
     // spans with input info

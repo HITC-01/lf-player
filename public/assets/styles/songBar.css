@@ -1,0 +1,37 @@
+/* play button */
+.player-songbar {
+  grid-row: top / bottom;
+  grid-column: left / right;
+  display: grid;
+  grid-template-rows: [top] 52px [time] 18px [top-end] 0.15em [bottom] 30px [bottom-end];
+  grid-template-columns: [start] 20px [middle] auto [middle-end] 26px [end]; }
+
+.player-songbar-upper {
+  display: flex;
+  justify-content: space-between;
+  grid-row: top / top-end;
+  grid-column: start / end; }
+
+.player-songbar-lower {
+  display: flex;
+  justify-content: space-between;
+  grid-row: bottom / bottom-end;
+  grid-column: start / end; }
+
+/*************************/
+/* TIME counters */
+/*************************/
+.player-songbar-current-time-span,
+.player-songbar-total-time-span {
+  background: #000;
+  font-size: 12px; }
+
+.player-songbar-total-time {
+  color: #ccc;
+  grid-row: time / top-end;
+  grid-column: middle-end / end; }
+
+.player-songbar-current-time {
+  color: #f50;
+  grid-row: time / top-end;
+  grid-column: start / middle; }

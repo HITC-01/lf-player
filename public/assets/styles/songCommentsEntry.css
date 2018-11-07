@@ -1,0 +1,40 @@
+/*************************/
+/* COMMENTS */
+/*************************/
+/* when you hover over play button */
+.player-comment-image-show {
+  border-radius: 50%;
+  position: inherit;
+  z-index: 1000; }
+
+.player-comment-image-hide {
+  position: inherit;
+  z-index: 0; }
+
+.player-comment-base,
+.player-comment-right {
+  display: flex;
+  font-size: 14px;
+  position: absolute;
+  top: 12px;
+  left: 0px;
+  white-space: nowrap; }
+
+.player-comment-artist,
+.player-comment-text {
+  padding-right: 6px; }
+
+.player-comment-left {
+  composes: player-comment-base;
+  left: auto;
+  right: 20px; }
+
+.player-comment-artist {
+  color: #f30; }
+
+.player-comment-text {
+  color: #fff; }
+
+.player-comment-single {
+  position: absolute;
+  top: 0px; }

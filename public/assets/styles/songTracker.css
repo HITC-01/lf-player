@@ -1,0 +1,7 @@
+.player-profile {
+  grid-column: play-left / profile-right;
+  grid-row: profile-top / bottom-pad;
+  display: grid;
+  grid-template-rows: [top] 70px [extra] 0.2em [middle] 30px [bottom];
+  grid-template-columns: [left] auto [right];
+}

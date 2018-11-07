@@ -13,9 +13,8 @@ describe('Player component', () => {
   test('check props', () => {
     const component = shallow(<Player url={url} />);
     const propsOut = Array.from(Object.keys(component.props()));
-    expect(propsOut.length).toBe(3);
-    expect(component.prop('id')).toBe('player-all');
-    expect(component.prop('className')).toBeTruthy();
+    expect(propsOut.length).toBe(2);
+    expect(component.prop('className').includes('player-background')).toBe(true);
 
     const display = Array.from(Object.keys(component.find('SongDisplay').props()));
     expect(display.length).toBe(3);

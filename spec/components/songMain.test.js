@@ -27,16 +27,16 @@ describe('SongMain component', () => {
     const component = shallow(<SongMain {...props} />);
     const propsOut = Array.from(Object.keys(component.props()));
     expect(propsOut.length).toBe(2);
-    expect(component.prop('id')).toBe('player-display-main');
+    expect(component.prop('className')).toBe('player-display-main');
     const playButton = Array.from(Object.keys(component.find('button').props()));
-    expect(playButton.length).toBe(5);
+    expect(playButton.length).toBe(4);
     expect(component.find('button').prop('type')).toBe('button');
-    expect(component.find('button').prop('id')).toBe('player-main-off');
+    expect(component.find('button').prop('className')).toBe('player-main-play player-main-off');
 
     // spans with input info
-    expect(component.find('#player-main-artist span').prop('children')).toBe('Lisa Felberg');
-    expect(component.find('#player-main-title span').prop('children')).toBe('Best song ever');
-    expect(component.find('#player-main-album span').prop('children')).toBe('Funeral');
+    expect(component.find('.player-main-artist span').prop('children')).toBe('Lisa Felberg');
+    expect(component.find('.player-main-title span').prop('children')).toBe('Best song ever');
+    expect(component.find('.player-main-album span').prop('children')).toBe('Funeral');
 
     expect(component.find('i').prop('className')).toBe('fas fa-play fa-3x');
   });
@@ -64,13 +64,13 @@ describe('SongMain component', () => {
 
   test('respond to clicks on info', () => {
     const component = shallow(<SongMain {...props} />);
-    component.find('#player-main-artist').simulate('click', event);
+    component.find('.player-main-artist').simulate('click', event);
     expect(props.handleInfoClick).toHaveBeenCalled();
   });
 
   test('respond to clicks on info', () => {
     const component = shallow(<SongMain {...props} />);
-    component.find('#player-main-artist').simulate('click', event);
+    component.find('.player-main-artist').simulate('click', event);
     expect(props.handleInfoClick).toHaveBeenCalled();
   });
 });

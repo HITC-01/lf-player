@@ -1,0 +1,50 @@
+/*************************/
+/* COMMENTS */
+/*************************/
+$white: #fff;
+$dark-orange2: #f30; /* when you hover over play button */
+
+.player-comment-image-show {
+  border-radius: 50%;
+  position: inherit;
+  z-index: 1000;
+}
+
+.player-comment-image-hide {
+  position: inherit;
+  z-index:0;
+}
+
+.player-comment-base,
+.player-comment-right {
+  display: flex;
+  font-size: 14px;
+  position: absolute;
+  top: 28px;
+  left: 0px;
+  white-space: nowrap;
+}
+
+.player-comment-artist,
+.player-comment-text {
+  padding-right: 6px;
+}
+
+.player-comment-left {
+  composes: player-comment-base;
+  left: auto;
+  right: 20px;
+}
+
+.player-comment-artist {
+  color: $dark-orange2;
+}
+
+.player-comment-text {
+  color: $white;
+}
+
+.player-comment-single {
+  position: absolute;
+  top: 0px;
+}

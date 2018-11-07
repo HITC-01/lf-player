@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import cloneDeep from 'lodash.clonedeep';
 import SongDisplay from './SongDisplay.jsx';
 import SongTracker from './SongTracker.jsx';
+import styles from '../../public/assets/styles/player.css';
 import helpers from '../helpers/playerHelpers.js';
 
 const nSongsInDB = 100;
@@ -13,6 +14,7 @@ class Player extends React.Component {
 
     this.intervalId = null;
     this.url = props.url;
+    this.songId = props.songId;
 
     this.state = {
       song: {
@@ -39,15 +41,14 @@ class Player extends React.Component {
   }
 
   componentDidMount() {
-    const songId = Math.floor(Math.random() * nSongsInDB) + 1;
-    this.getSongData(songId)
+    this.getSongData(this.songId)
       .then(() => this.getComments(songId))
       .catch(err => console.log(`Error: ${err}`));
   }
 
   // Queries to server
   getSongData(id) {
-    const url = `${this.url}/sc/songs/${id}`;
+    const url = `${this.url}/player/songs/${id}`;
     return fetch(url, { method: 'GET' })
       .then(stream => stream.json())
       .then((res) => {
@@ -60,7 +61,7 @@ class Player extends React.Component {
   }
 
   getComments(id) {
-    const url = `${this.url}/sc/songs/${id}/comments`;
+    const url = `${this.url}/player/songs/${id}/comments`;
     return fetch(url, { method: 'GET' })
       .then(stream => stream.json())
       .then((res) => {
@@ -159,10 +160,10 @@ class Player extends React.Component {
       song, playState, songProfile, comments, nowPlaying,
     } = this.state;
 
+    const playerStyle = styles[`player-background-${song.backgroundColor}`];
     return (
       <div
-        className={`player-background-${song.backgroundColor}`}
-        id="player-all"
+        className={playerStyle}
       >
         <SongDisplay
           song={song}
@@ -185,10 +186,12 @@ class Player extends React.Component {
 
 Player.propTypes = {
   url: PropTypes.string,
+  songId: PropTypes.number,
 };
 
 Player.defaultProps = {
   url: '',
+  songId: 1,
 };
 
 export default Player;

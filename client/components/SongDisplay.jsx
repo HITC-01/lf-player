@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import SongMain from './SongMain.jsx';
 import SongExtras from './SongExtras.jsx';
 import SongArt from './SongArt.jsx';
+import styles from '../../public/assets/styles/songDisplay.css';
 
 const SongDisplay = ({
   song, playing, handlePlayClick,
@@ -12,7 +13,7 @@ const SongDisplay = ({
   };
 
   return (
-    <div id="player-display">
+    <div className={styles['player-display']}>
       <SongMain
         song={song}
         playing={playing}

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import SongBarEntry from './SongBarEntry.jsx';
 import helpers from '../helpers/playerHelpers.js';
+import styles from '../../public/assets/styles/songBar.css';
 
 const SongBar = ({
   songProfile, playState, handleScan, handleClick,
@@ -29,27 +30,30 @@ const SongBar = ({
   const handleBarClick = (e) => {
     const eT = e.target;
     if (eT.className.includes('player-songbar-upper')) {
-      handleClick((eT.offsetLeft - eT.parentNode.offsetLeft) / eT.parentNode.offsetWidth);
+      handleClick((e.pageX - eT.parentNode.offsetLeft) / eT.parentNode.offsetWidth);
     } else {
-      console.log('e', eT.id, e.pageX, eT.offsetLeft, eT.parentNode.offsetWidth);
       handleClick((e.pageX - eT.offsetLeft) / eT.offsetWidth);
     }
   };
 
   return (
     <div
-      id="player-songbar"
+      className={styles['player-songbar']}
       onPointerLeave={() => handleScan()}
       onClick={handleBarClick}
     >
-      <div id="player-songbar-upper">
+      <div className={styles['player-songbar-upper']}>
         { bars[0] }
       </div>
-      <div id="player-songbar-lower">
+      <div className={styles['player-songbar-lower']}>
         { bars[1] }
       </div>
-      <div id="player-songbar-current-time"><span>{currentMinSec}</span></div>
-      <div id="player-songbar-total-time"><span>{totalMinSec}</span></div>
+      <div className={styles['player-songbar-current-time']}>
+        <span className={styles['player-songbar-current-time-span']}>{currentMinSec}</span>
+      </div>
+      <div className={styles['player-songbar-total-time']}>
+        <span className={styles['player-songbar-total-time-span']}>{totalMinSec}</span>
+      </div>
     </div>
   );
 };

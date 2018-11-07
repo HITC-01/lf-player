@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styles from '../../public/assets/styles/songArt.css';
 import SongArtModal from './SongArtModal.jsx';
 
 class SongArt extends React.Component {
@@ -38,7 +39,7 @@ class SongArt extends React.Component {
       : '';
 
     return (
-      <div id="player-display-album">
+      <div className={styles['player-display-album']}>
         <a href="#" onClick={this.handleModalClick}>
           <img src={songImage} alt="album-art" />
         </a>

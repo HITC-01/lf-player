@@ -13,6 +13,7 @@ const queryAll = ({ type }) => ((req, res) => {
       res.status(200).send(JSON.stringify({ data: returnData }));
     })
     .catch((err) => {
+      console.log('err', err);
       res.status(500).send(`Error connecting to DB: ${err}`);
     });
 });

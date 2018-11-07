@@ -37,7 +37,7 @@ describe('SongBar component', () => {
     const component = shallow(<SongBar {...props} />);
     const propsOut = Array.from(Object.keys(component.props()));
     expect(propsOut.length).toBe(4);
-    expect(component.prop('id')).toBe('player-songbar');
+    expect(component.prop('className')).toBe('player-songbar');
     expect(component.prop('onClick')).toBeInstanceOf(Function);
   });
 
@@ -50,19 +50,19 @@ describe('SongBar component', () => {
 
   test('respond to clicks on individual bar', () => {
     const component = shallow(<SongBar {...props} />);
-    component.find('#player-songbar').simulate('click', simTarget);
+    component.find('.player-songbar').simulate('click', simTarget);
     expect(props.handleClick).toHaveBeenCalled();
   });
 
   test('respond to clicks on parent', () => {
     const component = shallow(<SongBar {...props} />);
-    component.find('#player-songbar').simulate('click', simTarget);
+    component.find('.player-songbar').simulate('click', simTarget);
     expect(props.handleClick).toHaveBeenCalled();
   });
 
   test('respond to pointerLeave', () => {
     const component = shallow(<SongBar {...props} />);
-    component.find('#player-songbar').simulate('pointerLeave');
+    component.find('.player-songbar').simulate('pointerLeave');
     expect(props.handleScan).toHaveBeenCalled();
   });
 });

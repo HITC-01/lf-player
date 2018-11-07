@@ -46,7 +46,7 @@ describe('SongComments component', () => {
     const component = shallow(<SongComments {...props} />);
     const propsOut = Array.from(Object.keys(component.props()));
     expect(propsOut.length).toBe(2);
-    expect(component.prop('id')).toBe('player-comments');
+    expect(component.prop('className')).toBe('player-comments');
     expect(component.prop('children').length).toBe(4);
   });
 

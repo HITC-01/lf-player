@@ -1,5 +1,4 @@
 module.exports = {
-  // verbose: true,
   transform: { '.*': 'babel-jest' },
   collectCoverage: true,
   coverageReporters: [
@@ -11,4 +10,7 @@ module.exports = {
     'client/**/*.{js,jsx}',
     '!**/node_modules/**',
   ],
+  moduleNameMapper: {
+    '\\.(css|less)$': 'identity-obj-proxy',
+  },
 };

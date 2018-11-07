@@ -1,0 +1,7 @@
+.player-display {
+  grid-column: play-left / pad-right;
+  grid-row: play-top / bottom-pad;
+  display: grid;
+  grid-template-columns: [main-width] 390px [pad] 10px [extra-width] 150px [extra-pad] 20px [album] auto;
+  grid-template-rows: [top-pad] 10px [extra-bottom] 35px [mid] 30px [main-bottom] 65px [bottom] auto;
+}
