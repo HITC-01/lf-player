@@ -1,6 +1,5 @@
 # importing a node library for base image
-#FROM node:7.6-alpine
-FROM node:latest
+FROM node:7.6-alpine
 
 RUN mkdir -p /src/player
 
@@ -10,8 +9,13 @@ COPY . /src/player
 
 RUN npm install --production
 
-RUN yarn global add nodemon
+# For running nodemon for DEV
+#RUN npm install --global nodemon
 
 EXPOSE 3004
 
-CMD ["npm", "run", "start:docker"]
+# for DEV run with nodemon
+#CMD ["npm", "run", "start:docker"]
+
+# for production
+CMD ["npm", "start"]

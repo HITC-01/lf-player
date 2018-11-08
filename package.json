@@ -14,8 +14,8 @@
   "scripts": {
     "postinstall": "echo 'TODO: cp example.env .env, Add variables into .env file!'",
     "seed": "bash scripts/seeder.sh",
-    "start": "nodemon server/index.js",
-    "start:docker": "nodemon server/index.js",
+    "start": "node server/index.js",
+    "dev:start": "nodemon server/index.js",
     "dev:react": "webpack -d --watch",
     "scss": "node-sass --watch public/assets/styles/sass -o public/assets/styles",
     "test": "jest",
