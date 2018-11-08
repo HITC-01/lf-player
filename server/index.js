@@ -16,7 +16,8 @@ app.use((req, res, next) => {
 });
 
 // Send out static files
-app.use(express.static(path.join(__dirname, '../public')));
+app.use('/', express.static(path.join(__dirname, '../public')));
+app.use('/songs/:song', express.static(path.join(__dirname, '../public')));
 
 // Send routes to router
 app.use('/player', songRoute);

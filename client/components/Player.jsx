@@ -6,7 +6,12 @@ import SongTracker from './SongTracker.jsx';
 import styles from '../../public/assets/styles/player.css';
 import helpers from '../helpers/playerHelpers.js';
 
-const nSongsInDB = 100;
+const parse = (pathname) => {
+  const splitString = pathname.split('/');
+  return splitString[2];
+};
+
+const songId = parse(window.location.pathname);
 
 class Player extends React.Component {
   constructor(props) {
@@ -14,7 +19,7 @@ class Player extends React.Component {
 
     this.intervalId = null;
     this.url = props.url;
-    this.songId = props.songId;
+    this.songId = songId;
 
     this.state = {
       song: {
@@ -186,12 +191,10 @@ class Player extends React.Component {
 
 Player.propTypes = {
   url: PropTypes.string,
-  songId: PropTypes.number,
 };
 
 Player.defaultProps = {
   url: '',
-  songId: 1,
 };
 
 export default Player;
