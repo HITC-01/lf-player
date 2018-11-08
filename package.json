@@ -13,8 +13,9 @@
   },
   "scripts": {
     "postinstall": "cp example.env .env && echo 'Add variables into .env file!'",
-    "seed": "bash seeder.sh",
+    "seed": "bash scripts/seeder.sh",
     "start": "nodemon server/index.js",
+    "start:docker": "node server/index.js",
     "dev:react": "webpack -d --watch",
     "scss": "node-sass --watch public/assets/styles/sass -o public/assets/styles",
     "test": "jest",
