@@ -1,3 +1,8 @@
+const getSongIdFromUrl = (pathname) => {
+  const splitString = pathname.split('/');
+  return splitString[2];
+};
+
 const initializePlayState = () => ({
   playing: false,
   currentTime: 0,
@@ -85,5 +90,6 @@ const helpers = {
   colorBar,
   initializePlayState,
   initializeStateFromData,
+  getSongIdFromUrl,
 };
 export default helpers;
