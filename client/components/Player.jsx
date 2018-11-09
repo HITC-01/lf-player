@@ -17,18 +17,13 @@ class Player extends React.Component {
     this.songId = songId;
 
     this.state = {
-      song: {
-        albumImageUrl: '',
-        title: '',
-        artistName: '',
-        duration: 0,
-      },
+      song: null,
       playState: helpers.initializePlayState(),
       comments: [],
       nowPlaying: [null, -1],
-      songTimes: [[]],
+      songTimes: null,
       commentHover: false,
-      songProfile: { profile: [] },
+      songProfile: null,
     };
 
     this.count = this.count.bind(this);
@@ -43,7 +38,10 @@ class Player extends React.Component {
   componentDidMount() {
     this.getSongData(this.songId)
       .then(() => this.getComments(this.songId))
-      .catch(err => console.log(`Error: ${err}`));
+      .catch((err) => {
+        this.setState({ song: 'Not found' });
+        this.render();
+      });
   }
 
   // Queries to server
@@ -155,32 +153,39 @@ class Player extends React.Component {
     this.setState({ nowPlaying: [null, -1], commentHover });
   }
 
-  render() {
+  playerRender() {
     const {
       song, playState, songProfile, comments, nowPlaying,
     } = this.state;
 
-    const playerStyle = styles[`player-background-${song.backgroundColor}`];
-    return (
-      <div
-        className={playerStyle}
-      >
-        <SongDisplay
-          song={song}
-          playing={playState.playing}
-          handlePlayClick={this.handlePlayClick}
-        />
-        <SongTracker
-          songProfile={songProfile}
-          playState={playState}
-          comments={comments}
-          nowPlaying={nowPlaying[1]}
-          resetNowPLaying={this.resetNowPLaying}
-          handleScan={this.handleBarScan}
-          handleBarClick={this.handleBarClick}
-        />
-      </div>
-    );
+    if (song !== null) {
+      const playerStyle = styles[`player-background-${song.backgroundColor}`];
+      return (
+        <div
+          className={playerStyle}
+        >
+          <SongDisplay
+            song={song}
+            playing={playState.playing}
+            handlePlayClick={this.handlePlayClick}
+          />
+          <SongTracker
+            songProfile={songProfile}
+            playState={playState}
+            comments={comments}
+            nowPlaying={nowPlaying[1]}
+            resetNowPLaying={this.resetNowPLaying}
+            handleScan={this.handleBarScan}
+            handleBarClick={this.handleBarClick}
+          />
+        </div>
+      );
+    }
+    return (<h1>Loading...</h1>);
+  }
+
+  render() {
+    return this.playerRender();
   }
 }
 

@@ -7,6 +7,12 @@ module.exports = (grunt) => {
     awssecret: process.env.AWS_SECRET,
     awsbucket: process.env.AWS_BUCKET,
 
+    watch: {
+      scripts: {
+        files: ['public/dist/sc-player.js'],
+      },
+      tasks: ['aws_s3'],
+    },
     aws_s3: {
       options: {
         accessKeyId: '<%= awskey %>',
@@ -29,9 +35,12 @@ module.exports = (grunt) => {
         ],
       },
     },
+
+
   });
 
   grunt.loadNpmTasks('grunt-aws-s3');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Default task(s).
   grunt.registerTask('default', ['aws_s3']);
