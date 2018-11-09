@@ -46,31 +46,3 @@ q:before, q:after {
 blockquote, q {
   quotes: "" "";
 }
-
-#rest {
-  background: white;
-  margin: 0 auto;
-  width: 960px;
-  display: grid;
-  grid-template-rows: [top] 380px [pad] 20px [play-bottom] auto [bottom];
-  grid-template-columns: [left] 20px [left-pad] 580px [mid] 20px [small] auto [right-pad] 20px [right];
-}
-
-#player {
-  grid-row: top / play-bottom;
-  grid-column: left / right;
-}
-
-#left {
-  grid-row: play-bottom / bottom;
-  grid-column: left-pad / mid;
-  display: flex;
-  flex-direction: column;
-}
-
-#right {
-  grid-row: play-bottom / bottom;
-  grid-column: small / right-pad;
-  display: flex;
-  flex-direction: column;
-}
