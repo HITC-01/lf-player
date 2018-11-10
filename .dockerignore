@@ -1,0 +1,6 @@
+# ignoring certain dirs
+client/
+coverage/
+node_modules/
+spec/
+database/seeding

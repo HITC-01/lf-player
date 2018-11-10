@@ -6,12 +6,7 @@ import SongTracker from './SongTracker.jsx';
 import styles from '../../public/assets/styles/player.css';
 import helpers from '../helpers/playerHelpers.js';
 
-const parse = (pathname) => {
-  const splitString = pathname.split('/');
-  return splitString[2];
-};
-
-const songId = parse(window.location.pathname);
+const songId = helpers.getSongIdFromUrl(window.location.pathname);
 
 class Player extends React.Component {
   constructor(props) {

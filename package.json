@@ -12,9 +12,10 @@
     "node": ">=6.13.0"
   },
   "scripts": {
-    "postinstall": "cp example.env .env && echo 'Add variables into .env file!'",
-    "seed": "bash seeder.sh",
-    "start": "nodemon server/index.js",
+    "postinstall": "echo 'TODO: cp example.env .env, Add variables into .env file!'",
+    "seed": "bash scripts/seeder.sh",
+    "start": "node server/index.js",
+    "dev:start": "nodemon server/index.js",
     "dev:react": "webpack -d --watch",
     "scss": "node-sass --watch public/assets/styles/sass -o public/assets/styles",
     "test": "jest",

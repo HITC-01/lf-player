@@ -37,8 +37,8 @@ From within the root directory:
 
 ```sh
 npm start
-npm run dev:react
 npm run dev:sass
+npm run dev:react
 ```
 
 ### Installing Dependencies
